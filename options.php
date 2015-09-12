@@ -48,38 +48,6 @@ if( !function_exists('optionsframework_options') ) {
 
         $options = array();
 
-
-        /**************************************************************
-                               Basics
-         ***************************************************************/
-        $options[] = array(
-            'name' => __('Basics', CI_TEXT_DOMAIN),
-            'type' => 'heading');
-        /*$options[] = array(
-            'name' => __('', CI_TEXT_DOMAIN),
-            'desc' => __('<h3>Google Analytics options</h3>', CI_TEXT_DOMAIN),
-            'type' => 'info');*/
-        $options[] = array(
-            'name' => __('Google Analytics ID', CI_TEXT_DOMAIN),
-            'desc' => __('Format: <code>UA-XXXXX-Y</code> (Note: Universal Analytics only, not Classic Analytics)', CI_TEXT_DOMAIN),
-            'id' => 'analytics_id',
-            'std' => '',
-            'class' => 'mini',
-            'type' => 'text');
-        $options[] = array(
-            'name' => __('', CI_TEXT_DOMAIN),
-            'desc' => __('Note that Analytics tracking will <em>not</em> be active when you are logged in. (Open a different Web browser to test it.)', CI_TEXT_DOMAIN),
-            'type' => 'info');
-
-        $options[] = array(
-            'name' => __('Enable ecommerce support?', CI_TEXT_DOMAIN),
-            'desc' => __('If checked, we will add support for WooCommerce (our platform for selling merchandise online)', CI_TEXT_DOMAIN),
-            'id' => 'ecommerce',
-            'std' => '0',
-            'type' => 'checkbox');
-
-
-
         /**************************************************************
                         Header
          ***************************************************************/
@@ -213,30 +181,6 @@ if( !function_exists('optionsframework_options') ) {
             'type' => "images",
             'options' => $subtlePatterns
         );
-
-        $options[] = array(
-            'name' => __('Favicon for site', CI_TEXT_DOMAIN),
-            'desc' => __('A <a href="http://en.wikipedia.org/wiki/Favicon" target="_blank">favicon</a> is the little icon displayed in the page\'s tab. You can create one from a 16&times;16 image using the <a href="http://www.favicon.cc/" target="_blank">Favicon Generator</a>.', CI_TEXT_DOMAIN),
-            'id' => 'favicon',
-            'type' => 'upload');
-        $options[] = array(
-            'name' => __('Apple Touch Icon', CI_TEXT_DOMAIN),
-            'desc' => __('When someone adds your site to their home screen on an Apple device (iPhone, iPad, etc.), the <a href="https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html" target="_blank">Apple Touch Icon</a> is the image that will be used. (Typically, a 152&times;152 PNG is recommended.)', CI_TEXT_DOMAIN),
-            'id' => 'touch_icon',
-            'type' => 'upload');
-        $options[] = array(
-            'name' => __('Disable added effects on Apple Touch Icon?', CI_TEXT_DOMAIN),
-            'desc' => __('Disable curved border, drop shadow, etc. for Apple touch icon', CI_TEXT_DOMAIN),
-            'id' => 'touch_icon_precomposed',
-            'std' => '0',
-            'type' => 'checkbox');
-
-        $options[] = array(
-            'name' => __('Custom CSS', CI_TEXT_DOMAIN),
-            'desc' => __('If you <em>really</em> don\'t want to create a child theme, you can add custom CSS to the header here.', CI_TEXT_DOMAIN),
-            'id' => 'custom_css',
-            'std' => '',
-            'type' => 'textarea');
 
         $options[] = array(
             'name' => __('Enable demo mode?', CI_TEXT_DOMAIN),

@@ -161,6 +161,7 @@ function roots_theme_activation_action()
         $pages_to_create = array_diff($default_pages, $temp);
 
         foreach ($pages_to_create as $new_page_title) {
+            // TODO: Rewrite this for accounting firms!
             $home = <<<EOL
 <h2>[bg highlight]By beer lovers, for beer lovers.[/bg]</h2>
 

@@ -2,10 +2,10 @@
 
 
 function printCustomCSS() {
-    $css = of_get_option('custom_css');
+    $css = get_option('custom_css');
 
-    if( $css ) {
-        echo "\n\n<!-- Custom styles from the Theme Options admin menu --><style>\n";
+    if($css) {
+        echo "\n\n<!-- Custom styles from the theme's Customize admin menu -->\n<style>\n";
         echo html_entity_decode($css);
         echo "</style>\n\n";
     }

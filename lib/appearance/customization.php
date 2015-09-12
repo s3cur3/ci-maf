@@ -108,11 +108,58 @@ function ciGetColorTheme() {
     );
 }
 
+function ciAddCustomizationsToSection($wp_customize, $optionsArray, $sectionSlug) {
+    foreach($optionsArray as $option) {
+        if($option['type'] == 'color') {
+            $wp_customize->add_setting($option['slug'], array('default' => $option['default'], 'type' => 'option', 'capability' => 'edit_theme_options'));
+            $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $option['slug'], array('label' => $option['label'], 'section' => $sectionSlug, 'settings' => $option['slug'], 'description' => $option['description'])));
+        } elseif($option['type'] == 'checkbox') {
+            $wp_customize->add_setting($option['slug'], array('type' => 'option', 'capability' => 'edit_theme_options'));
+            $wp_customize->add_control($option['slug'], array('label' => $option['label'], 'section' => $sectionSlug, 'type' => 'checkbox', 'std' => 1, 'description' => $option['description']));
+        } elseif($option['type'] == 'text') {
+            $wp_customize->add_setting($option['slug'], array('default' => $option['default'], 'type' => 'option', 'capability' => 'edit_theme_options'));
+            $wp_customize->add_control($option['slug'], array('label' => $option['label'], 'section' => $sectionSlug, 'description' => $option['description']));
+        }  elseif($option['type'] == 'textarea') {
+            $wp_customize->add_setting($option['slug'], array('default' => $option['default'], 'type' => 'option', 'capability' => 'edit_theme_options'));
+            $wp_customize->add_control(new CiCustomizeTextareaControl(
+                $wp_customize,
+                $option['slug'],
+                array(
+                    'label' => $option['label'],
+                    'section' => $sectionSlug,
+                    'settings' => $option['slug'],
+                    'description' => $option['description']
+                )
+            ));
+        }  elseif($option['type'] == 'image') {
+            $wp_customize->add_setting($option['slug'], array('type' => 'option', 'capability' => 'edit_theme_options'));
+            $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, $option['slug'], array('label' => $option['label'], 'section' => $sectionSlug, 'description' => $option['description'])));
+        } else {
+            die($option['type']);
+        }
+    }
+}
+
 
 // Register colorpickers
 add_action('customize_register', 'ciCustomizeRegister');
 function ciCustomizeRegister($wp_customize)
 {
+    /**
+     * Adds a textarea control for the theme customizer
+     */
+    class CiCustomizeTextareaControl extends WP_Customize_Control {
+        public $type = 'textarea';
+        public function render_content() { ?>
+            <label>
+                <span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
+                <span class="description customize-control-description"><?php echo $this->description; ?></span>
+                <textarea rows="5" style="width:100%;" <?php $this->link(); ?>><?php echo esc_textarea($this->value()); ?></textarea>
+            </label> <?php
+        }
+    }
+
+
     $defaultColors = ciGetColorTheme();
 
 
@@ -226,25 +273,8 @@ function ciCustomizeRegister($wp_customize)
             'type' => 'checkbox'
         ),
     );
-
     $wp_customize->add_section('header', array('title' => __('Header', CI_TEXT_DOMAIN), 'description' => __('Set the color scheme for the navigation bar', CI_TEXT_DOMAIN), 'priority' => 0,));
-    foreach($headerOption as $option) {
-        if($option['type'] == 'color') {
-            $wp_customize->add_setting($option['slug'], array('default' => $option['default'], 'type' => 'option', 'capability' => 'edit_theme_options'));
-            $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $option['slug'], array('label' => $option['label'], 'section' => 'header', 'settings' => $option['slug'])));
-        } elseif($option['type'] == 'checkbox') {
-            $wp_customize->add_setting($option['slug'], array('type' => 'option', 'capability' => 'edit_theme_options'));
-            $wp_customize->add_control($option['slug'], array('label' => $option['label'], 'section' => 'header', 'type' => 'checkbox', 'std' => 1));
-        } elseif($option['type'] == 'text') {
-            $wp_customize->add_setting($option['slug'], array('default' => $option['default'], 'type' => 'option', 'capability' => 'edit_theme_options'));
-            $wp_customize->add_control($option['slug'], array('label' => $option['label'], 'section' => 'header'));
-        }  elseif($option['type'] == 'image') {
-            $wp_customize->add_setting($option['slug'], array('type' => 'option', 'capability' => 'edit_theme_options'));
-            $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, $option['slug'], array('label' => $option['label'], 'section' => 'header')));
-        } else {
-            die($option['type']);
-        }
-    }
+    ciAddCustomizationsToSection($wp_customize, $headerOption, 'header');
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -255,47 +285,46 @@ function ciCustomizeRegister($wp_customize)
         array(
             'slug' => 'splash_color',
             'default' => $defaultColors['splash_color'],
+            'type' => 'color',
             'label' => __('Link Color', CI_TEXT_DOMAIN)
         );
     $colors[] =
         array(
             'slug' => 'button_color',
             'default' => $defaultColors['button_color'],
+            'type' => 'color',
             'label' => __('Button Color', CI_TEXT_DOMAIN)
         );
     $colors[] =
         array(
             'slug' => 'page_title_color',
             'default' => $defaultColors['page_title_color'],
+            'type' => 'color',
             'label' => __('Page Title Color', CI_TEXT_DOMAIN)
         );
     $colors[] =
         array(
             'slug' => 'heading_color',
             'default' => $defaultColors['heading_color'],
+            'type' => 'color',
             'label' => __('Level 2 Heading Color', CI_TEXT_DOMAIN)
         );
     $colors[] =
         array(
             'slug' => 'background_color',
             'default' => $defaultColors['background_color'],
+            'type' => 'color',
             'label' => __('Background Color', CI_TEXT_DOMAIN)
         );
     $colors[] =
         array(
             'slug' => 'secondary_background_color',
             'default' => $defaultColors['secondary_background_color'],
+            'type' => 'color',
             'label' => __('Secondary Background Color', CI_TEXT_DOMAIN)
         );
-
     $wp_customize->add_section('colors', array('title' => __('Body Colors', CI_TEXT_DOMAIN), 'description' => __('Set the color scheme for the page contents', CI_TEXT_DOMAIN), 'priority' => 0,));
-    foreach ($colors as $color) {
-        // SETTINGS
-        $wp_customize->add_setting($color['slug'], array('default' => $color['default'], 'type' => 'option', 'capability' => 'edit_theme_options'));
-
-        // CONTROLS
-        $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $color['slug'], array('label' => $color['label'], 'section' => 'colors', 'settings' => $color['slug'])));
-    }
+    ciAddCustomizationsToSection($wp_customize, $colors, 'colors');
 
 
 
@@ -306,37 +335,31 @@ function ciCustomizeRegister($wp_customize)
         array(
             'slug' => 'fancy_landing_text_color',
             'default' => "#ffffff",
+            'type' => 'color',
             'label' => __('Text Color', CI_TEXT_DOMAIN)
         ),
         array(
             'slug' => 'fancy_landing_splash_color',
             'default' => $defaultColors['splash_color'],
+            'type' => 'color',
             'label' => __('Highlight Color', CI_TEXT_DOMAIN)
         ),
         array(
             'slug' => 'fancy_landing_page_title_color',
             'default' => $defaultColors['page_title_color'],
+            'type' => 'color',
             'label' => __('Page Title Color', CI_TEXT_DOMAIN)
         ),
         array(
             'slug' => 'fancy_landing_heading_color',
             'default' => "#ffffff",
+            'type' => 'color',
             'label' => __('Other Headings Color', CI_TEXT_DOMAIN)
         )
     );
-
     $section = 'fancy_landing';
     $wp_customize->add_section($section, array('title' => __('Fancy Landing Pages', CI_TEXT_DOMAIN), 'description' => __('Configure the "fancy" landing pages (available from a checkbox when editing an individual page)', CI_TEXT_DOMAIN), 'priority' => 0,));
-    foreach ($colors as $color) {
-        // SETTINGS
-        $wp_customize->add_setting($color['slug'], array('default' => $color['default'], 'type' => 'option', 'capability' => 'edit_theme_options'));
-
-        // CONTROLS
-        $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $color['slug'], array('label' => $color['label'], 'section' => $section, 'settings' => $color['slug'])));
-    }
-
-
-
+    ciAddCustomizationsToSection($wp_customize, $colors, 'fancy_landing');
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -356,44 +379,71 @@ function ciCustomizeRegister($wp_customize)
             'type' => 'color'
         ),
     );
-
     $wp_customize->add_section('footer', array('title' => __('Footer', CI_TEXT_DOMAIN), 'priority' => 100,));
-    foreach($footerOptions as $option) {
-        if($option['type'] == 'color') {
-            $wp_customize->add_setting($option['slug'], array('default' => $option['default'], 'type' => 'option', 'capability' => 'edit_theme_options'));
-            $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $option['slug'], array('label' => $option['label'], 'section' => 'footer', 'settings' => $option['slug'])));
-        } elseif($option['type'] == 'checkbox') {
-            $wp_customize->add_setting($option['slug'], array('type' => 'option', 'capability' => 'edit_theme_options'));
-            $wp_customize->add_control($option['slug'], array('label' => $option['label'], 'section' => 'footer', 'type' => 'checkbox', 'std' => 1));
-        } elseif($option['type'] == 'text') {
-            $wp_customize->add_setting($option['slug'], array('default' => $option['default'], 'type' => 'option', 'capability' => 'edit_theme_options'));
-            $wp_customize->add_control($option['slug'], array('label' => $option['label'], 'section' => 'footer'));
-        }  elseif($option['type'] == 'image') {
-            $wp_customize->add_setting($option['slug'], array('type' => 'option', 'capability' => 'edit_theme_options'));
-            $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, $option['slug'], array('label' => $option['label'], 'section' => 'footer')));
-        } else {
-            die($option['type']);
-        }
-    }
+    ciAddCustomizationsToSection($wp_customize, $footerOptions, 'footer');
 
 
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // FAVICON
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    $faviconOptions = array(
+        array(
+            'slug' => 'favicon',
+            'label' => __('Favicon for site', CI_TEXT_DOMAIN),
+            'description' => __('A <a href="http://en.wikipedia.org/wiki/Favicon" target="_blank">favicon</a> is the little icon displayed in the page\'s tab. You can create one from a 16&times;16 image using the <a href="http://www.favicon.cc/" target="_blank">Favicon Generator</a>.', CI_TEXT_DOMAIN),
+            'type' => 'image'
+        ),
+        array(
+            'label' => __('Apple Touch Icon', CI_TEXT_DOMAIN),
+            'description' => __('When someone adds your site to their home screen on an Apple device (iPhone, iPad, etc.), the <a href="https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html" target="_blank">Apple Touch Icon</a> is the image that will be used. (Typically, a 152&times;152 PNG is recommended.)', CI_TEXT_DOMAIN),
+            'slug' => 'touch_icon',
+            'type' => 'image'
+        ),
+        array(
+            'slug' => 'touch_icon_precomposed',
+            'default' => false,
+            'label' => __('Disable added effects on Apple Touch Icon?', CI_TEXT_DOMAIN),
+            'description' => __('Disables the curved border, drop shadow, etc. for Apple touch icon', CI_TEXT_DOMAIN),
+            'type' => 'checkbox'
+        ),
+    );
+    $wp_customize->add_section('favicon', array('title' => __('Favicon', CI_TEXT_DOMAIN)));
+    ciAddCustomizationsToSection($wp_customize, $faviconOptions, 'favicon');
 
 
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // AGE VERIFICATION
+    // CUSTOM CSS
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    $wp_customize->add_section('age_verification', array('title' => __('Age Verification', CI_TEXT_DOMAIN), 'priority' => 100,));
+    $cssOptions = array(
+        array(
+            'slug' => 'custom_css',
+            'default' => '',
+            'label' => __('Custom CSS', CI_TEXT_DOMAIN),
+            'description' => __('If you <em>really</em> don\'t want to create a child theme, you can add custom CSS to the header here.', CI_TEXT_DOMAIN),
+            'type' => 'textarea'
+        )
+    );
+    $wp_customize->add_section('custom_css', array('title' => __('Custom CSS', CI_TEXT_DOMAIN)));
+    ciAddCustomizationsToSection($wp_customize, $cssOptions, 'custom_css');
 
-    $wp_customize->add_setting('age_verification', array('type' => 'option', 'capability' => 'edit_theme_options'));
-    $wp_customize->add_control('age_verification', array('label' => 'Require users to be 21?', 'section' => 'age_verification', 'type' => 'checkbox', 'std' => 1));
 
-    $wp_customize->add_setting('age_verification_image_bg', array('type' => 'option', 'capability' => 'edit_theme_options'));
-    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'age_verification_image_bg', array('label' => __('Full-Screen Background Image (Age Verification Overlay)', CI_TEXT_DOMAIN), 'section' => 'age_verification')));
-
-
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // GOOGLE ANALYTICS
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    $analyticsOptions = array(
+        array(
+            'slug' => 'analytics_id',
+            'default' => '',
+            'label' => __('Google Analytics ID', CI_TEXT_DOMAIN),
+            'description' => __('Format: <code>UA-XXXXX-Y</code> (Note: Universal Analytics only, not Classic Analytics). Note that Analytics tracking will <em>not</em> be active when you are logged in. (Open a different Web browser to test it.)', CI_TEXT_DOMAIN),
+            'type' => 'text'
+        )
+    );
+    $wp_customize->add_section('analytics', array('title' => __('Google Analytics', CI_TEXT_DOMAIN)));
+    ciAddCustomizationsToSection($wp_customize, $analyticsOptions, 'analytics');
 }
 
 

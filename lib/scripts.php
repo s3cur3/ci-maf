@@ -12,7 +12,7 @@
  */
 function roots_scripts()
 {
-    wp_enqueue_style('roots_main', get_template_directory_uri() . '/assets/css/main.min.css', false, '11f6e168ca4245d401c169b0c882209e');
+    wp_enqueue_style('roots_main', get_template_directory_uri() . '/assets/css/main.min.css', false, '0b071b2da1734aa7472ed2a1df9c792e');
 
     // jQuery is loaded using the same method from HTML5 Boilerplate:
     // Grab Google CDN's latest jQuery with a protocol relative URL; fallback to local if offline
@@ -30,7 +30,7 @@ function roots_scripts()
     }
 
     wp_register_script('modernizr', get_template_directory_uri() . '/assets/js/vendor/modernizr-2.7.0.min.js', array(), null, false);
-    wp_register_script('roots_scripts', get_template_directory_uri() . '/assets/js/scripts.min.js', array(), '5b568fb154748360c3748d5302f4e789', true);
+    wp_register_script('roots_scripts', get_template_directory_uri() . '/assets/js/scripts.min.js', array(), '15ed830268f5180825a9ef486e5b7296', true);
     wp_enqueue_script('modernizr');
     wp_enqueue_script('jquery');
     wp_enqueue_script('roots_scripts');
@@ -101,11 +101,11 @@ function roots_google_analytics() { ?>
             e.src = '//www.google-analytics.com/analytics.js';
             r.parentNode.insertBefore(e, r)
         }(window, document, 'script', 'ga'));
-        ga('create', '<?php echo of_get_option('analytics_id', "''"); ?>');
+        ga('create', '<?php echo get_option('analytics_id', "''"); ?>');
         ga('send', 'pageview');
     </script> <?php
 }
 
-if( of_get_option('analytics_id', false) && !current_user_can('manage_options') ) {
+if( get_option('analytics_id', false) && !current_user_can('manage_options') ) {
     add_action('wp_footer', 'roots_google_analytics', 20);
 }

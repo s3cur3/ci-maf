@@ -11,7 +11,7 @@ find templates -name '.*' -type f -delete
 echo "\n\n\nRunning grunt task..."
 grunt
 
-ZIP="brewery-base.zip"
+ZIP="ci-modern-accounting-firm.zip"
 echo "\n\n\nNuking existing ZIP"
 rm ${ZIP}
 

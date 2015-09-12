@@ -42,8 +42,8 @@ function ciRegisterRequiredPlugins() {
             'required' => true,
         ),
         array(
-            'name'     => 'prettyPhoto Media',
-            'slug'     => 'prettyphoto-media',
+            'name'     => 'Royal PrettyPhoto',
+            'slug'     => 'rt-prettyphoto',
             'required' => true,
         ),
         array(
@@ -67,18 +67,13 @@ function ciRegisterRequiredPlugins() {
             'required' => false,
         ),
         array(
-            'name'     => 'Easy Bootstrap Shortcode',
+            'name'     => 'Easy Bootstrap Shortcodes',
             'slug'     => 'easy-bootstrap-shortcodes',
             'required' => false,
         ),
         array(
             'name'     => 'Widgets on Pages',
             'slug'     => 'widgets-on-pages',
-            'required' => false,
-        ),
-        array(
-            'name'     => 'Woocommerce',
-            'slug'     => 'woocommerce',
             'required' => false,
         ),
         array(

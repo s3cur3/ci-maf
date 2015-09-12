@@ -13,29 +13,7 @@ var Roots = {
         init: function() {
             $ = jQuery;
             function userIsBot() { return navigator.userAgent.match(/bot|googlebot|crawler|spider|robot|crawling/i); }
-            function checkAgeCookie() {
-                if($.cookie('age-verified') || userIsBot()) {
-                    $("#age-verification-overlay-wrap").hide();
-                } else {
-                    $("#age-verification-overlay-wrap").show();
-                }
-            }
-            checkAgeCookie();
-
-
-            $("#age-verification-form").submit(function() {
-                var birthday = new Date($("#age-verification-year").val(), $("#age-verification-month").val(), $("#age-verification-day").val());
-                var ageInMs = new Date() - birthday;
-
-                if(ageInMs > (21 * 365.25 * 24 * 60 * 60 * 1000) /* 21 years, in ms */) {
-                    $.cookie('age-verified', true);
-                    checkAgeCookie();
-                } else {
-                    $("#age-verification-error").show();
-                }
-
-                return false;
-            });
+            // Erm. Nothing to do here. (Yet?)
         }
     },
     // Home page
