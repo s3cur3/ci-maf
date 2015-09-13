@@ -192,68 +192,6 @@ if( !function_exists('optionsframework_options') ) {
 
 
 
-        /**************************************************************
-                    Social media
-         ***************************************************************/
-        $options[] = array(
-            'name' => __('Social Media Links', CI_TEXT_DOMAIN),
-            'type' => 'heading');
-
-        $options[] = array(
-            'name' => __('Facebook URL', CI_TEXT_DOMAIN),
-            'desc' => __('URL for your company\'s Facebook page. <br>(To hide the Facebook icon, leave this blank.)', CI_TEXT_DOMAIN),
-            'id' => 'fb',
-            'std' => 'http://facebook.com/',
-            'type' => 'text');
-
-        $options[] = array(
-            'name' => __('Twitter URL', CI_TEXT_DOMAIN),
-            'desc' => __('URL for your company\'s Twitter page. <br />(To hide the Twitter icon, leave this blank.)', CI_TEXT_DOMAIN),
-            'id' => 'twitter',
-            'std' => 'https://twitter.com/',
-            'type' => 'text');
-
-        $options[] = array(
-            'name' => __('LinkedIn URL', CI_TEXT_DOMAIN),
-            'desc' => __('URL for your company\'s LinkedIn page. <br />(To hide the LinkedIn icon, leave this blank.)', CI_TEXT_DOMAIN),
-            'id' => 'linkedin',
-            'std' => 'http://www.linkedin.com/in/',
-            'type' => 'text');
-
-        $options[] = array(
-            'name' => __('Google+ URL', CI_TEXT_DOMAIN),
-            'desc' => __('URL for your company\'s Google+ page. <br />(To hide the Google+ icon, leave this blank.)', CI_TEXT_DOMAIN),
-            'id' => 'gplus',
-            'std' => 'https://plus.google.com/',
-            'type' => 'text');
-
-        $options[] = array(
-            'name' => __('Google+ link is to: ', CI_TEXT_DOMAIN),
-            'desc' => __('If you like, you can associate all pages of your site with an individual author or your organization. (<a href="http://www.searchenginejournal.com/claiming-google-authorship-and-publisher-markup-for-seo/61263/" target="_blank">More info</a>)', CI_TEXT_DOMAIN),
-            'id' => 'gplus_authorship',
-            'std' => 'organization',
-            'type' => 'select',
-            'options' => $test_array = array(
-                    'author' => __('The site\'s primary "author"', CI_TEXT_DOMAIN),
-                    'organization' => __('Your company', CI_TEXT_DOMAIN),
-                    'none' => __('None', CI_TEXT_DOMAIN)
-                ));
-
-        $options[] = array(
-            'name' => __('Display social media icons in full color?', CI_TEXT_DOMAIN),
-            'desc' => __('', CI_TEXT_DOMAIN),
-            'id' => 'social_icons_color',
-            'std' => false,
-            'type' => 'select',
-            'class' => 'mini', //mini, tiny, small
-            'options' => array(
-                true => 'Yes, full color',
-                false => 'No, monochrome'
-            ));
-
-
-
-
 
 
         /**************************************************************
@@ -293,7 +231,7 @@ if( !function_exists('optionsframework_options') ) {
 
         $options[] = array(
             'name' => __('Enable theme design attribution?', CI_TEXT_DOMAIN),
-            'desc' => __('If checked, enables a brief credit line for BrewSites', CI_TEXT_DOMAIN),
+            'desc' => __('If checked, enables a brief credit line for the theme\'s creators', CI_TEXT_DOMAIN),
             'id' => 'enable_attribution',
             'std' => 1,
             'type' => 'checkbox');

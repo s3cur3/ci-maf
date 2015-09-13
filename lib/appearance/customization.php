@@ -109,6 +109,44 @@ function ciGetColorTheme() {
 }
 
 function ciAddCustomizationsToSection($wp_customize, $optionsArray, $sectionSlug) {
+    /**
+     * Adds a textarea control for the theme customizer
+     */
+    if(!class_exists('CiCustomizeTextareaControl')) {
+        class CiCustomizeTextareaControl extends WP_Customize_Control {
+            public $type = 'textarea';
+            public function render_content() { ?>
+                <label>
+                    <span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
+                    <textarea rows="5" style="width:100%;" <?php $this->link(); ?>><?php echo esc_textarea($this->value()); ?></textarea>
+                    <span class="description customize-control-description"><?php echo $this->description; ?></span>
+                </label> <?php
+            }
+        }
+    }
+    /**
+     * Adds a text control with placeholder text
+     */
+    if(!class_exists('CiCustomizeTextControlWithPlaceholder')) {
+        class CiCustomizeTextControlWithPlaceholder extends WP_Customize_Control {
+            public $type = 'text';
+            public $placeholder = '';
+            public function render_content() { ?>
+                <label>
+                    <span class="customize-control-title"><?php echo esc_html($this->label); ?></span>
+                    <?php
+                    $value = esc_attr($this->value());
+                    if($value) { ?>
+                        <input type="text" placeholder="<?php echo $this->placeholder; ?>" <?php $this->link(); ?> value="<?php echo $value; ?>" /> <?php
+                    } else { ?>
+                        <input type="text" placeholder="<?php echo $this->placeholder; ?>" <?php $this->link(); ?> /> <?php
+                    } ?>
+                    <span class="description customize-control-description"><?php echo $this->description; ?></span>
+                </label> <?php
+            }
+        }
+    }
+
     foreach($optionsArray as $option) {
         if($option['type'] == 'color') {
             $wp_customize->add_setting($option['slug'], array('default' => $option['default'], 'type' => 'option', 'capability' => 'edit_theme_options'));
@@ -118,8 +156,19 @@ function ciAddCustomizationsToSection($wp_customize, $optionsArray, $sectionSlug
             $wp_customize->add_control($option['slug'], array('label' => $option['label'], 'section' => $sectionSlug, 'type' => 'checkbox', 'std' => 1, 'description' => $option['description']));
         } elseif($option['type'] == 'text') {
             $wp_customize->add_setting($option['slug'], array('default' => $option['default'], 'type' => 'option', 'capability' => 'edit_theme_options'));
-            $wp_customize->add_control($option['slug'], array('label' => $option['label'], 'section' => $sectionSlug, 'description' => $option['description']));
-        }  elseif($option['type'] == 'textarea') {
+            $wp_customize->add_control(
+                new CiCustomizeTextControlWithPlaceholder(
+                    $wp_customize,
+                    $option['slug'],
+                    array(
+                        'label' => $option['label'],
+                        'section' => $sectionSlug,
+                        'description' => $option['description'],
+                        'placeholder' => $option['placeholder']
+                    )
+                )
+            );
+        } elseif($option['type'] == 'textarea') {
             $wp_customize->add_setting($option['slug'], array('default' => $option['default'], 'type' => 'option', 'capability' => 'edit_theme_options'));
             $wp_customize->add_control(new CiCustomizeTextareaControl(
                 $wp_customize,
@@ -131,7 +180,10 @@ function ciAddCustomizationsToSection($wp_customize, $optionsArray, $sectionSlug
                     'description' => $option['description']
                 )
             ));
-        }  elseif($option['type'] == 'image') {
+        } elseif($option['type'] == 'select') {
+            $wp_customize->add_setting($option['slug'], array('type' => 'option', 'capability' => 'edit_theme_options'));
+            $wp_customize->add_control($option['slug'], array('type' => 'select', 'label' => $option['label'], 'section' => $sectionSlug, 'description' => $option['description'], 'choices' => $option['options']));
+        } elseif($option['type'] == 'image') {
             $wp_customize->add_setting($option['slug'], array('type' => 'option', 'capability' => 'edit_theme_options'));
             $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, $option['slug'], array('label' => $option['label'], 'section' => $sectionSlug, 'description' => $option['description'])));
         } else {
@@ -145,21 +197,6 @@ function ciAddCustomizationsToSection($wp_customize, $optionsArray, $sectionSlug
 add_action('customize_register', 'ciCustomizeRegister');
 function ciCustomizeRegister($wp_customize)
 {
-    /**
-     * Adds a textarea control for the theme customizer
-     */
-    class CiCustomizeTextareaControl extends WP_Customize_Control {
-        public $type = 'textarea';
-        public function render_content() { ?>
-            <label>
-                <span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
-                <span class="description customize-control-description"><?php echo $this->description; ?></span>
-                <textarea rows="5" style="width:100%;" <?php $this->link(); ?>><?php echo esc_textarea($this->value()); ?></textarea>
-            </label> <?php
-        }
-    }
-
-
     $defaultColors = ciGetColorTheme();
 
 
@@ -379,8 +416,67 @@ function ciCustomizeRegister($wp_customize)
             'type' => 'color'
         ),
     );
-    $wp_customize->add_section('footer', array('title' => __('Footer', CI_TEXT_DOMAIN), 'priority' => 100,));
+    $wp_customize->add_section('footer', array('title' => __('Footer', CI_TEXT_DOMAIN), 'priority' => 100));
     ciAddCustomizationsToSection($wp_customize, $footerOptions, 'footer');
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // SOCIAL MEDIA LINKS
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    $socialMediaOptions = array(
+        array(
+            'label' => __('Facebook URL', CI_TEXT_DOMAIN),
+            'description' => __('URL for your company\'s Facebook page. <br>(To hide the Facebook icon, leave this blank.)', CI_TEXT_DOMAIN),
+            'slug' => 'fb',
+            'placeholder' => 'http://facebook.com/',
+            'type' => 'text'
+        ),
+        array(
+            'label' => __('Twitter URL', CI_TEXT_DOMAIN),
+            'description' => __('URL for your company\'s Twitter page. <br />(To hide the Twitter icon, leave this blank.)', CI_TEXT_DOMAIN),
+            'slug' => 'twitter',
+            'placeholder' => 'https://twitter.com/',
+            'type' => 'text'
+        ),
+        array(
+            'label' => __('LinkedIn URL', CI_TEXT_DOMAIN),
+            'description' => __('URL for your company\'s LinkedIn page. <br />(To hide the LinkedIn icon, leave this blank.)', CI_TEXT_DOMAIN),
+            'slug' => 'linkedin',
+            'placeholder' => 'http://www.linkedin.com/in/',
+            'type' => 'text'
+        ),
+        array(
+            'label' => __('Google+ URL', CI_TEXT_DOMAIN),
+            'description' => __('URL for your company\'s Google+ page. <br />(To hide the Google+ icon, leave this blank.)', CI_TEXT_DOMAIN),
+            'slug' => 'gplus',
+            'placeholder' => 'https://plus.google.com/',
+            'type' => 'text'
+        ),
+        array(
+            'label' => __('Google+ link is to: ', CI_TEXT_DOMAIN),
+            'description' => __('If you like, you can associate all pages of your site with an individual author or your organization. (<a href="http://www.searchenginejournal.com/claiming-google-authorship-and-publisher-markup-for-seo/61263/" target="_blank">More info</a>)', CI_TEXT_DOMAIN),
+            'slug' => 'gplus_authorship',
+            'default' => 'organization',
+            'type' => 'select',
+            'options' => $test_array = array(
+                'author' => __('The site\'s primary "author"', CI_TEXT_DOMAIN),
+                'organization' => __('Your company', CI_TEXT_DOMAIN),
+                'none' => __('None', CI_TEXT_DOMAIN)
+            )
+        ),
+        array(
+            'label' => __('Display social media icons in full color?', CI_TEXT_DOMAIN),
+            'description' => __('', CI_TEXT_DOMAIN),
+            'slug' => 'social_icons_full_color',
+            'default' => false,
+            'type' => 'select',
+            'options' => array(
+                false => 'No, monochrome',
+                true => 'Yes, full color'
+            )
+        )
+    );
+    $wp_customize->add_section('social_media', array('title' => __('Social Media Links', CI_TEXT_DOMAIN), 'priority' => 100,));
+    ciAddCustomizationsToSection($wp_customize, $socialMediaOptions, 'social_media');
 
 
 

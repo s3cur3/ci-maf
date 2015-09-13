@@ -98,7 +98,7 @@ if( !class_exists('Roots_Vcard_Widget') ) {
             if( $title ) {
                 echo $before_title, $title, $after_title;
             } ?>
-            <p class="vcard" itemscope itemtype="http://schema.org/Brewery">
+            <p class="vcard" itemscope itemtype="http://schema.org/AccountingService">
                 <a class="fn org url" href="<?php echo home_url( '/' ); ?>"><span itemprop="name"><?php echo apply_filters( 'widget_text', get_bloginfo( 'name' ) ); ?></span></a><br>
                 <?php if($instance['hours'] && !$instance['hours2'] && !$instance['hours3'] && !$instance['hours4']) { ?>
                     <span>Open <?php echo apply_filters( 'widget_text', $instance['hours'] ); ?></span><br><?php

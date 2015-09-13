@@ -35,10 +35,10 @@ function printSocialLinks( $profilesOverride=array(), $additionalListClass="" ) 
  */
 function getSocialLinks( $profilesOverride=array(), $additionalListClass="" ) {
     $profiles = array(
-        "facebook" => of_get_option( 'fb' ),
-        "twitter" => of_get_option('twitter'),
-        "google-plus" => of_get_option('gplus'),
-        "linkedin" => of_get_option('linkedin')
+        "facebook" => get_option('fb'),
+        "twitter" => get_option('twitter'),
+        "google-plus" => get_option('gplus'),
+        "linkedin" => get_option('linkedin')
     );
 
     if( count($profilesOverride) > 0 ) {
@@ -46,7 +46,7 @@ function getSocialLinks( $profilesOverride=array(), $additionalListClass="" ) {
     }
 
     $class = "social-list";
-    if( of_get_option('social_icons_color') ) {
+    if(get_option('social_icons_full_color', false)) {
         $class .= " colored";
     }
 
@@ -117,8 +117,8 @@ function socialURLsAreEmpty( $urlArray ) {
 function printGoogleAuthorshipLink() {
     // If $authorship is set to 'organization', we'll print the rel="publisher"
     // markup; similarly, if set to 'author', we'll add rel="author" to the link.
-    $authorship = of_get_option("gplus_authorship");
-    $gplus = of_get_option('gplus');
+    $authorship = get_option("gplus_authorship");
+    $gplus = get_option('gplus');
     if( $authorship == 'author' ) {
         echo "\n<link href=\"$gplus\" rel=\"author\" />\n";
     } else if( $authorship == 'organization' ) {
