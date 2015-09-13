@@ -193,55 +193,8 @@ if( !function_exists('optionsframework_options') ) {
 
 
 
-
         /**************************************************************
-                    Footer
-         ***************************************************************/
-        $options[] = array(
-            'name' => __('Footer', CI_TEXT_DOMAIN),
-            'type' => 'heading' );
-
-        /**
-         * For $settings options see:
-         * http://codex.wordpress.org/Function_Reference/wp_editor
-         *
-         * 'media_buttons' are not supported as there is no post to attach items to
-         * 'textarea_name' is set by the 'id' you choose
-         */
-        $wp_editor_settings = array(
-            'wpautop' => true, // Default
-            'textarea_rows' => 5,
-            'tinymce' => array( 'plugins' => 'wordpress' )
-        );
-
-        $options[] = array(
-            'name' => __('Footer text (for the bottom of each page)', CI_TEXT_DOMAIN),
-            'desc' => "If you'd like text at the very, very bottom of each page, you can type it here.",
-            'id' => 'disclaimer',
-            'type' => 'editor',
-            'settings' => $wp_editor_settings );
-
-
-        $options[] = array(
-            'name' => __('Copyright text:', CI_TEXT_DOMAIN),
-            'desc' => __('(Appears beneath the footer text, if applicable)', CI_TEXT_DOMAIN),
-            'id' => 'copyright',
-            'std' => '&copy; ' . date('Y') . ' ' . do_shortcode(get_bloginfo('name')),
-            'type' => 'text');
-
-        $options[] = array(
-            'name' => __('Enable theme design attribution?', CI_TEXT_DOMAIN),
-            'desc' => __('If checked, enables a brief credit line for the theme\'s creators', CI_TEXT_DOMAIN),
-            'id' => 'enable_attribution',
-            'std' => 1,
-            'type' => 'checkbox');
-
-
-
-
-
-        /**************************************************************
-        Footer
+        Documentation
          ***************************************************************/
         $options[] = array(
             'name' => __('Documentation', CI_TEXT_DOMAIN),

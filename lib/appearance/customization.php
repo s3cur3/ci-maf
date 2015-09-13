@@ -108,45 +108,72 @@ function ciGetColorTheme() {
     );
 }
 
-function ciAddCustomizationsToSection($wp_customize, $optionsArray, $sectionSlug) {
+if(class_exists('WP_Customize_Control')) {
     /**
      * Adds a textarea control for the theme customizer
      */
-    if(!class_exists('CiCustomizeTextareaControl')) {
-        class CiCustomizeTextareaControl extends WP_Customize_Control {
-            public $type = 'textarea';
-            public function render_content() { ?>
-                <label>
-                    <span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
-                    <textarea rows="5" style="width:100%;" <?php $this->link(); ?>><?php echo esc_textarea($this->value()); ?></textarea>
-                    <span class="description customize-control-description"><?php echo $this->description; ?></span>
-                </label> <?php
-            }
-        }
-    }
-    /**
-     * Adds a text control with placeholder text
-     */
-    if(!class_exists('CiCustomizeTextControlWithPlaceholder')) {
-        class CiCustomizeTextControlWithPlaceholder extends WP_Customize_Control {
-            public $type = 'text';
-            public $placeholder = '';
-            public function render_content() { ?>
-                <label>
-                    <span class="customize-control-title"><?php echo esc_html($this->label); ?></span>
-                    <?php
-                    $value = esc_attr($this->value());
-                    if($value) { ?>
-                        <input type="text" placeholder="<?php echo $this->placeholder; ?>" <?php $this->link(); ?> value="<?php echo $value; ?>" /> <?php
-                    } else { ?>
-                        <input type="text" placeholder="<?php echo $this->placeholder; ?>" <?php $this->link(); ?> /> <?php
-                    } ?>
-                    <span class="description customize-control-description"><?php echo $this->description; ?></span>
-                </label> <?php
-            }
+    class CiCustomizeTextareaControl extends WP_Customize_Control {
+        public $type = 'textarea';
+        public function render_content() { ?>
+            <label>
+                <span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
+                <textarea rows="5" style="width:100%;" <?php $this->link(); ?>><?php echo esc_textarea($this->value()); ?></textarea>
+                <span class="description customize-control-description"><?php echo $this->description; ?></span>
+            </label> <?php
         }
     }
 
+    /**
+     * Adds a text control with placeholder text
+     */
+    class CiCustomizeTextControlWithPlaceholder extends WP_Customize_Control {
+        public $type = 'text';
+        public $placeholder = '';
+        public function render_content() { ?>
+            <label>
+                <span class="customize-control-title"><?php echo esc_html($this->label); ?></span>
+                <?php
+                $value = esc_attr($this->value());
+                if($value) { ?>
+                    <input type="text" placeholder="<?php echo $this->placeholder; ?>" <?php $this->link(); ?> value="<?php echo $value; ?>" /> <?php
+                } else { ?>
+                    <input type="text" placeholder="<?php echo $this->placeholder; ?>" <?php $this->link(); ?> /> <?php
+                } ?>
+                <span class="description customize-control-description"><?php echo $this->description; ?></span>
+            </label> <?php
+        }
+    }
+
+    /**
+     * Adds a TinyMCE editor for a text field
+     */
+    class CiCustomizeEditorControl extends WP_Customize_Control {
+        public $type = 'editor';
+        public function render_content() { ?>
+            <label>
+                <span class="customize-control-title"><?php echo esc_html($this->label); ?></span>
+                <span class="description customize-control-description"><?php echo $this->description; ?></span>
+<!--                <input type="hidden" --><?php //$this->link(); ?><!-- value="--><?php //echo esc_textarea( $this->value() ); ?><!--">-->
+                <?php
+                /**
+                 * For settings options see:
+                 * http://codex.wordpress.org/Function_Reference/wp_editor
+                 *
+                 * 'media_buttons' are not supported as there is no post to attach items to
+                 * 'textarea_name' is set by the 'id' you choose
+                 */
+                $settings = array('textarea_name' => $this->id, 'media_buttons' => true, 'drag_drop_upload' => true, 'textarea_rows' => 5, 'tinymce' => array('plugins' => 'wordpress'));
+                wp_editor($this->value(), $this->id, $settings);
+                if(!did_action('admin_print_footer_scripts') == 0) {
+                    do_action('admin_footer');
+                    do_action('admin_print_footer_scripts');
+                } ?>
+            </label> <?php
+        }
+    }
+}
+
+function ciAddCustomizationsToSection($wp_customize, $optionsArray, $sectionSlug) {
     foreach($optionsArray as $option) {
         if($option['type'] == 'color') {
             $wp_customize->add_setting($option['slug'], array('default' => $option['default'], 'type' => 'option', 'capability' => 'edit_theme_options'));
@@ -165,6 +192,19 @@ function ciAddCustomizationsToSection($wp_customize, $optionsArray, $sectionSlug
                         'section' => $sectionSlug,
                         'description' => $option['description'],
                         'placeholder' => $option['placeholder']
+                    )
+                )
+            );
+        } elseif($option['type'] == 'editor') {
+            $wp_customize->add_setting($option['slug'], array('default' => $option['default'], 'type' => 'option', 'capability' => 'edit_theme_options'));
+            $wp_customize->add_control(
+                new CiCustomizeEditorControl(
+                    $wp_customize,
+                    $option['slug'],
+                    array(
+                        'label' => $option['label'],
+                        'section' => $sectionSlug,
+                        'description' => $option['description']
                     )
                 )
             );
@@ -407,6 +447,20 @@ function ciCustomizeRegister($wp_customize)
             'slug' => 'footer_columns',
             'default' => '4',
             'label' => __('Footer Columns (1-4)', CI_TEXT_DOMAIN),
+            'description' => __('We place each widget in the Footer widget area in its own column; in general, you want this number to match the number of widgets you place in the Footer widget area.', CI_TEXT_DOMAIN),
+            'type' => 'text'
+        ),
+        array(
+            'label' => __('Footer text (for the bottom of each page)', CI_TEXT_DOMAIN),
+            'description' => "If you'd like text at the very, very bottom of each page, you can type it here.",
+            'slug' => 'disclaimer',
+            'type' => 'textarea'
+        ),
+        array(
+            'label' => __('Copyright Text', CI_TEXT_DOMAIN),
+            'description' => __('Appears beneath the footer text, if applicable', CI_TEXT_DOMAIN),
+            'slug' => 'copyright',
+            'default' => '&copy; ' . date('Y') . ' ' . do_shortcode(get_bloginfo('name')),
             'type' => 'text'
         ),
         array(
@@ -415,6 +469,13 @@ function ciCustomizeRegister($wp_customize)
             'label' => __('Copyright notice text color', CI_TEXT_DOMAIN),
             'type' => 'color'
         ),
+        array(
+            'label' => __('Enable theme design attribution?', CI_TEXT_DOMAIN),
+            'description' => __('If checked, enables a brief credit line for the theme\'s creators', CI_TEXT_DOMAIN),
+            'slug' => 'enable_attribution',
+            'default' => 1,
+            'type' => 'checkbox'
+        )
     );
     $wp_customize->add_section('footer', array('title' => __('Footer', CI_TEXT_DOMAIN), 'priority' => 100));
     ciAddCustomizationsToSection($wp_customize, $footerOptions, 'footer');

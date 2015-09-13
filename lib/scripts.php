@@ -67,6 +67,10 @@ function roots_admin_scripts() {
 }
 add_action( 'admin_enqueue_scripts', 'roots_admin_scripts' );
 
+function roots_customize_admin_scripts() {
+    wp_enqueue_script('theme-customizer', get_template_directory_uri() .'/assets/js/admin/customizer.js');
+}
+add_action('customize_controls_enqueue_scripts', 'roots_customize_admin_scripts');
 
 // http://wordpress.stackexchange.com/a/12450
 function roots_jquery_local_fallback($src, $handle = null)

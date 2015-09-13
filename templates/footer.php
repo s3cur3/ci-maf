@@ -15,11 +15,11 @@ if ( is_active_sidebar( 'sidebar-footer' ) ) { ?>
         <div class="col-lg-8">
             <?php mlfPrintDisclaimer(); ?>
             <p><?php
-                $copyright = of_get_option('copyright', false);
+                $copyright = get_option('copyright', false);
                 if($copyright) {
                     echo $copyright;
                 }
-                if(of_get_option('enable_attribution', true)) {
+                if(get_option('enable_attribution', true)) {
                     if($copyright) echo "| ";
                     ciPrintThemeCredit();
                 }
