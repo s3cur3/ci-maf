@@ -28,7 +28,7 @@ function ciRegisterMetaBoxes( $meta_boxes ) {
         'title' => __( 'Page-Specific Options', CI_TEXT_DOMAIN ),
 
         // Post types, accept custom post types as well - DEFAULT is array('post'). Optional.
-        'pages' => array( 'post', 'page', CI_BEER_TYPE ),
+        'pages' => array( 'post', 'page' ),
 
         // Where the meta box appear: normal (default), advanced, side. Optional.
         'context' => 'normal',
@@ -129,7 +129,7 @@ function ciRegisterMetaBoxes( $meta_boxes ) {
         ),
     );
 
-    // Meta box for the attorneys custom post type
+    // Meta box for the staff member custom post type
     $meta_boxes[] = array(
         // Meta box id, UNIQUE per meta box. Optional since 4.1.5
         'id' => 'staff-only',
@@ -198,7 +198,7 @@ function ciRegisterMetaBoxes( $meta_boxes ) {
             ),
             array(
                 'type' => 'heading',
-                'name' => __( 'Social media links for this attorney', CI_TEXT_DOMAIN ),
+                'name' => __( 'Social media links for this staff member', CI_TEXT_DOMAIN ),
                 'id'   => 'fake_id', // Not used but needed for plugin
             ),
             // FB

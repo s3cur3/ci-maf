@@ -21,7 +21,7 @@
             addBtn('columns_adv', 'Advanced layout creator', 'column-complex');
             addBtn('coloredband', 'Insert a color band', 'coloredband');
             addBtn('cta', 'Insert a call-to-action button', 'cta');
-            addBtn('staff', 'Insert attorney profiles', 'attorney');
+            addBtn('staff', 'Insert staff member profiles', 'attorney');
             addBtn('practicearea', 'Insert practice areas', 'practicearea');
             addBtn('carousel', 'Insert an image slider', 'photo');
 
@@ -263,7 +263,7 @@
             editor.addCommand('attorney', function() {
                 var pluginObj = {
                     'id': "attorney_insert",
-                    'title': "Insert Attorney(s)"
+                    'title': "Insert Staff Member(s)"
                 };
 
                 var modal = jQuery("#" + pluginObj.id);
@@ -278,16 +278,16 @@
                             <input type="number" id="maxLength" min="-1" step="1" placeholder="250" />\
                             <p>(Use -1 to get the entire bio, or 250 characters to get the first couple sentences.)</p>\
                         </div>\
-                        <button id="insert-all" type="button" class="btn btn-primary">Insert all attorneys</button>');
+                        <button id="insert-all" type="button" class="btn btn-primary">Insert all staff members</button>');
                 }
                 modal.modal('show');
 
-                var pre = '<div class="attorneys-insert"><p>';
+                var pre = '<div class="staff-members-insert"><p>';
                 var post = '</p></div><p>&nbsp;</p>';
                 modal.find("#insert-all").click(function(){
                     var cols = ( modal.find('#numColumns').val() != "" ? modal.find('#numColumns').val() : 1 );
                     var length = ( modal.find('#maxLength').val() != "" ? modal.find('#maxLength').val() : -1 );
-                    var shortcode = '[attorneys columns=' + cols + ' length=' + length + ' /]';
+                    var shortcode = '[staff columns=' + cols + ' length=' + length + ' /]';
                     tinyMCE.activeEditor.execCommand('mceInsertContent', 0, pre + shortcode + post);
                     modal.modal('hide');
                 });
@@ -323,13 +323,13 @@
                             <label for="showMore">Show "more" link after excerpt?</label>\
                             <input type="checkbox" id="showMore" />\
                         </div>\
-                        <button id="insert-attorneys" type="button" class="btn btn-primary">Insert practice areas</button>');
+                        <button id="insert-practice-areas" type="button" class="btn btn-primary">Insert practice areas</button>');
                 }
                 modal.modal('show');
 
                 var pre = '<p>&nbsp;</p><div class="practicearea-insert"><p>';
                 var post = '</p></div><p>&nbsp;</p>';
-                modal.find("#insert-attorneys").click(function() {
+                modal.find("#insert-practice-areas").click(function() {
                     var pa = ( modal.find('#numPracticeAreas').val() != "" ? modal.find('#numPracticeAreas').val() : 100 );
                     var listOnly = modal.find('#listOnly').prop('checked');
                     var more = modal.find('#showMore').prop('checked');

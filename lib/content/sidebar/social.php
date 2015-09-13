@@ -64,7 +64,7 @@ function getSocialLinks( $profilesOverride=array(), $additionalListClass="" ) {
 
 
 /**
- * @param int $postID The ID of the attorney "post" whose links we should look up
+ * @param int $postID The ID of the staff member "post" whose links we should look up
  * @return string[] The override profile links to use with printSocialLinks()
  */
 function getStaffSocialURLs($postID=null) {
@@ -96,7 +96,7 @@ function staffSocialURLsAreEmpty($arrayOfSocialURLs) {
 
 
 /**
- * @param array $urlArray The array spit out by getAttorneySocialURLs()
+ * @param array $urlArray The array spit out by getStaffSocialURLs()
  * @return boolean True if there are no "real" social URLs; false otherwise
  */
 function socialURLsAreEmpty( $urlArray ) {
