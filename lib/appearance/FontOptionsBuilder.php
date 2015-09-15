@@ -25,34 +25,33 @@ class FontOptionsBuilder {
     }
 
     /**
-     * @param string $id The identifier you want to use for this option
-     * @param string $std The standard selection
+     * @param string $slug The identifier you want to use for this option
+     * @param string $default The standard selection
      * @return array The array to append to the Options array
      */
-    public function getFontFamilySelect($id, $std="Open+Sans") {
+    public function getFontFamilySelect($slug, $default="Open+Sans") {
         return array(
-            'name' => "Font family",
-            'desc' => "Hint: click on this massive drop-down list, then type the first character of the font name you're looking for",
-            'id' => $id,
-            'std' => $std,
+            'label' => __("Font Family", CI_TEXT_DOMAIN),
+            'description' => __("Hint: click on this massive drop-down list, then type the first character of the font name you're looking for", CI_TEXT_DOMAIN),
+            'slug' => $slug,
+            'default' => $default,
             'type' => "select",
             'options' => $this->getNamesList()
         );
     }
 
     /**
-     * @param string $id The identifier you want to use for this option
-     * @param string $std The standard selection
+     * @param string $slug The identifier you want to use for this option
+     * @param string $default The standard selection
      * @return array The array to append to the Options array
      */
-    public function getWeightOption($id, $std="400") {
+    public function getWeightOption($slug, $default="400") {
         return array(
-            'name' => "Default font weight",
-            'desc' => "Note: you shouldn't ask browsers to use a weight that isn't available; the results aren't pretty.",
-            'id' => $id,
-            'std' => $std,
+            'label' => __("Default Font Weight", CI_TEXT_DOMAIN),
+            'description' => __("Note: you shouldn't ask browsers to use a weight that isn't available; the results aren't pretty.", CI_TEXT_DOMAIN),
+            'slug' => $slug,
+            'default' => $default,
             'type' => "select",
-            'class' => 'mini',
             'options' => array(
                 '100' => "Thin (100)",
                 '200' => "Extra-light (200)",
@@ -68,26 +67,25 @@ class FontOptionsBuilder {
     }
 
     /**
-     * @param string $id The identifier you want to use for this option
-     * @param string $std The standard selection
+     * @param string $slug The identifier you want to use for this option
+     * @param string $default The standard selection
      * @return array The array to append to the Options array
      */
-    public function getFallbackOption($id, $std="sans-serif") {
+    public function getFallbackOption($slug, $default="sans-serif") {
         return array(
-            'name' => "Fallback fonts",
-            'desc' => "If the selected font isn't available, this comma-separated list will be used instead.",
-            'id' => $id,
-            'std' => $std,
+            'label' => __("Fallback Fonts", CI_TEXT_DOMAIN),
+            'description' => __("If the selected font isn't available, this comma-separated list will be used instead.", CI_TEXT_DOMAIN),
+            'slug' => $slug,
+            'default' => $default,
             'type' => "text"
         );
     }
 
-    public function getFontFamilyVariants($id, $std=null) {
+    public function getFontFamilyVariants($slug, $default=null) {
         return array(
-            'name' => "Font variants to make available",
-            'desc' => "",
-            'id' => $id,
-            'std' => $std,
+            'label' => __("Font Variants to Make Available", CI_TEXT_DOMAIN),
+            'slug' => $slug,
+            'default' => $default,
             'type' => "multicheck",
             'options' => array(
                 '100' => "Thin (100)",

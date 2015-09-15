@@ -27,7 +27,6 @@ if ( is_active_sidebar( 'sidebar-footer' ) ) { ?>
         </div>
     </div>
 </div>
-<?php echo getAgeVerificationMarkup() ?>
 <?php wp_footer(); ?>
 <script>
     jQuery(document).ready(function(){

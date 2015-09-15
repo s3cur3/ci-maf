@@ -8,7 +8,7 @@ $firm_name = get_option('firm_name_color');
 $background = get_option('background_color');
 $secondaryBG = get_option('secondary_background_color');
 $backgroundImg = get_option("full_screen_image_bg");
-$backgroundPattern = of_get_option("pattern_bg");
+$backgroundPattern = get_option("pattern_bg");
 //$_color = get_option('_color');
 
 // Correct weirdness from WP

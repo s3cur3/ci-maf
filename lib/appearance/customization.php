@@ -1,7 +1,7 @@
 <?php
 
 function ciGetColorTheme() {
-    $theme = of_get_option('color_theme', 'blue_charcoal');
+    $theme = get_option('color_theme', 'blue_charcoal');
     if( isset($_GET['color']) ) {
         $theme = $_GET['color'];
     }
@@ -116,7 +116,7 @@ if(class_exists('WP_Customize_Control')) {
         public $type = 'textarea';
         public function render_content() { ?>
             <label>
-                <span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
+                <span class="customize-control-title"><?php echo esc_html($this->label); ?></span>
                 <textarea rows="5" style="width:100%;" <?php $this->link(); ?>><?php echo esc_textarea($this->value()); ?></textarea>
                 <span class="description customize-control-description"><?php echo $this->description; ?></span>
             </label> <?php
@@ -143,6 +143,82 @@ if(class_exists('WP_Customize_Control')) {
             </label> <?php
         }
     }
+
+    /**
+     * Adds a control that allows you to select multiple checkboxes
+     */
+    class CiCustomizeMulticheckControl extends WP_Customize_Control {
+        public $type = 'checkbox-multiple';
+        public function render_content() { ?>
+            <label>
+                <span class="customize-control-title"><?php echo esc_html($this->label); ?></span>
+                <span class="description customize-control-description"><?php echo $this->description; ?></span>
+                <?php $multi_values = !is_array($this->value()) ? explode(',', $this->value()) : $this->value(); ?>
+                <ul> <?php
+                    foreach($this->choices as $value => $label) { ?>
+                        <li>
+                            <label>
+                                <input type="checkbox" value="<?php echo esc_attr($value); ?>" <?php checked(in_array($value, $multi_values)); ?> />
+                                <?php echo esc_html($label); ?>
+                            </label>
+                        </li> <?php
+                    } ?>
+                </ul>
+                <input type="hidden" value="<?php echo esc_attr(implode(',', $multi_values)); ?>" <?php $this->link(); ?> />
+            </label> <?php
+        }
+    }
+
+    class CiCustomizeHeadingControl extends WP_Customize_Control {
+        public $type = "heading";
+        public function render_content() { ?>
+            <h2 class="customize-control-title"><?php echo esc_html($this->label); ?></h2> <?php
+        }
+    }
+
+    class CiCustomizeInfoControl extends WP_Customize_Control {
+        public $type = "info";
+        public function render_content() { ?>
+            <p><?php echo $this->description; ?></p> <?php
+        }
+    }
+
+    class CiCustomizeHorizontalRuleControl extends WP_Customize_Control {
+        public $type = "line";
+        public function render_content() { ?>
+            <hr style="border-top: solid 1px #333;"> <?php
+        }
+    }
+
+    /**
+     * Class to create an image version of a radio button group
+     */
+    class CiCustomizeImagePickerControl extends WP_Customize_Control
+    {
+        public $type = 'radio-images';
+        public $options = array();
+        public function render_content() { ?>
+            <label>
+                <span class="customize-layout-control"><?php echo esc_html( $this->label ); ?></span>
+                <span class="description customize-control-description"><?php echo $this->description; ?></span>
+                <div class="buttonset"> <?php
+                    foreach($this->options as $key => $img) {
+                        $checkedStatus = "";
+                        if($key === $this->value()) {
+                            $checkedStatus = 'checked="checked"';
+                        }
+                        $inputId = $this->id . "-" . $key; ?>
+                        <input type="radio" value="<?php echo $key ?>" name="_customize-<?php echo $this->type; ?>-<?php echo $this->id; ?>" id="<?php echo $inputId; ?>" <?php $this->link(); echo $checkedStatus; ?> />
+                        <label for="<?php echo $inputId; ?>">
+                            <img src="<?php echo $img; ?>" alt="<?php echo $key; ?>" width="50" />
+                        </label> <?php
+                    } ?>
+                </div>
+            </label>
+        <?php
+        }
+    }
+
 
     /**
      * Adds a TinyMCE editor for a text field
@@ -181,6 +257,46 @@ function ciAddCustomizationsToSection($wp_customize, $optionsArray, $sectionSlug
         } elseif($option['type'] == 'checkbox') {
             $wp_customize->add_setting($option['slug'], array('type' => 'option', 'capability' => 'edit_theme_options'));
             $wp_customize->add_control($option['slug'], array('label' => $option['label'], 'section' => $sectionSlug, 'type' => 'checkbox', 'std' => 1, 'description' => $option['description']));
+        } elseif($option['type'] == 'multicheck') {
+            $wp_customize->add_setting($option['slug'], array('default' => $option['default'], 'type' => 'option', 'capability' => 'edit_theme_options'));
+            $wp_customize->add_control(new CiCustomizeMulticheckControl(
+                $wp_customize,
+                $option['slug'],
+                array(
+                    'label' => $option['label'],
+                    'description' => $option['description'],
+                    'section' => $sectionSlug,
+                    'options' => $option['options'],
+                    'type' => 'multicheck'
+                )
+            ));
+        } elseif($option['type'] == 'heading') {
+            $wp_customize->add_setting($option['slug'], array('type' => 'option', 'capability' => 'edit_theme_options'));
+            $wp_customize->add_control(new CiCustomizeHeadingControl(
+                $wp_customize,
+                $option['slug'],
+                array(
+                    'label' => $option['label'],
+                    'section' => $sectionSlug,
+                    'type' => 'heading'
+                )
+            ));
+        } elseif($option['type'] == 'info') {
+            $wp_customize->add_setting($option['slug'], array('type' => 'option', 'capability' => 'edit_theme_options'));
+            $wp_customize->add_control(new CiCustomizeInfoControl(
+                $wp_customize,
+                $option['slug'],
+                array(
+                    'description' => $option['description'],
+                    'section' => $sectionSlug,
+                    'type' => 'info'
+                )
+            ));
+        } elseif($option['type'] == 'line') {
+            $wp_customize->add_setting($option['slug'], array('type' => 'option', 'capability' => 'edit_theme_options'));
+            $wp_customize->add_control(new CiCustomizeHorizontalRuleControl(
+                $wp_customize, $option['slug'], array('section' => $sectionSlug, 'type' => 'line')
+            ));
         } elseif($option['type'] == 'text') {
             $wp_customize->add_setting($option['slug'], array('default' => $option['default'], 'type' => 'option', 'capability' => 'edit_theme_options'));
             $wp_customize->add_control(
@@ -220,8 +336,20 @@ function ciAddCustomizationsToSection($wp_customize, $optionsArray, $sectionSlug
                     'description' => $option['description']
                 )
             ));
+        } elseif($option['type'] == 'radio-images') {
+            $wp_customize->add_setting($option['slug'], array('default' => $option['default'], 'type' => 'option', 'capability' => 'edit_theme_options'));
+            $wp_customize->add_control(new CiCustomizeImagePickerControl(
+                $wp_customize,
+                $option['slug'],
+                array(
+                    'label' => $option['label'],
+                    'section' => $sectionSlug,
+                    'options' => $option['options'],
+                    'description' => $option['description']
+                )
+            ));
         } elseif($option['type'] == 'select') {
-            $wp_customize->add_setting($option['slug'], array('type' => 'option', 'capability' => 'edit_theme_options'));
+            $wp_customize->add_setting($option['slug'], array('default' => $option['default'], 'type' => 'option', 'capability' => 'edit_theme_options'));
             $wp_customize->add_control($option['slug'], array('type' => 'select', 'label' => $option['label'], 'section' => $sectionSlug, 'description' => $option['description'], 'choices' => $option['options']));
         } elseif($option['type'] == 'image') {
             $wp_customize->add_setting($option['slug'], array('type' => 'option', 'capability' => 'edit_theme_options'));
@@ -259,6 +387,37 @@ function ciCustomizeRegister($wp_customize)
     $wp_customize->add_setting('full_screen_image_bg', array('type' => 'option', 'capability' => 'edit_theme_options'));
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'full_screen_image_bg', array('label' => __('Full-Screen Background Image', CI_TEXT_DOMAIN), 'section' => 'page_setup')));
 
+    $patternPath = get_template_directory_uri() . '/assets/img/patterns/';
+    $subtlePatterns = array(
+        'none' => $patternPath . 'none.png',
+        'dark_wood' => $patternPath . 'dark_wood.png',
+        'tileable_wood_texture' => $patternPath . 'tileable_wood_texture.png',
+        'wood_1' => $patternPath . 'wood_1.png',
+        'wood_pattern' => $patternPath . 'wood_pattern.png',
+        'brushed_@2X' => $patternPath . 'brushed_@2X.png',
+        'grey_wash_wall' => $patternPath . 'grey_wash_wall.jpg',
+        'light_grey' => $patternPath . 'light_grey.png',
+        'nice_snow' => $patternPath . 'nice_snow.png',
+        'ricepaper_v3' => $patternPath . 'ricepaper_v3.png',
+        'sandpaper' => $patternPath . 'sandpaper.png',
+        'sos' => $patternPath . 'sos.png',
+        'stardust_@2X' => $patternPath . 'stardust_@2X.png',
+        'ticks_@2X' => $patternPath . 'ticks_@2X.png',
+        'tweed_@2X' => $patternPath . 'tweed_@2X.png',
+        'witewall_3_@2X' => $patternPath . 'witewall_3_@2X.png'
+    );
+    $bodyBgPattern = array(
+        'label' => __("Body Background Pattern", CI_TEXT_DOMAIN),
+        'description' => __("To use a subtle pattern (from subtlepatterns.com) as the background to the pages (instead of a flat, solid color or an image), select a pattern here.", CI_TEXT_DOMAIN),
+        'slug' => "pattern_bg",
+        'default' => "none",
+        'type' => "radio-images",
+        'options' => $subtlePatterns
+    );
+    ciAddCustomizationsToSection($wp_customize, array($bodyBgPattern), 'page_setup');
+
+
+
 
 
 
@@ -268,10 +427,136 @@ function ciCustomizeRegister($wp_customize)
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     $headerOption = array(
         array(
+            'slug' => 'social_in_nav',
+            'default' => false,
+            'label' => __('Show social media icons to the right of the nav bar?', CI_TEXT_DOMAIN),
+            'type' => 'checkbox'
+        ),
+        array(
+            'label' => __('Additional "menu" text', CI_TEXT_DOMAIN),
+            'description' => __('This will appear to the far right of the navigation menu. Example: Call us at (123) 456-7890', CI_TEXT_DOMAIN),
+            'slug' => 'additional_menu_text',
+            'type' => 'text'
+        ),
+        array(
             'slug' => 'navbar_fixed',
             'default' => false,
             'label' => __('Fix navigation bar to top of screen?', CI_TEXT_DOMAIN),
             'type' => 'checkbox'
+        ),
+        array(
+            'slug' => 'header_link_size',
+            'default' => '100',
+            'label' => __('Nav Menu Text Size (percent)', CI_TEXT_DOMAIN),
+            'type' => 'text'
+        ),
+        array(
+            'slug' => 'company_logo',
+            'label' => __('Company Logo', CI_TEXT_DOMAIN),
+            'type' => 'image'
+        ),
+        array(
+            'slug' => 'svg_logo',
+            'label' => __('Company Logo (SVG Version, used only on supported browsers)', CI_TEXT_DOMAIN),
+            'type' => 'image'
+        ),
+        array(
+            'slug' => 'logo_width',
+            'default' => '',
+            'label' => __('Width to display logo (px)', CI_TEXT_DOMAIN),
+            'type' => 'text'
+        ),
+        array(
+            'slug' => 'logo_height',
+            'default' => '',
+            'label' => __('Height to display logo (px)', CI_TEXT_DOMAIN),
+            'type' => 'text'
+        ),
+        array(
+            'slug' => 'logo_top_padding',
+            'default' => '24',
+            'label' => __('Top padding for logo (px)', CI_TEXT_DOMAIN),
+            'type' => 'text'
+        )
+    );
+    $wp_customize->add_section('header', array('title' => __('Header', CI_TEXT_DOMAIN), 'description' => __('Configure your logo, the navigation menu, and other items in the site-wide header.', CI_TEXT_DOMAIN), 'priority' => 0,));
+    ciAddCustomizationsToSection($wp_customize, $headerOption, 'header');
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // BODY COLORS
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    $colorPath = get_template_directory_uri() . '/assets/img/colors/';
+    $colors = array(
+        array(
+            'label' => __("Color Theme", CI_TEXT_DOMAIN),
+            'description' => __("By default, we use a light blue-and-charcoal color theme. You can select a different theme here. <strong>NOTE</strong>: Your settings below will override this.", CI_TEXT_DOMAIN),
+            'slug' => "color_theme",
+            'default' => "blue_charcoal",
+            'type' => "radio-images",
+            'options' => array(
+                'blue_charcoal' => $colorPath . 'blue_charcoal.png',
+                'red_charcoal' => $colorPath . 'red_charcoal.png',
+                'green_charcoal' => $colorPath . 'green_charcoal.png',
+                'orange_charcoal' => $colorPath . 'orange_charcoal.png',
+                'blue_green' => $colorPath . 'blue_green.png',
+                'brown' => $colorPath . 'brown.png',
+                'royalblue' => $colorPath . 'royalblue.png',
+                'purple' => $colorPath . 'purple.png',
+                'darkgreen' => $colorPath . 'darkgreen.png',
+                'multi' => $colorPath . 'multi.png'
+            )
+        ),
+
+        array(
+            'type' => 'heading',
+            'slug' => 'body_colors_heading',
+            'label' => __('Body Colors', CI_TEXT_DOMAIN)
+        ),
+        array(
+            'slug' => 'splash_color',
+            'default' => $defaultColors['splash_color'],
+            'type' => 'color',
+            'label' => __('Link Color', CI_TEXT_DOMAIN)
+        ),
+        array(
+            'slug' => 'button_color',
+            'default' => $defaultColors['button_color'],
+            'type' => 'color',
+            'label' => __('Button Color', CI_TEXT_DOMAIN)
+        ),
+        array(
+            'slug' => 'page_title_color',
+            'default' => $defaultColors['page_title_color'],
+            'type' => 'color',
+            'label' => __('Page Title Color', CI_TEXT_DOMAIN)
+        ),
+        array(
+            'slug' => 'heading_color',
+            'default' => $defaultColors['heading_color'],
+            'type' => 'color',
+            'label' => __('Level 2 Heading Color', CI_TEXT_DOMAIN)
+        ),
+        array(
+            'slug' => 'background_color',
+            'default' => $defaultColors['background_color'],
+            'type' => 'color',
+            'label' => __('Background Color', CI_TEXT_DOMAIN)
+        ),
+        array(
+            'slug' => 'secondary_background_color',
+            'default' => $defaultColors['secondary_background_color'],
+            'type' => 'color',
+            'label' => __('Secondary Background Color', CI_TEXT_DOMAIN)
+        ),
+        array(
+            'type' => 'line',
+            'slug' => 'body_colors_post_line',
+        ),
+        array(
+            'type' => 'heading',
+            'slug' => 'header_colors_heading',
+            'label' => __('Header Colors', CI_TEXT_DOMAIN)
         ),
         array(
             'slug' => 'firm_name_color',
@@ -309,106 +594,16 @@ function ciCustomizeRegister($wp_customize)
             'label' => __('Nav Menu Background Color (if menu button background is solid)', CI_TEXT_DOMAIN),
             'type' => 'color'
         ),
-        array(
-            'slug' => 'header_link_size',
-            'default' => '100',
-            'label' => __('Nav Menu Text Size (percent)', CI_TEXT_DOMAIN),
-            'type' => 'text'
-        ),
-        array(
-            'slug' => 'company_logo',
-            'label' => __('Company Logo', CI_TEXT_DOMAIN),
-            'type' => 'image'
-        ),
-        array(
-            'slug' => 'svg_logo',
-            'label' => __('Company Logo (SVG Version, used only on supported browsers)', CI_TEXT_DOMAIN),
-            'type' => 'image'
-        ),
-        array(
-            'slug' => 'logo_width',
-            'default' => '',
-            'label' => __('Width to display logo (px)', CI_TEXT_DOMAIN),
-            'type' => 'text'
-        ),
-        array(
-            'slug' => 'logo_height',
-            'default' => '',
-            'label' => __('Height to display logo (px)', CI_TEXT_DOMAIN),
-            'type' => 'text'
-        ),
-        array(
-            'slug' => 'logo_top_padding',
-            'default' => '24',
-            'label' => __('Top padding for logo (px)', CI_TEXT_DOMAIN),
-            'type' => 'text'
-        ),
-        array(
-            'slug' => 'social_in_nav',
-            'default' => false,
-            'label' => __('Show social media icons to the right of the nav bar?', CI_TEXT_DOMAIN),
-            'type' => 'checkbox'
-        ),
-    );
-    $wp_customize->add_section('header', array('title' => __('Header', CI_TEXT_DOMAIN), 'description' => __('Set the color scheme for the navigation bar', CI_TEXT_DOMAIN), 'priority' => 0,));
-    ciAddCustomizationsToSection($wp_customize, $headerOption, 'header');
 
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // BODY COLORS
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    $colors = array();
-    $colors[] =
         array(
-            'slug' => 'splash_color',
-            'default' => $defaultColors['splash_color'],
-            'type' => 'color',
-            'label' => __('Link Color', CI_TEXT_DOMAIN)
-        );
-    $colors[] =
+            'type' => 'line',
+            'slug' => 'body_colors_post_line',
+        ),
         array(
-            'slug' => 'button_color',
-            'default' => $defaultColors['button_color'],
-            'type' => 'color',
-            'label' => __('Button Color', CI_TEXT_DOMAIN)
-        );
-    $colors[] =
-        array(
-            'slug' => 'page_title_color',
-            'default' => $defaultColors['page_title_color'],
-            'type' => 'color',
-            'label' => __('Page Title Color', CI_TEXT_DOMAIN)
-        );
-    $colors[] =
-        array(
-            'slug' => 'heading_color',
-            'default' => $defaultColors['heading_color'],
-            'type' => 'color',
-            'label' => __('Level 2 Heading Color', CI_TEXT_DOMAIN)
-        );
-    $colors[] =
-        array(
-            'slug' => 'background_color',
-            'default' => $defaultColors['background_color'],
-            'type' => 'color',
-            'label' => __('Background Color', CI_TEXT_DOMAIN)
-        );
-    $colors[] =
-        array(
-            'slug' => 'secondary_background_color',
-            'default' => $defaultColors['secondary_background_color'],
-            'type' => 'color',
-            'label' => __('Secondary Background Color', CI_TEXT_DOMAIN)
-        );
-    $wp_customize->add_section('colors', array('title' => __('Body Colors', CI_TEXT_DOMAIN), 'description' => __('Set the color scheme for the page contents', CI_TEXT_DOMAIN), 'priority' => 0,));
-    ciAddCustomizationsToSection($wp_customize, $colors, 'colors');
-
-
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // FANCY LANDING COLORS
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    $colors = array(
+            'type' => 'heading',
+            'slug' => 'header_colors_heading',
+            'label' => __('Fancy Landing Page Colors', CI_TEXT_DOMAIN)
+        ),
         array(
             'slug' => 'fancy_landing_text_color',
             'default' => "#ffffff",
@@ -434,9 +629,90 @@ function ciCustomizeRegister($wp_customize)
             'label' => __('Other Headings Color', CI_TEXT_DOMAIN)
         )
     );
-    $section = 'fancy_landing';
-    $wp_customize->add_section($section, array('title' => __('Fancy Landing Pages', CI_TEXT_DOMAIN), 'description' => __('Configure the "fancy" landing pages (available from a checkbox when editing an individual page)', CI_TEXT_DOMAIN), 'priority' => 0,));
-    ciAddCustomizationsToSection($wp_customize, $colors, 'fancy_landing');
+    // We use the default Colors section
+    ciAddCustomizationsToSection($wp_customize, $colors, 'colors');
+
+
+
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // FONTS
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    require_once "FontOptionsBuilder.php";
+    $fontOptions = new FontOptionsBuilder();
+    $openSansDefaultVariants = array(
+        '300italic' => '1',
+        '400italic' => '1',
+        '700italic' => '1',
+        '400' => '1',
+        '300' => '1',
+        '700' => '1',
+    );
+    $fontOptions = array(
+        array(
+            'description' => __('<strong>NOTE</strong>: It is recommended that you use a maximum of two to three fonts. More fonts will slow down page loads and generally look less professional.', CI_TEXT_DOMAIN),
+            'type' => 'info'
+        ),
+        array(
+            'label' => __('Page Title (a.k.a. H1) Font', CI_TEXT_DOMAIN),
+            'type' => 'heading',
+            'slug' => 'page_title_font'
+        ),
+        $fontOptions->getFontFamilySelect('title_font_family', "Bree+Serif"),
+        $fontOptions->getFontFamilyVariants('title_font_variants'),
+        $fontOptions->getWeightOption('title_font_weight', '400'),
+        $fontOptions->getFallbackOption('title_font_fallback', 'Georgia, Garamond, sans-serif'),
+
+        array('type' => 'line', 'slug' => 'heading_font_line'),
+        array(
+            'label' => __('Heading (a.k.a. H2, H3, and H4) Font', CI_TEXT_DOMAIN),
+            'type' => 'heading',
+            'slug' => 'heading_font',
+        ),
+        $fontOptions->getFontFamilySelect('heading_font_family', "Bree+Serif"),
+        $fontOptions->getFontFamilyVariants('heading_font_variants'),
+        $fontOptions->getWeightOption('heading_font_weight', '400'),
+        $fontOptions->getFallbackOption('body_font_fallback', 'Georgia, Garamond, sans-serif'),
+
+
+        array('type' => 'line', 'slug' => 'body_font_line'),
+        array(
+            'label' => __('Body Font', CI_TEXT_DOMAIN),
+            'type' => 'heading',
+            'slug' => 'body_font',
+        ),
+        $fontOptions->getFontFamilySelect('body_font_family', "Open+Sans"),
+        $fontOptions->getFontFamilyVariants('body_font_variants', $openSansDefaultVariants),
+        $fontOptions->getWeightOption('body_font_weight', '400'),
+        $fontOptions->getFallbackOption('body_font_fallback', '"Helvetica Neue", Helvetica, Arial, sans-serif'),
+
+        array('type' => 'line', 'slug' => 'widget_font_line'),
+        array(
+            'label' => __('Widget Title Font', CI_TEXT_DOMAIN),
+            'type' => 'heading',
+            'slug' => 'widget_title_font'
+        ),
+        $fontOptions->getFontFamilySelect('widget_title_font_family', "Open+Sans"),
+        $fontOptions->getFontFamilyVariants('widget_title_font_variants', $openSansDefaultVariants),
+        $fontOptions->getWeightOption('widget_title_font_weight', '700'),
+        $fontOptions->getFallbackOption('widget_title_font_fallback', '"Helvetica Neue", Helvetica, Arial, sans-serif'),
+
+        array('type' => 'line', 'slug' => 'menu_font_line'),
+        array(
+            'label' => __('Menu Font', CI_TEXT_DOMAIN),
+            'type' => 'heading',
+            'slug' => 'menu_font',
+        ),
+        $fontOptions->getFontFamilySelect('menu_font_family', "Open+Sans"),
+        $fontOptions->getFontFamilyVariants('menu_font_variants', $openSansDefaultVariants),
+        $fontOptions->getWeightOption('menu_font_weight', '700'),
+        $fontOptions->getFallbackOption('menu_font_fallback', '"Helvetica Neue", Helvetica, Arial, sans-serif'),
+    );
+    $wp_customize->add_section('fonts', array('title' => __('Fonts', CI_TEXT_DOMAIN), 'priority' => 40,
+        'description' => __('Here, you can use just about any font you find in the <a href="http://www.google.com/fonts/" target="_blank">Google Fonts directory</a>.', CI_TEXT_DOMAIN)));
+    ciAddCustomizationsToSection($wp_customize, $fontOptions, 'fonts');
+
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -693,9 +969,8 @@ function ciPrintCustomColorStyling() {
 
     // Image background
     $backgroundImg = get_option("full_screen_image_bg");
-    $backgroundImgAgeVerification = of_get_option("age_verification_image_bg");
-    $backgroundPattern = of_get_option("pattern_bg");
-    $menuBackgroundPattern = of_get_option("menu_pattern_bg");
+    $backgroundPattern = get_option("pattern_bg");
+    $menuBackgroundPattern = get_option("menu_pattern_bg");
 
     $patternPath = get_template_directory_uri() . '/assets/img/patterns/';
 
@@ -717,16 +992,6 @@ function ciPrintCustomColorStyling() {
                 background-position: center center;<?php
             } ?>
         }
-
-        <?php if($backgroundImgAgeVerification) { ?>
-        #age-verification-overlay-wrap {
-            background: url(<?php echo $backgroundImgAgeVerification; ?>) no-repeat center center fixed;
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-            background-size: cover;
-        }
-        <?php }?>
 
         .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus, .dropdown-menu>.active>a, .dropdown-menu>.active>a:hover, .dropdown-menu>.active>a:focus {
             background: <?php echo $splash; ?>;

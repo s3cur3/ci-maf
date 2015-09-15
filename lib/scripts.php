@@ -69,6 +69,8 @@ add_action( 'admin_enqueue_scripts', 'roots_admin_scripts' );
 
 function roots_customize_admin_scripts() {
     wp_enqueue_script('theme-customizer', get_template_directory_uri() .'/assets/js/admin/customizer.js');
+    wp_register_style('customizer-css', get_template_directory_uri() . '/assets/css/admin/customizer.css');
+    wp_enqueue_style('customizer-css');
 }
 add_action('customize_controls_enqueue_scripts', 'roots_customize_admin_scripts');
 

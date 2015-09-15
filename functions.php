@@ -77,8 +77,6 @@ require_once locate_template('/lib/appearance/customization.php');
 require_once locate_template('/lib/content/sidebar/social.php');
 // Print credits for the theme
 require_once locate_template('/lib/content/footer/credit.php');
-// Print credits for the theme
-require_once locate_template('/lib/content/footer/age-verification.php');
 // Enables special features of the TinyMCE editor
 require_once locate_template('/lib/admin/editor.php');
 // Add custom meta boxes to the admin site

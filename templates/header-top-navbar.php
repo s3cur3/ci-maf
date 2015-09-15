@@ -40,8 +40,8 @@ if(get_option('navbar_fixed', false)) {
 
             $ecommerceHTML = of_get_option('ecommerce', false) ? "<div class=\"cart-btn\"><a class=\"fa fa-2x fa-shopping-cart\" href=\"/cart/\"></a></div>" : "";
 
-            $additionalNavText = of_get_option('additional_menu_text', '');
-            if( $additionalNavText || $socialHTML || $ecommerceHTML ) {
+            $additionalNavText = get_option('additional_menu_text', '');
+            if($additionalNavText || $socialHTML || $ecommerceHTML) {
                 echo "<div class=\"post-nav\">{$additionalNavText}{$ecommerceHTML}{$socialHTML}</div>";
             }
 
