@@ -39,7 +39,7 @@ function roots_scripts()
     wp_register_script('page-resizer', get_template_directory_uri() . '/assets/js/fullWidthLayout.js', array('jquery'), null, false);
     wp_enqueue_script('page-resizer');
 
-    if( of_get_option('mlf_demo_site') ) {
+    if(get_option('mlf_demo_site')) {
         wp_register_script('style-switcher', get_template_directory_uri() . '/assets/js/styleSwitcher.js', array() );
         wp_enqueue_script('style-switcher');
     }

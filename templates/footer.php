@@ -32,9 +32,8 @@ if ( is_active_sidebar( 'sidebar-footer' ) ) { ?>
     jQuery(document).ready(function(){
         jQuery("a[rel^='prettyPhoto']").prettyPhoto();
     });
-</script>
-<?php
-if( of_get_option('mlf_demo_site', false) ) { ?>
+</script> <?php
+if(get_option('mlf_demo_site', false)) { ?>
     <style>
         #frontend-color-picker {
             position: fixed;
@@ -124,6 +123,5 @@ if( of_get_option('mlf_demo_site', false) ) { ?>
         </ul>
     </div>
     <div id="imgPreload">
-    </div>
-    <?php
+    </div> <?php
 }

@@ -38,7 +38,7 @@ if(get_option('navbar_fixed', false)) {
                 $socialHTML = getSocialLinks();
             }
 
-            $ecommerceHTML = of_get_option('ecommerce', false) ? "<div class=\"cart-btn\"><a class=\"fa fa-2x fa-shopping-cart\" href=\"/cart/\"></a></div>" : "";
+            $ecommerceHTML = get_option('ecommerce', false) ? "<div class=\"cart-btn\"><a class=\"fa fa-2x fa-shopping-cart\" href=\"/cart/\"></a></div>" : "";
 
             $additionalNavText = get_option('additional_menu_text', '');
             if($additionalNavText || $socialHTML || $ecommerceHTML) {

@@ -251,14 +251,13 @@ if(class_exists('WP_Customize_Control')) {
 
 function ciAddCustomizationsToSection($wp_customize, $optionsArray, $sectionSlug) {
     foreach($optionsArray as $option) {
+        $wp_customize->add_setting($option['slug'], array('default' => $option['default'], 'type' => 'option', 'capability' => 'edit_theme_options'));
+
         if($option['type'] == 'color') {
-            $wp_customize->add_setting($option['slug'], array('default' => $option['default'], 'type' => 'option', 'capability' => 'edit_theme_options'));
             $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $option['slug'], array('label' => $option['label'], 'section' => $sectionSlug, 'settings' => $option['slug'], 'description' => $option['description'])));
         } elseif($option['type'] == 'checkbox') {
-            $wp_customize->add_setting($option['slug'], array('type' => 'option', 'capability' => 'edit_theme_options'));
             $wp_customize->add_control($option['slug'], array('label' => $option['label'], 'section' => $sectionSlug, 'type' => 'checkbox', 'std' => 1, 'description' => $option['description']));
         } elseif($option['type'] == 'multicheck') {
-            $wp_customize->add_setting($option['slug'], array('default' => $option['default'], 'type' => 'option', 'capability' => 'edit_theme_options'));
             $wp_customize->add_control(new CiCustomizeMulticheckControl(
                 $wp_customize,
                 $option['slug'],
@@ -271,7 +270,6 @@ function ciAddCustomizationsToSection($wp_customize, $optionsArray, $sectionSlug
                 )
             ));
         } elseif($option['type'] == 'heading') {
-            $wp_customize->add_setting($option['slug'], array('type' => 'option', 'capability' => 'edit_theme_options'));
             $wp_customize->add_control(new CiCustomizeHeadingControl(
                 $wp_customize,
                 $option['slug'],
@@ -282,7 +280,6 @@ function ciAddCustomizationsToSection($wp_customize, $optionsArray, $sectionSlug
                 )
             ));
         } elseif($option['type'] == 'info') {
-            $wp_customize->add_setting($option['slug'], array('type' => 'option', 'capability' => 'edit_theme_options'));
             $wp_customize->add_control(new CiCustomizeInfoControl(
                 $wp_customize,
                 $option['slug'],
@@ -293,12 +290,10 @@ function ciAddCustomizationsToSection($wp_customize, $optionsArray, $sectionSlug
                 )
             ));
         } elseif($option['type'] == 'line') {
-            $wp_customize->add_setting($option['slug'], array('type' => 'option', 'capability' => 'edit_theme_options'));
             $wp_customize->add_control(new CiCustomizeHorizontalRuleControl(
                 $wp_customize, $option['slug'], array('section' => $sectionSlug, 'type' => 'line')
             ));
         } elseif($option['type'] == 'text') {
-            $wp_customize->add_setting($option['slug'], array('default' => $option['default'], 'type' => 'option', 'capability' => 'edit_theme_options'));
             $wp_customize->add_control(
                 new CiCustomizeTextControlWithPlaceholder(
                     $wp_customize,
@@ -312,7 +307,6 @@ function ciAddCustomizationsToSection($wp_customize, $optionsArray, $sectionSlug
                 )
             );
         } elseif($option['type'] == 'editor') {
-            $wp_customize->add_setting($option['slug'], array('default' => $option['default'], 'type' => 'option', 'capability' => 'edit_theme_options'));
             $wp_customize->add_control(
                 new CiCustomizeEditorControl(
                     $wp_customize,
@@ -325,7 +319,6 @@ function ciAddCustomizationsToSection($wp_customize, $optionsArray, $sectionSlug
                 )
             );
         } elseif($option['type'] == 'textarea') {
-            $wp_customize->add_setting($option['slug'], array('default' => $option['default'], 'type' => 'option', 'capability' => 'edit_theme_options'));
             $wp_customize->add_control(new CiCustomizeTextareaControl(
                 $wp_customize,
                 $option['slug'],
@@ -337,7 +330,6 @@ function ciAddCustomizationsToSection($wp_customize, $optionsArray, $sectionSlug
                 )
             ));
         } elseif($option['type'] == 'radio-images') {
-            $wp_customize->add_setting($option['slug'], array('default' => $option['default'], 'type' => 'option', 'capability' => 'edit_theme_options'));
             $wp_customize->add_control(new CiCustomizeImagePickerControl(
                 $wp_customize,
                 $option['slug'],
@@ -349,10 +341,11 @@ function ciAddCustomizationsToSection($wp_customize, $optionsArray, $sectionSlug
                 )
             ));
         } elseif($option['type'] == 'select') {
-            $wp_customize->add_setting($option['slug'], array('default' => $option['default'], 'type' => 'option', 'capability' => 'edit_theme_options'));
             $wp_customize->add_control($option['slug'], array('type' => 'select', 'label' => $option['label'], 'section' => $sectionSlug, 'description' => $option['description'], 'choices' => $option['options']));
+        } elseif($option['type'] == 'radio') {
+
+            $wp_customize->add_control($option['slug'], array('type' => 'radio', 'label' => $option['label'], 'section' => $sectionSlug, 'description' => $option['description'], 'choices' => $option['options']));
         } elseif($option['type'] == 'image') {
-            $wp_customize->add_setting($option['slug'], array('type' => 'option', 'capability' => 'edit_theme_options'));
             $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, $option['slug'], array('label' => $option['label'], 'section' => $sectionSlug, 'description' => $option['description'])));
         } else {
             die($option['type']);
@@ -371,22 +364,6 @@ function ciCustomizeRegister($wp_customize)
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PAGE SETUP
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    $wp_customize->add_section('page_setup', array('title' => __('Page Setup', CI_TEXT_DOMAIN), 'priority' => 0,));
-
-    $wp_customize->add_setting('style', array('default' => CI_STYLE_CLEAN, 'capability' => 'edit_theme_options', 'type' => 'option'));
-    $wp_customize->add_control('style', array('label' => __('Theme Style', CI_TEXT_DOMAIN), 'section' => 'page_setup', 'type' => 'radio',
-        'choices'    => array(
-            CI_STYLE_CLEAN => __("Clean", CI_TEXT_DOMAIN),
-            CI_STYLE_GRUNGY => __("Grunge", CI_TEXT_DOMAIN)
-        ),
-    ));
-
-    $wp_customize->add_setting('full_width_container', array('type' => 'option', 'capability' => 'edit_theme_options'));
-    $wp_customize->add_control('full_width_container', array('label' => 'Make Pages Full-Width?', 'section' => 'page_setup', 'type' => 'checkbox', 'std' => 0));
-
-    $wp_customize->add_setting('full_screen_image_bg', array('type' => 'option', 'capability' => 'edit_theme_options'));
-    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'full_screen_image_bg', array('label' => __('Full-Screen Background Image', CI_TEXT_DOMAIN), 'section' => 'page_setup')));
-
     $patternPath = get_template_directory_uri() . '/assets/img/patterns/';
     $subtlePatterns = array(
         'none' => $patternPath . 'none.png',
@@ -406,15 +383,46 @@ function ciCustomizeRegister($wp_customize)
         'tweed_@2X' => $patternPath . 'tweed_@2X.png',
         'witewall_3_@2X' => $patternPath . 'witewall_3_@2X.png'
     );
-    $bodyBgPattern = array(
-        'label' => __("Body Background Pattern", CI_TEXT_DOMAIN),
-        'description' => __("To use a subtle pattern (from subtlepatterns.com) as the background to the pages (instead of a flat, solid color or an image), select a pattern here.", CI_TEXT_DOMAIN),
-        'slug' => "pattern_bg",
-        'default' => "none",
-        'type' => "radio-images",
-        'options' => $subtlePatterns
+    $pageSetupOptions = array(
+        array(
+            'slug' => 'style',
+            'type' => 'radio',
+            'default' => CI_STYLE_CLEAN,
+            'label' => __('Theme Style', CI_TEXT_DOMAIN),
+            'options' => array(
+                CI_STYLE_CLEAN => __("Clean", CI_TEXT_DOMAIN),
+                CI_STYLE_GRUNGY => __("Grunge", CI_TEXT_DOMAIN)
+            )
+        ),
+        array(
+            'slug' => 'full_width_container',
+            'type' => 'checkbox',
+            'default' => true,
+            'label' => __('Make Pages Full-Width?', CI_TEXT_DOMAIN)
+        ),
+        array(
+            'slug' => 'full_screen_image_bg',
+            'type' => 'image',
+            'label' => __('Full-Screen Background Image', CI_TEXT_DOMAIN)
+        ),
+        array(
+            'label' => __("Body Background Pattern", CI_TEXT_DOMAIN),
+            'description' => __("To use a subtle pattern (from subtlepatterns.com) as the background to the pages (instead of a flat, solid color or an image), select a pattern here.", CI_TEXT_DOMAIN),
+            'slug' => "pattern_bg",
+            'default' => "none",
+            'type' => "radio-images",
+            'options' => $subtlePatterns
+        ),
+        array(
+            'label' => __('Enable demo mode?', CI_TEXT_DOMAIN),
+            'description' => __('If checked, we will display the theme selector on every page. You probably do not want to do this.', CI_TEXT_DOMAIN),
+            'slug' => 'mlf_demo_site',
+            'default' => false,
+            'type' => 'checkbox'
+        )
     );
-    ciAddCustomizationsToSection($wp_customize, array($bodyBgPattern), 'page_setup');
+    $wp_customize->add_section('page_setup', array('title' => __('Page Setup', CI_TEXT_DOMAIN), 'priority' => 0,));
+    ciAddCustomizationsToSection($wp_customize, $pageSetupOptions, 'page_setup');
 
 
 
@@ -594,6 +602,12 @@ function ciCustomizeRegister($wp_customize)
             'label' => __('Nav Menu Background Color (if menu button background is solid)', CI_TEXT_DOMAIN),
             'type' => 'color'
         ),
+        array(
+            'slug' => 'copyright_text_color',
+            'default' => '#333333',
+            'label' => __('Footer copyright notice text color', CI_TEXT_DOMAIN),
+            'type' => 'color'
+        ),
 
         array(
             'type' => 'line',
@@ -649,69 +663,52 @@ function ciCustomizeRegister($wp_customize)
         '300' => '1',
         '700' => '1',
     );
-    $fontOptions = array(
-        array(
-            'description' => __('<strong>NOTE</strong>: It is recommended that you use a maximum of two to three fonts. More fonts will slow down page loads and generally look less professional.', CI_TEXT_DOMAIN),
-            'type' => 'info'
-        ),
-        array(
-            'label' => __('Page Title (a.k.a. H1) Font', CI_TEXT_DOMAIN),
-            'type' => 'heading',
-            'slug' => 'page_title_font'
-        ),
+    $titleFontOptions = array(
         $fontOptions->getFontFamilySelect('title_font_family', "Bree+Serif"),
         $fontOptions->getFontFamilyVariants('title_font_variants'),
         $fontOptions->getWeightOption('title_font_weight', '400'),
-        $fontOptions->getFallbackOption('title_font_fallback', 'Georgia, Garamond, sans-serif'),
-
-        array('type' => 'line', 'slug' => 'heading_font_line'),
-        array(
-            'label' => __('Heading (a.k.a. H2, H3, and H4) Font', CI_TEXT_DOMAIN),
-            'type' => 'heading',
-            'slug' => 'heading_font',
-        ),
+        $fontOptions->getFallbackOption('title_font_fallback', 'Georgia, Garamond, sans-serif')
+    );
+    $headingFontOptions = array(
         $fontOptions->getFontFamilySelect('heading_font_family', "Bree+Serif"),
         $fontOptions->getFontFamilyVariants('heading_font_variants'),
         $fontOptions->getWeightOption('heading_font_weight', '400'),
         $fontOptions->getFallbackOption('body_font_fallback', 'Georgia, Garamond, sans-serif'),
-
-
-        array('type' => 'line', 'slug' => 'body_font_line'),
-        array(
-            'label' => __('Body Font', CI_TEXT_DOMAIN),
-            'type' => 'heading',
-            'slug' => 'body_font',
-        ),
+    );
+    $bodyFontOptions = array(
         $fontOptions->getFontFamilySelect('body_font_family', "Open+Sans"),
         $fontOptions->getFontFamilyVariants('body_font_variants', $openSansDefaultVariants),
         $fontOptions->getWeightOption('body_font_weight', '400'),
         $fontOptions->getFallbackOption('body_font_fallback', '"Helvetica Neue", Helvetica, Arial, sans-serif'),
-
-        array('type' => 'line', 'slug' => 'widget_font_line'),
-        array(
-            'label' => __('Widget Title Font', CI_TEXT_DOMAIN),
-            'type' => 'heading',
-            'slug' => 'widget_title_font'
-        ),
+    );
+    $widgetFontOptions = array(
         $fontOptions->getFontFamilySelect('widget_title_font_family', "Open+Sans"),
         $fontOptions->getFontFamilyVariants('widget_title_font_variants', $openSansDefaultVariants),
         $fontOptions->getWeightOption('widget_title_font_weight', '700'),
         $fontOptions->getFallbackOption('widget_title_font_fallback', '"Helvetica Neue", Helvetica, Arial, sans-serif'),
-
-        array('type' => 'line', 'slug' => 'menu_font_line'),
-        array(
-            'label' => __('Menu Font', CI_TEXT_DOMAIN),
-            'type' => 'heading',
-            'slug' => 'menu_font',
-        ),
+    );
+    $menuFontOptions = array(
         $fontOptions->getFontFamilySelect('menu_font_family', "Open+Sans"),
         $fontOptions->getFontFamilyVariants('menu_font_variants', $openSansDefaultVariants),
         $fontOptions->getWeightOption('menu_font_weight', '700'),
         $fontOptions->getFallbackOption('menu_font_fallback', '"Helvetica Neue", Helvetica, Arial, sans-serif'),
     );
-    $wp_customize->add_section('fonts', array('title' => __('Fonts', CI_TEXT_DOMAIN), 'priority' => 40,
-        'description' => __('Here, you can use just about any font you find in the <a href="http://www.google.com/fonts/" target="_blank">Google Fonts directory</a>.', CI_TEXT_DOMAIN)));
-    ciAddCustomizationsToSection($wp_customize, $fontOptions, 'fonts');
+
+    $wp_customize->add_panel('fonts', array(
+        'title' => __('Fonts', CI_TEXT_DOMAIN),
+        'description' => __('<p>Here, you can use just about any font you find in the <a href="http://www.google.com/fonts/" target="_blank">Google Fonts directory</a>.</p><p><strong>NOTE</strong>: It is recommended that you use a maximum of two to three fonts. More fonts will slow down page loads and generally look less professional.</p>', CI_TEXT_DOMAIN),
+        'priority' => 40
+    ));
+    $wp_customize->add_section('fonts-titles', array('title' => __('Page Title (H1) Font', CI_TEXT_DOMAIN), 'panel' => 'fonts'));
+    ciAddCustomizationsToSection($wp_customize, $titleFontOptions, 'fonts-titles');
+    $wp_customize->add_section('fonts-headings', array('title' => __('Headings (H2, H3, H4) Font', CI_TEXT_DOMAIN), 'panel' => 'fonts'));
+    ciAddCustomizationsToSection($wp_customize, $headingFontOptions, 'fonts-headings');
+    $wp_customize->add_section('fonts-body', array('title' => __('Body Font', CI_TEXT_DOMAIN), 'panel' => 'fonts'));
+    ciAddCustomizationsToSection($wp_customize, $bodyFontOptions, 'fonts-body');
+    $wp_customize->add_section('fonts-widgets', array('title' => __('Widget Title Font', CI_TEXT_DOMAIN), 'panel' => 'fonts'));
+    ciAddCustomizationsToSection($wp_customize, $widgetFontOptions, 'fonts-widgets');
+    $wp_customize->add_section('fonts-menu', array('title' => __('Menu Font', CI_TEXT_DOMAIN), 'panel' => 'fonts'));
+    ciAddCustomizationsToSection($wp_customize, $menuFontOptions, 'fonts-menu');
 
 
 
@@ -738,12 +735,6 @@ function ciCustomizeRegister($wp_customize)
             'slug' => 'copyright',
             'default' => '&copy; ' . date('Y') . ' ' . do_shortcode(get_bloginfo('name')),
             'type' => 'text'
-        ),
-        array(
-            'slug' => 'copyright_text_color',
-            'default' => '#333333',
-            'label' => __('Copyright notice text color', CI_TEXT_DOMAIN),
-            'type' => 'color'
         ),
         array(
             'label' => __('Enable theme design attribution?', CI_TEXT_DOMAIN),

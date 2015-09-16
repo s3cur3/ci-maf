@@ -25,9 +25,9 @@ function loadGoogleFonts() {
     foreach( $fontLocations as $location => $default ) {
         $optionID = $location . '_font_family';
 
-        $fontFamily = of_get_option($optionID, $default);
+        $fontFamily = get_option($optionID, $default);
         if( $fontFamily ) {
-            $variants = filterVariants(of_get_option($location . '_font_variants'));
+            $variants = filterVariants(get_option($location . '_font_variants'));
             if( array_key_exists($fontFamily, $fonts) ) {
                 $fonts[$fontFamily] = array_unique( array_merge($fonts[$fontFamily], $variants) );
             } else {

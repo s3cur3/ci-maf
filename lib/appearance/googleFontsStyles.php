@@ -3,7 +3,7 @@
 add_action('ci_styles', 'ciPrintFontStyles');
 function ciPrintFontStyles() {
     function getFontFamily($key, $default) {
-        return str_replace("+", " ", of_get_option($key, $default) );
+        return str_replace("+", " ", get_option($key, $default) );
     }
 
     $h1Family = getFontFamily('title_font_family', "Bree Serif");
@@ -12,17 +12,17 @@ function ciPrintFontStyles() {
     $bodyFamily = getFontFamily('body_font_family', "Open Sans");
     $menuFamily = getFontFamily('menu_font_family', "Open Sans");
 
-    $h1Weight = of_get_option('title_font_weight', '400');
-    $h2Weight = of_get_option('heading_font_weight', '400');
-    $widgetTitleWeight = of_get_option('widget_title_font_weight', '700');
-    $bodyWeight = of_get_option('body_font_weight', '400');
-    $menuWeight = of_get_option('menu_font_weight', '700');
+    $h1Weight = get_option('title_font_weight', '400');
+    $h2Weight = get_option('heading_font_weight', '400');
+    $widgetTitleWeight = get_option('widget_title_font_weight', '700');
+    $bodyWeight = get_option('body_font_weight', '400');
+    $menuWeight = get_option('menu_font_weight', '700');
 
-    $h1Fallback = of_get_option('title_font_fallback', 'Georgia, Garamond, sans-serif');
-    $h2Fallback = of_get_option('heading_font_fallback', 'Georgia, Garamond, sans-serif');
-    $widgetTitleFallback = of_get_option('widget_title_font_fallback', '"Helvetica Neue", Helvetica, Arial, sans-serif');
-    $bodyFallback = of_get_option('body_font_fallback', '"Helvetica Neue", Helvetica, Arial, sans-serif');
-    $menuFallback = of_get_option('menu_font_fallback', '"Helvetica Neue", Helvetica, Arial, sans-serif'); ?>
+    $h1Fallback = get_option('title_font_fallback', 'Georgia, Garamond, sans-serif');
+    $h2Fallback = get_option('heading_font_fallback', 'Georgia, Garamond, sans-serif');
+    $widgetTitleFallback = get_option('widget_title_font_fallback', '"Helvetica Neue", Helvetica, Arial, sans-serif');
+    $bodyFallback = get_option('body_font_fallback', '"Helvetica Neue", Helvetica, Arial, sans-serif');
+    $menuFallback = get_option('menu_font_fallback', '"Helvetica Neue", Helvetica, Arial, sans-serif'); ?>
     <!-- Font styles -->
     <style>
         body, html, div {

@@ -249,6 +249,23 @@ function ciRegisterMetaBoxes( $meta_boxes ) {
 add_filter( 'rwmb_meta_boxes', 'ciRegisterMetaBoxes');
 
 
+/* Spits out the docs page */
+function ci_docs_page() { ?>
+    <div id="ci-docs-page-wrap" class="wrap" style="background-color: white;">
+        <iframe src="<?php echo get_template_directory_uri(); ?>/docs/modern-brewery-theme-documentation.html" style="width:100%;height:1080px;"></iframe>
+    </div> <?php
+}
+
+function add_custom_options_page() {
+    add_theme_page(__('Theme Documentation', CI_TEXT_DOMAIN), __('Theme Documentation', CI_TEXT_DOMAIN), 'read', 'ci-theme-docs', 'ci_docs_page');
+
+    // This would add a top-level menu page (right above Posts and beneath Dashboard)
+    //add_menu_page( $menu['page_title'], $menu['menu_title'], $menu['capability'], $menu['menu_slug'], 'ci_docs_page', 'dashicons-admin-generic', 3 );
+}
+add_action('admin_menu', 'add_custom_options_page');
+
+
+
 
 
 
