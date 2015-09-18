@@ -390,8 +390,8 @@ function ciCustomizeRegister($wp_customize)
             'default' => CI_STYLE_CLEAN,
             'label' => __('Theme Style', CI_TEXT_DOMAIN),
             'options' => array(
-                CI_STYLE_CLEAN => __("Clean", CI_TEXT_DOMAIN),
-                CI_STYLE_GRUNGY => __("Grunge", CI_TEXT_DOMAIN)
+                CI_STYLE_CLEAN => __("Clean Lines", CI_TEXT_DOMAIN),
+                CI_STYLE_ROUNDED => __("Rounded Corners", CI_TEXT_DOMAIN)
             )
         ),
         array(

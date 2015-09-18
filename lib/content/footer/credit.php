@@ -20,12 +20,10 @@ function ciGetThemeCredit() {
         /* Project-specific */
         getLinkWithText($freeThemes, "Free WordPress Themes for Accounting Firms"),
         getLinkWithText($paidThemes, "Premium WordPress Themes for Accounting Firms"),
-        getLinkWithText($project, "Site created by Conversion Insights"),
-        getLinkWithText($project, "Theme by Conversion Insights"),
-        getLinkWithText($paidThemes, "The Modern Accounting Firm WordPress Theme") . " by BrewSites",
-
-        /* Brewery specific */
-        getLinkWithText($root, "Web Marketing for Accounting Firms") . " by Conversion Insights",
+        getLinkWithText($paidThemes, "Accountant Wordpress Theme"),
+        getLinkWithText($project, "CPA WordPress Theme by Conversion Insights"),
+        getLinkWithText($paidThemes, "The Modern Accounting Firm WordPress Theme"),
+        getLinkWithText($root, "Web Marketing for CPAs") . " by Conversion Insights",
         getLinkWithText($root, "Web Design for Accounting Firms"),
         "Web design by " . getLinkWithText($root, "Conversion Insights"),
 
@@ -39,8 +37,8 @@ function ciGetThemeCredit() {
         getLinkWithText($root, "Conversion Insights"),
         "Web site design by " . getLinkWithText($me, "Tyler Young") . " of Conversion Insights",
         "Designed by " . getLinkWithText($root, "Conversion Insights"),
-        getLinkWithText($designServices, "Accounting Web Design") . " by BrewSites",
-        getLinkWithText($designServices, "Web Design for Accounting Firms"),
+        getLinkWithText($designServices, "Accounting Web Design") . " by Conversion Insights",
+        getLinkWithText($designServices, "Web Design for Accountants"),
     );
 
     return $choices[ $id % count($choices) ];
