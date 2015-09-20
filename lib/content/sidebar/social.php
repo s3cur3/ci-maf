@@ -138,8 +138,8 @@ class SocialMediaWidget extends WP_Widget
     {
         parent::__construct(
             'SocialMediaWidget', // Base ID
-            __('Social Media Icons', 'text_domain'), // Name
-            array('description' => __('Displays links to your social media profiles', 'text_domain'),) // Args
+            __('Social Media Icons', CI_TEXT_DOMAIN), // Name
+            array('description' => __('Displays links to your social media profiles', CI_TEXT_DOMAIN),) // Args
         );
     }
 

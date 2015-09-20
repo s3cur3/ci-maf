@@ -55,9 +55,12 @@ if( !class_exists('Roots_Vcard_Widget') ) {
         );
 
         function __construct() {
-            $widget_ops = array( 'classname' => 'widget_roots_vcard', 'description' => __( 'Use this widget to add a vCard', CI_TEXT_DOMAIN ) );
-
-            $this->WP_Widget( 'widget_roots_vcard', __( 'Contact Information (vCard)', CI_TEXT_DOMAIN ), $widget_ops );
+            $widget_ops = array( 'classname' => 'widget_roots_vcard', 'description' => __( 'Use this widget to add a vCard', MLF_TEXT_DOMAIN ) );
+            parent::__construct(
+                'widget_roots_vcard', // Base ID
+                __( 'Roots: vCard', CI_TEXT_DOMAIN ), // Name
+                $widget_ops // Args
+            );
             $this->alt_option_name = 'widget_roots_vcard';
 
             add_action( 'save_post', array( &$this, 'flush_widget_cache' ) );
