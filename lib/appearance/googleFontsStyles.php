@@ -25,7 +25,7 @@ function ciPrintFontStyles() {
     $menuFallback = get_option('menu_font_fallback', '"Helvetica Neue", Helvetica, Arial, sans-serif'); ?>
     <!-- Font styles -->
     <style>
-        body, html, div {
+        body, html, div, .employees h3 {
             font-family: "<?php echo $bodyFamily; ?>", <?php echo $bodyFallback; ?>;
             font-weight: <?php echo $bodyWeight; ?>;
         }
