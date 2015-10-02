@@ -3,8 +3,9 @@
  * MUST be included in the page <head>!
  * ======================================================================== */
 
-function resizeNoPad($) {
+function resizeNoPad() {
     "use strict";
+    var $ = jQuery;
     var windowWidth = $(window).width();
     var noPadAndCarousel = $('.container-fluid .pad > .no-pad, .container-fluid .pad > .no-pad > .carousel');
     noPadAndCarousel.width(windowWidth);

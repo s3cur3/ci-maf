@@ -106,7 +106,7 @@ The home page in the demo consists of a number of different elements. Understand
     - You can set up your menus using the Appearance > Menus page.
     - By default, the theme creates a Primary Navigation menu and assigns it to the Primary Navigation theme location (that is, the location at the top-right of the page).
 3. Home page content 
-    - The home page uses the "Fancy Landing Page" layout (which removes the white background from the page content to show off your full-screen image background). You can enable this by checking the box labeled **Make this a fancy landing page?** in the **Page-Specific Options** box when editing your page.
+    - The home page uses the "Fancy Landing Page" layout (which removes the white background from the page content to show off your full-screen image background). You can enable this by checking the box labeled **Make this a transparent landing page?** in the **Page-Specific Options** box when editing your page.
     - The solid-colored background on the text here comes from the `[bg]` shortcode. (Read more in [the shortcode reference](#shortcodereference).)
 4. Beer list
     - You can create Beer pages individually just like you would a normal page on the site, and those beers can be inserted onto a specific page. The beer list here is spit out by our `[beers]` shortcode, as described in [the shortcode reference](#shortcodereference) below.

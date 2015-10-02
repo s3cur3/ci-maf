@@ -50,7 +50,7 @@ function ciRegisterMetaBoxes( $meta_boxes ) {
                 'std'  => 1,
             ),
             array(
-                'name' => __( 'Make this a fancy landing page?', CI_TEXT_DOMAIN ),
+                'name' => __( 'Make this a transparent landing page?', CI_TEXT_DOMAIN ),
                 'desc' => __('If checked, your text will be put directly on top of your site-wide background (either an image or a solid color). This is a neat effect for landing pages. (Configure colors in the WP Customize screen.)', CI_TEXT_DOMAIN),
                 'id'   => "{$prefix}make_fancy_landing",
                 'type' => 'checkbox',
