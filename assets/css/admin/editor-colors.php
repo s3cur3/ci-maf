@@ -1,7 +1,8 @@
 <?php
 header("Content-type: text/css; charset: UTF-8");
 define('WP_USE_THEMES', false);
-require('../../../../../../wp-load.php');
+$parse_uri = explode( 'wp-content', $_SERVER['SCRIPT_FILENAME'] );
+require_once( $parse_uri[0] . 'wp-load.php' );
 
 $splash = get_option('splash_color');
 $firm_name = get_option('firm_name_color');
