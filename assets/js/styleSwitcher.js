@@ -1,4 +1,9 @@
+/* globals templateURL */ // Defined in javascriptVars.php
+/* globals resizeNoPad */ // Defined in fullWidthLayout.js, loaded on every page
+
 (function($) {
+    "use strict";
+
     /**
      * Checks to see whether this string contains the sought substring (or substrings).
      * @param search {string|Array} If search is a string, we will see if it is a substring of this string. If search
@@ -126,7 +131,7 @@
                 $('a').each(function() {
                     var href = $(this).attr('href');
 
-                    if( href && !$(this).hasClass('no-color-link') && !(href.indexOf('#') > -1) ) {
+                    if( href && !$(this).hasClass('no-color-link') && href.indexOf('#') === -1) {
                         href = href.replace(/\?.*/, '');
 
                         href += queryString;

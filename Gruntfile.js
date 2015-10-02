@@ -1,5 +1,6 @@
-'use strict';
+/* globals module */
 module.exports = function(grunt) {
+  'use strict';
 
   grunt.initConfig({
     jshint: {
