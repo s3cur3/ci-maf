@@ -41,8 +41,15 @@ if(get_option('navbar_fixed', false)) {
             $ecommerceHTML = get_option('ecommerce', false) ? "<div class=\"cart-btn\"><a class=\"fa fa-2x fa-shopping-cart\" href=\"/cart/\"></a></div>" : "";
 
             $additionalNavText = get_option('additional_menu_text', '');
+            $additionalNavClass = "";
+            if($additionalNavText && !($socialHTML || $ecommerceHTML)) {
+                $additionalNavClass = "text-only";
+            } elseif($additionalNavText && $socialHTML) {
+                $additionalNavClass = "text-and-social";
+            }
+
             if($additionalNavText || $socialHTML || $ecommerceHTML) {
-                echo "<div class=\"post-nav\">{$additionalNavText}{$ecommerceHTML}{$socialHTML}</div>";
+                echo "<div class=\"post-nav {$additionalNavClass}\">{$additionalNavText}{$ecommerceHTML}{$socialHTML}</div>";
             }
 
             if( has_nav_menu('primary_navigation') ) {
