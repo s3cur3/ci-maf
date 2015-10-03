@@ -1,15 +1,13 @@
 <?php
 
-function ciGetContainerClass(){
-    $fullWidthContainerSpecified = get_option('full_width_container');
+function ciGetContainerClass() {
+    $fullWidthContainerSpecified = get_option('full_width_container', true);
 
     // Override with GET parms
-    if( isset($_GET['layout']) && $_GET['layout'] == "full" ) {
+    if(isset($_GET['layout']) && $_GET['layout'] == "full") {
         $fullWidthContainerSpecified = true;
-    } else {
-        if( isset($_GET['layout']) && $_GET['layout'] == "normal" ) {
-            $fullWidthContainerSpecified = false;
-        }
+    } else if(isset($_GET['layout']) && $_GET['layout'] == "normal") {
+        $fullWidthContainerSpecified = false;
     }
     $needsFullWidthContainer = $fullWidthContainerSpecified && !roots_display_sidebar();
 

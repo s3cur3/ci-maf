@@ -6,11 +6,12 @@
         <div class="entry-content"><?php
             $post_thumb = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), CI_FULL_WIDTH_WITH_SIDEBAR_IMG);
             $thumbnail = $post_thumb[0];
+            $large_image_url = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), array(2048, 2048))[0];
 
             if ($thumbnail != NULL) {
                 ?>
                 <div class="featured-img">
-                <a class="featured-img" href="<?php echo $href; ?>" title="<?php the_title_attribute(); ?>">
+                <a class="featured-img" href="<?php echo $large_image_url; ?>" title="<?php the_title_attribute(); ?>" rel="prettyPhoto[<?php echo $post->ID; ?>]">
                     <img class="mb10" src="<?php echo $thumbnail; ?>" alt="<?php the_title(); ?>"
                          width="<?php echo $post_thumb[1]; ?>" height="<?php echo $post_thumb[2]; ?>"/>
                 </a>

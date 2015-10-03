@@ -1,26 +1,11 @@
-<?php get_template_part('templates/page', 'header-archive'); ?>
+<?php
+/*
+Default blog template
+If you use the WP backend to set a page as your "Posts" page (similarly to the way you set a static front page),
+this is the template that will apply. (It's identical to template-blog.php)
+*/
+?>
 
-<?php if (!have_posts()) { ?>
-    <div class="alert alert-warning">
-        <?php _e('Sorry, no results were found.', CI_TEXT_DOMAIN); ?>
-    </div> <?php
-    get_search_form();
-}
-
-global $evenOddCount;
-$evenOddCount = 0;
-while( have_posts() ) {
-    the_post();
-
-    $evenOddCount++;
-    get_template_part('templates/content', get_post_format());
-} ?>
-
-<?php if ($wp_query->max_num_pages > 1) : ?>
-  <nav class="post-nav">
-    <ul class="pager">
-      <li class="previous"><?php next_posts_link(__('&larr; Older posts', CI_TEXT_DOMAIN)); ?></li>
-      <li class="next"><?php previous_posts_link(__('Newer posts &rarr;', CI_TEXT_DOMAIN)); ?></li>
-    </ul>
-  </nav>
-<?php endif; ?>
+<!-- index.php -->
+<?php get_template_part('templates/page', 'header'); ?>
+<?php get_template_part('templates/content', 'blog'); ?>

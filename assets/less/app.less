@@ -4,6 +4,7 @@
 
 @import "bootstrap/bootstrap.less";
 @import "font-awesome/font-awesome";
+@import "prettyPhoto/prettyPhoto";
 
 /* ==========================================================================
    Base
@@ -235,7 +236,7 @@ h1 .btn, h2 .btn, h3 .btn, h4 .btn {
   font-family: @font-family-base;
 }
 h1+hr, h2+hr, h3+hr, h4+hr {
-  margin: 0 0 10px;;
+  margin: 0 0 10px;
 }
 .full-page {
   width: 100%;
@@ -300,6 +301,13 @@ h1+hr, h2+hr, h3+hr, h4+hr {
   font-size: 0.85em;
   opacity: 0.8;
   text-align: right;
+  transition: opacity 1s;
+}
+.blog .featured-img-caption {
+  text-align: left;
+}
+.featured-img-caption:hover {
+  opacity: 1;
 }
 
 .post-data {

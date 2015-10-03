@@ -1,4 +1,4 @@
-<!-- content-blog -->
+<!-- content-blog.php -->
 <?php while (have_posts()) : the_post(); ?>
     <div class="entry-content">
         <?php the_content(); ?>
@@ -35,9 +35,9 @@ while ($wp_query->have_posts()) {
         if( $count % 2 == 0 ) {
             $imgClass = "alignleft mr20";
         } ?>
-        <h2><a class="featured-img" href="<?php echo $href; ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2><?php
+        <h2><a href="<?php echo $href; ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2><?php
         if ($thumbnail != NULL) { ?>
-            <div class="<?php echo $imgClass ?>">
+            <div class="<?php echo $imgClass ?> thumbnail" style="width: <?php echo $post_thumb[1]; ?>px;">
                 <a href="<?php echo $href; ?>" title="<?php the_title_attribute(); ?>">
                     <img class="mb0 featured-img" src="<?php echo $thumbnail; ?>" alt="<?php the_title(); ?>" width="<?php echo $post_thumb[1]; ?>" height="<?php echo $post_thumb[2]; ?>"/>
                 </a>
@@ -47,11 +47,8 @@ while ($wp_query->have_posts()) {
         if( !empty($post->post_excerpt) ) {
             the_excerpt();
         } else {
-            the_content('',FALSE,'');
+            the_content('Read More');
         } ?>
-        <p>
-            <a class="more-link btn btn-primary mt0" href="<?php the_permalink(); ?>">Continue Reading</a>
-        </p>
         <div class="clr"></div>
         <?php $more = true; ?>
         <div class="row clr mt5 meta">
