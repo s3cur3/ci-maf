@@ -558,6 +558,13 @@ function ciCustomizeRegister($wp_customize)
             'label' => __('Secondary Background Color', CI_TEXT_DOMAIN)
         ),
         array(
+            'slug' => 'copyright_text_color',
+            'default' => '#333333',
+            'label' => __('Footer copyright notice text color', CI_TEXT_DOMAIN),
+            'type' => 'color'
+        ),
+
+        array(
             'type' => 'line',
             'slug' => 'body_colors_post_line',
         ),
@@ -591,31 +598,25 @@ function ciCustomizeRegister($wp_customize)
             'type' => 'color'
         ),
         array(
+            'slug' => 'header_bg_color',
+            'default' => $defaultColors['header_bg_color'],
+            'label' => __('Nav Menu Background Color', CI_TEXT_DOMAIN),
+            'type' => 'color'
+        ),
+        array(
+
             'slug' => 'header_link_bg_is_solid',
             'default' => true,
-            'label' => __('Menu Button Background Is Solid Color?', CI_TEXT_DOMAIN),
+            'label' => __('Active Menu Item Has Solid Background?', CI_TEXT_DOMAIN),
             'type' => 'checkbox'
         ),
         array(
-            'slug' => 'header_link_bg_color',
-            'default' => $defaultColors['header_link_bg_color'],
-            'label' => __('Nav Menu Background Color (if menu button background is solid)', CI_TEXT_DOMAIN),
-            'type' => 'color'
-        ),
-        array(
-            'slug' => 'copyright_text_color',
-            'default' => '#333333',
-            'label' => __('Footer copyright notice text color', CI_TEXT_DOMAIN),
-            'type' => 'color'
-        ),
-
-        array(
             'type' => 'line',
-            'slug' => 'body_colors_post_line',
+            'slug' => 'header_colors_post_line',
         ),
         array(
             'type' => 'heading',
-            'slug' => 'header_colors_heading',
+            'slug' => 'fancy_landing_page_colors_heading',
             'label' => __('Fancy Landing Page Colors', CI_TEXT_DOMAIN)
         ),
         array(
@@ -955,6 +956,7 @@ function ciPrintCustomColorStyling() {
     $header_link_bg_is_solid = get_option('header_link_bg_is_solid');
     $header_link_size = get_option('header_link_size');
     $header_link_bg_color = ciGetNormalizedColor('header_link_bg_color');
+    $header_bg_color = ciGetNormalizedColor('header_bg_color');
     $header_hover_color = ciGetNormalizedColor('header_hover_color');
     $logo_top_padding = get_option('logo_top_padding');
 
@@ -1034,16 +1036,21 @@ function ciPrintCustomColorStyling() {
         .navbar-default .navbar-brand:hover {
             color: <?php echo $header_highlight_color; ?>
         }
-        .navbar-default .navbar-nav>li>a {
+        .navbar-default .navbar-nav>li>a, .navbar-default .navbar-nav>.active.open>a {
             color: <?php echo $header_text_color; ?>;
-            background: <?php echo $header_link_bg_is_solid ? $header_link_bg_color : 'transparent' ?>;
+        }
+        .header-container {
+            background: <?php echo $header_bg_color; ?>;
         }
         .post-nav a {
             color: <?php echo $header_text_color; ?>;
         }
         .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
             background: <?php echo $header_link_bg_is_solid ? $header_hover_color : 'transparent'; ?>;
-            color: <?php echo $header_link_bg_is_solid ? ciAdjustBrightness($header_text_color, -130) : $header_hover_color; ?>;
+            color: <?php echo $header_highlight_color; ?>;
+        }
+        .dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+            color: <?php echo $header_highlight_color; ?>;
         }
         .post-nav a:hover, .post-nav a:focus {
             color: <?php echo $header_link_bg_is_solid ? ciAdjustBrightness($header_text_color, -130) : $header_hover_color; ?>;
