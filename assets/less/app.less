@@ -5,6 +5,7 @@
 @import "bootstrap/bootstrap.less";
 @import "font-awesome/font-awesome";
 @import "prettyPhoto/prettyPhoto";
+@import "effects";
 
 /* ==========================================================================
    Base
@@ -362,6 +363,15 @@ div.practice-areas {
     margin-top: 15px;
   }
 }
+.practice-area h3 {
+  font-size: 1.3em;
+  font-weight: bold;
+  a {
+    text-decoration: none;
+    .link-effect-slide-up-underline;
+    padding-bottom: 0; // has to come after the link effect style, because it auto-sets some padding that we don't like
+  }
+}
 .employees {
   ul {
     list-style-type: none;
@@ -371,6 +381,22 @@ div.practice-areas {
   h3 {
     font-size: 1.25em;
     margin-top: 0.5em;
+    a {
+      text-decoration: none;
+      .link-effect-expand-underline;
+    }
+  }
+  img {
+    height: auto;
+    opacity: 0.95;
+    width: 98%;
+    padding: 1% 0;
+    transition: width 0.5s, opacity 0.5s, padding 0.5s;
+    &:hover {
+      width: 100%;
+      opacity: 1;
+      padding: 0;
+    }
   }
 }
 .testimonials-widget-testimonial .image {

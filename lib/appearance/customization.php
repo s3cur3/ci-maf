@@ -1025,8 +1025,11 @@ function ciPrintCustomColorStyling() {
         a, .individual-post .meta a:hover {
             color: <?php echo $splash; ?>;
         }
-        a:hover, a:focus {
+        a:hover, a:focus, .employees h3 a {
             color: <?php echo ciAdjustBrightness($splash, -30) ?>;
+        }
+        .practice-area h3 a:after, .employees h3 a:before {
+            background: <?php echo ciAdjustBrightness($splash, -30) ?>;
         }
 
         .navbar-default .navbar-brand {

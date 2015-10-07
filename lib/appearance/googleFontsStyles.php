@@ -25,9 +25,12 @@ function ciPrintFontStyles() {
     $menuFallback = get_option('menu_font_fallback', '"Helvetica Neue", Helvetica, Arial, sans-serif'); ?>
     <!-- Font styles -->
     <style>
-        body, html, div, .employees h3 {
+        body, html, div {
             font-family: "<?php echo $bodyFamily; ?>", <?php echo $bodyFallback; ?>;
             font-weight: <?php echo $bodyWeight; ?>;
+        }
+        .employees h3, .practice-area h3 {
+            font-family: "<?php echo $bodyFamily; ?>", <?php echo $bodyFallback; ?>;
         }
         h1, a.navbar-brand {
             font-family: "<?php echo $h1Family; ?>", <?php echo $h1Fallback; ?>;
