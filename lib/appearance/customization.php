@@ -1111,6 +1111,7 @@ function ciPrintCustomColorStyling() {
 
         .btn-primary, input[type="submit"], button[type="submit"], .woocommerce #respond input#submit.alt, .woocommerce a.button.alt, .woocommerce button.button.alt, .woocommerce input.button.alt {
             color: #fff;
+            position: relative;
             background-color: <?php echo $btn; ?>;
             border-color: <?php echo ciAdjustBrightness($btn, -20) ?>; /* slightly darker */
             box-shadow: 0 6px <?php echo ciAdjustBrightness($btn, -50); ?>;
@@ -1120,10 +1121,12 @@ function ciPrintCustomColorStyling() {
             background-color: <?php echo $btn; ?>;
             border-color: <?php echo ciAdjustBrightness($btn, -50); ?>;
             box-shadow: 0 4px <?php echo ciAdjustBrightness($btn, -50); ?>;
+            top: 2px;
             color: #fff;
         }
-        .btn-primary:active, .btn-primary.active,
+        .btn-primary:active, .btn-primary.active, .sidebar input[type="submit"]:active,
         .woocommerce #respond input#submit.alt:active, .woocommerce a.button.alt:active, .woocommerce button.button.alt:active, .woocommerce input.button.alt:active {
+            top: 4px;
             box-shadow: 0 0 <?php echo ciAdjustBrightness($btn, -50); ?>;
         }
 
