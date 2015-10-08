@@ -904,6 +904,19 @@ function ciAdjustBrightness($hex, $steps) {
     return '#'.$r_hex.$g_hex.$b_hex;
 }
 
+function ciHexToRGBA($hex, $alphaValue) {
+    // Format the hex color string
+    $hex = str_replace('#', '', $hex);
+    if (strlen($hex) == 3) {
+        $hex = str_repeat(substr($hex,0,1), 2).str_repeat(substr($hex,1,1), 2).str_repeat(substr($hex,2,1), 2);
+    }
+
+    // Get decimal values
+    $r = hexdec(substr($hex,0,2));
+    $g = hexdec(substr($hex,2,2));
+    $b = hexdec(substr($hex,4,2));
+    return "rgba($r,$g,$b,$alphaValue)";
+}
 
 
 
@@ -1024,9 +1037,17 @@ function ciPrintCustomColorStyling() {
 
         a, .individual-post .meta a:hover {
             color: <?php echo $splash; ?>;
+            transition: background 0.3s;
         }
         a:hover, a:focus, .employees h3 a {
             color: <?php echo ciAdjustBrightness($splash, -30) ?>;
+            background: <?php echo ciHexToRGBA($splash, 0.05) ?>;
+        }
+        a:active {
+            color: <?php echo ciAdjustBrightness($splash, -80) ?>;
+        }
+        .practice-area h3 a, .employees h3 a {
+            background: transparent;
         }
         .practice-area h3 a:after, .employees h3 a:before {
             background: <?php echo ciAdjustBrightness($splash, -30) ?>;
@@ -1092,12 +1113,18 @@ function ciPrintCustomColorStyling() {
             color: #fff;
             background-color: <?php echo $btn; ?>;
             border-color: <?php echo ciAdjustBrightness($btn, -20) ?>; /* slightly darker */
+            box-shadow: 0 6px <?php echo ciAdjustBrightness($btn, -50); ?>;
         }
         .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary, input[type="submit"]:hover, button[type="submit"]:hover, input[type="submit"]:focus, button[type="submit"]:focus, form input[type="submit"]:hover, form input[type="submit"]:focus,
         .woocommerce #respond input#submit.alt:hover, .woocommerce a.button.alt:hover, .woocommerce button.button.alt:hover, .woocommerce input.button.alt:hover, .woocommerce #respond input#submit.alt:focus, .woocommerce a.button.alt:focus, .woocommerce button.button.alt:focus, .woocommerce input.button.alt:focus, .woocommerce #respond input#submit.alt:active, .woocommerce a.button.alt:active, .woocommerce button.button.alt:active, .woocommerce input.button.alt:active {
-            background-color: <?php echo ciAdjustBrightness($btn, -18) ?>;
-            border-color: <?php echo ciAdjustBrightness($btn, -35) ?>;
+            background-color: <?php echo $btn; ?>;
+            border-color: <?php echo ciAdjustBrightness($btn, -50); ?>;
+            box-shadow: 0 4px <?php echo ciAdjustBrightness($btn, -50); ?>;
             color: #fff;
+        }
+        .btn-primary:active, .btn-primary.active,
+        .woocommerce #respond input#submit.alt:active, .woocommerce a.button.alt:active, .woocommerce button.button.alt:active, .woocommerce input.button.alt:active {
+            box-shadow: 0 0 <?php echo ciAdjustBrightness($btn, -50); ?>;
         }
 
         ul.social-list li a, .individual-post .meta a {

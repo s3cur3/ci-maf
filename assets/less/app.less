@@ -163,6 +163,25 @@ main .pad img {
   }
 }
 
+.btn-primary, button[type="submit"] {
+  cursor: pointer;
+  border-radius: 5px;
+  color: #fff;
+  box-shadow: 0 6px darken(@brand-primary, 30%);
+  -webkit-transition: none;
+  -moz-transition: none;
+  transition: none;
+  position: relative;
+  &:hover {
+    box-shadow: 0 4px darken(@brand-primary, 30%);
+    top: 2px;
+  }
+  &:active {
+    box-shadow: 0 0 darken(@brand-primary, 30%);
+    top: 6px;
+  }
+}
+
 button[type="submit"] {
   color: #fff;
 }
@@ -384,6 +403,7 @@ div.practice-areas {
     a {
       text-decoration: none;
       .link-effect-expand-underline;
+      padding: 0 12px;
     }
   }
   img {
@@ -784,6 +804,23 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
   }
   .carousel-indicators {
     margin-bottom: 12px;
+  }
+  .carousel-control {
+    .glyphicon-chevron-left, .glyphicon-chevron-right {
+      transition: font-size 0.3s, margin 0.3s, right 0.3s, left 0.3s;
+    }
+  }
+  .carousel-control:hover {
+    .glyphicon-chevron-left, .glyphicon-chevron-right {
+      font-size: 45px;
+      margin-top: -22px;
+    }
+    .glyphicon-chevron-right {
+      right: 57%;
+    }
+    .glyphicon-chevron-left {
+      left: 43%;
+    }
   }
   .carousel-caption {
     bottom: 10px;
