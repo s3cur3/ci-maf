@@ -99,6 +99,9 @@ main .pad img {
   font-weight: 700;
   padding-top: 24px;
   min-height: 72px;
+  img {
+    max-width: 100%; // Ensure the logo isn't bigger than its container
+  }
 }
 
 .navbar-nav>li>a {
@@ -1023,6 +1026,14 @@ figure.alignnone { margin-left: 0; margin-right: 0; }
       max-width: 100%;
       height: auto;
     }
+  }
+
+  /* Reduce the size of the caption text on tablet devices */
+  .carousel-caption {
+    font-size: 1.2em;
+  }
+  .carousel-caption h2 {
+    font-size: 1em;
   }
 }
 
