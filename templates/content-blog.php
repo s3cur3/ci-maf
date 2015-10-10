@@ -51,7 +51,7 @@ while ($wp_query->have_posts()) {
         } ?>
         <div class="clr"></div>
         <?php $more = true; ?>
-        <div class="row clr mt5 meta">
+        <div class="row clr mt10 meta">
             <div class="col-sm-4 tags"><?php the_category(' '); ?></div>
             <div class="col-sm-4 text-center postdate"><?php the_time('M jS, Y') ?></div>
             <div class="col-sm-4 text-right comments"><a href="<?php the_permalink(); ?>#comments" title="comments"><?php comments_number('0 comments', '1 comment', '% comments'); ?></a></div>

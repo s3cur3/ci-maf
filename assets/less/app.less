@@ -179,11 +179,15 @@ main .pad img {
   &:active {
     box-shadow: 0 0 darken(@brand-primary, 30%);
     top: 6px;
+    outline: none !important;
   }
 }
 
 button[type="submit"] {
   color: #fff;
+  &.search-submit {
+    position: static; // no fancy 3D effects
+  }
 }
 
 .nsu_widget {
@@ -329,6 +333,8 @@ h1+hr, h2+hr, h3+hr, h4+hr {
   font-size: 0.85em;
   opacity: 0.8;
   text-align: right;
+  -webkit-transition: opacity 1s;
+  -moz-transition: opacity 1s;
   transition: opacity 1s;
 }
 .blog .featured-img-caption {
@@ -411,6 +417,8 @@ div.practice-areas {
     opacity: 0.95;
     width: 98%;
     padding: 1% 0;
+    -webkit-transition: width 0.5s, opacity 0.5s, padding 0.5s;
+    -moz-transition: width 0.5s, opacity 0.5s, padding 0.5s;
     transition: width 0.5s, opacity 0.5s, padding 0.5s;
     &:hover {
       width: 100%;
@@ -470,6 +478,12 @@ main {
 
 h1, .navbar-brand {
   font-weight: 400;
+}
+
+a, .individual-post .meta a:hover {
+  -webkit-transition: background 0.3s;
+  -moz-transition: background 0.3s;
+  transition: background 0.3s;
 }
 
 #breadcrumbs {
