@@ -27,7 +27,7 @@ function roots_scripts()
     wp_enqueue_script('page-resizer');
 
     if(get_option('mlf_demo_site')) {
-        wp_register_script('style-switcher', get_template_directory_uri() . '/assets/js/styleSwitcher.js', array() );
+        wp_register_script('style-switcher', get_template_directory_uri() . '/assets/js/styleSwitcher.js', array(), null, true);
         wp_enqueue_script('style-switcher');
     }
 }
