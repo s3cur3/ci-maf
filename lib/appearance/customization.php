@@ -256,7 +256,7 @@ function ciAddCustomizationsToSection($wp_customize, $optionsArray, $sectionSlug
         if($option['type'] == 'color') {
             $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $option['slug'], array('label' => $option['label'], 'section' => $sectionSlug, 'settings' => $option['slug'], 'description' => $option['description'])));
         } elseif($option['type'] == 'checkbox') {
-            $wp_customize->add_control($option['slug'], array('label' => $option['label'], 'section' => $sectionSlug, 'type' => 'checkbox', 'std' => 1, 'description' => $option['description']));
+            $wp_customize->add_control($option['slug'], array('label' => $option['label'], 'section' => $sectionSlug, 'type' => 'checkbox', 'description' => $option['description']));
         } elseif($option['type'] == 'multicheck') {
             $wp_customize->add_control(new CiCustomizeMulticheckControl(
                 $wp_customize,
@@ -397,7 +397,7 @@ function ciCustomizeRegister($wp_customize)
         array(
             'slug' => 'full_width_container',
             'type' => 'checkbox',
-            'default' => true,
+            'default' => 0,
             'label' => __('Make Pages Full-Width?', CI_TEXT_DOMAIN)
         ),
         array(
@@ -1037,7 +1037,6 @@ function ciPrintCustomColorStyling() {
 
         a, .individual-post .meta a:hover {
             color: <?php echo $splash; ?>;
-            transition: background 0.3s;
         }
         a:hover, a:focus, .employees h3 a {
             color: <?php echo ciAdjustBrightness($splash, -30) ?>;
@@ -1128,6 +1127,12 @@ function ciPrintCustomColorStyling() {
         .woocommerce #respond input#submit.alt:active, .woocommerce a.button.alt:active, .woocommerce button.button.alt:active, .woocommerce input.button.alt:active {
             top: 4px;
             box-shadow: 0 0 <?php echo ciAdjustBrightness($btn, -50); ?>;
+        }
+        button[type="submit"].search-submit:hover {
+            background-color: <?php echo ciAdjustBrightness($btn, -30) ?>;
+        }
+        button[type="submit"].search-submit:active {
+            background-color: <?php echo ciAdjustBrightness($btn, -50) ?>;
         }
 
         ul.social-list li a, .individual-post .meta a {
