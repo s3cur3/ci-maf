@@ -16,6 +16,10 @@
 
     <?php do_action('ci_styles'); ?>
 
-    <link rel="alternate" type="application/rss+xml" title="<?php echo get_bloginfo('name'); ?> Feed"
-          href="<?php echo esc_url(get_feed_link()); ?>">
+    <link rel="alternate" type="application/rss+xml" title="<?php echo get_bloginfo('name'); ?> Feed" href="<?php echo esc_url(get_feed_link()); ?>">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+
+        <script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendor/html5shiv.min.js"></script>
+        <script src="<?php echo get_template_directory_uri(); ?>/assets/js/vendor/respond.min.js"></script>
 </head>
