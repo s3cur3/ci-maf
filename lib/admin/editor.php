@@ -12,7 +12,7 @@ add_action('init', 'mlfEditorButtonHooks');
 
 
 function mlfEditorRegisterButtons( $buttons ) {
-    array_push($buttons, '|', "columns", 'columns_adv', "coloredband", 'cta', /*'practicearea', 'staff',*/ 'carousel');
+    array_push($buttons, '|', "columns", 'columns_adv', "coloredband", 'cta', 'practicearea', 'staff', 'carousel');
     return $buttons;
 }
 
@@ -25,6 +25,11 @@ function mlfEditorRegisterTinyMCEJavascript( $plugin_array ) {
     $plugin_array['editor'] = get_template_directory_uri() . "/assets/js/admin/editor.js";
     return $plugin_array;
 }
+
+
+
+
+
 
 
 

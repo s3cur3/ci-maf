@@ -67,6 +67,9 @@ html body.wp-admin div.modal.fade {
 .modal .quarter, .modal .one-quarter {
     width: 100px;
 }
+.modal .sixth, .modal .one-sixth {
+    width: 66px;
+}
 
 #optionsframework-metabox {
     padding-top: 0;
