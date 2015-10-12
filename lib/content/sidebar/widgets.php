@@ -55,10 +55,10 @@ if( !class_exists('Roots_Vcard_Widget') ) {
         );
 
         function __construct() {
-            $widget_ops = array( 'classname' => 'widget_roots_vcard', 'description' => __( 'Use this widget to add a vCard', MLF_TEXT_DOMAIN ) );
+            $widget_ops = array( 'classname' => 'widget_roots_vcard', 'description' => __( 'Use this widget to add your contact information', CI_TEXT_DOMAIN ) );
             parent::__construct(
                 'widget_roots_vcard', // Base ID
-                __( 'Roots: vCard', CI_TEXT_DOMAIN ), // Name
+                __( 'Contact Information', CI_TEXT_DOMAIN ), // Name
                 $widget_ops // Args
             );
             $this->alt_option_name = 'widget_roots_vcard';

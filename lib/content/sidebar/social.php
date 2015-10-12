@@ -183,7 +183,7 @@ class SocialMediaWidget extends WP_Widget
                    name="<?php echo $this->get_field_name('title'); ?>" type="text"
                    value="<?php echo esc_attr($title); ?>">
         <p>We'll put a link to each of your social media icons here.</p>
-        <p>(To configure which icons are shown, and which pages they link to, visit <a href="<?php echo get_site_url(); ?>/wp-admin/themes.php?page=options-framework" target="_blank">Appearance > Theme Options</a>, and click the Social Media tab.)</p>
+        <p>(To configure which icons are shown, and which pages they link to, visit <a href="customize.php" target="_blank">Appearance > Customize</a>, and click Social Media Links.)</p>
         </p>
     <?php
     }
