@@ -4,8 +4,7 @@ Template Name: All Staff (Overridden)
 */
 
 /*================================================================
- * NOTE: This file will override the Modern Brewery's default
- * "Staff" template.
+ * NOTE: This file will override the theme's default "Staff" template.
  *
  * It doesn't do anything interesting... it's just to demonstrate
  * how you might modify a stock page template.

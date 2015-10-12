@@ -1,7 +1,9 @@
 <?php
 header('Content-Type: application/json');
 
-require_once "../../../lib/appearance/googleFonts.php";
+if(file_exists("../../../lib/premium/appearance/googleFonts.php")) {
+    require_once "../../../lib/premium/appearance/googleFonts.php";
+}
 
 global $fontsJSON;
 echo $fontsJSON;

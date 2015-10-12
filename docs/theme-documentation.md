@@ -413,7 +413,7 @@ If you'd like to get your hands dirty, you can edit the theme's HTML and CSS.
 
 Instead, you should [create a Child Theme](http://codex.wordpress.org/Child_Themes) and modify *that* theme. This is the *only* way to ensure your modifications will remain when the theme is upgraded.
 
-We've included a sample, very basic child theme in the `docs` directory for you to start with. See the `brewery-child-theme` directory you find there for a very detailed guide to using your child theme.
+We've included a sample, very basic child theme in the `docs` directory for you to start with. See the `sample-child-theme` directory you find there for a very detailed guide to using your child theme.
 
 When making modifications, here's what you need to know:
 

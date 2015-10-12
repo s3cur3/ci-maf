@@ -122,3 +122,45 @@ function ciFilterUrlToDomainOnly($url) {
 function ciGetSiteDomain() {
     return ciFilterUrlToDomainOnly( home_url('/') );
 }
+
+
+
+/**
+ * A wrapper for getting settings created by the Meta Box plugin.
+ * @param $fieldID string The ID (sans our theme's prefix) of the meta value you want to retrieve.
+ *                         E.g., to get the "show page title" setting, pass in "show_page_title", not
+ *                         "mlf_show_page_title".
+ * @param $valueIfNotSet mixed Whatever you want to use as the default (in the event the
+ *                             requested key is not set for the current post/page)
+ * @param int $overridePostID Force us to look up the meta for a post with a specific ID
+ * @return mixed The stored meta value, or $valueIfNotSet
+ */
+if( !function_exists('ciGetNormalizedMeta') ) {
+    function ciGetNormalizedMeta($fieldID, $valueIfNotSet, $overridePostID = null)
+    {
+        if (function_exists('rwmb_meta')) {
+            $field = rwmb_meta(CI_THEME_PREFIX . "_{$fieldID}", array(), $overridePostID);
+            if ($field === "") {
+                $field = $valueIfNotSet;
+            }
+            return $field;
+        } else {
+            return $valueIfNotSet;
+        }
+    }
+}
+
+if( !function_exists('ciGetNormalizedMetaMultiple') ) {
+    function ciGetNormalizedMetaMultiple($fieldID, $valueIfNotSet, $overridePostID = null)
+    {
+        if (function_exists('rwmb_meta')) {
+            $field = rwmb_meta(CI_THEME_PREFIX . "_{$fieldID}", array('multiple' => true), $overridePostID);
+            if ($field === "") {
+                $field = $valueIfNotSet;
+            }
+            return $field;
+        } else {
+            return $valueIfNotSet;
+        }
+    }
+}

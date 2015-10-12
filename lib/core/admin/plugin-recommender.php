@@ -37,11 +37,6 @@ function ciRegisterRequiredPlugins() {
 
         // Include a plugin from the WordPress Plugin Repository
         array(
-            'name'     => 'Meta Box',
-            'slug'     => 'meta-box',
-            'required' => true,
-        ),
-        array(
             'name'     => 'Contact Form 7',
             'slug'     => 'contact-form-7',
             'required' => false,
@@ -69,11 +64,6 @@ function ciRegisterRequiredPlugins() {
         array(
             'name'     => 'Easy Bootstrap Shortcodes',
             'slug'     => 'easy-bootstrap-shortcodes',
-            'required' => false,
-        ),
-        array(
-            'name'     => 'Widgets on Pages',
-            'slug'     => 'widgets-on-pages',
             'required' => false,
         ),
         array(
