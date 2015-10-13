@@ -18,7 +18,7 @@ $staff = ciGetAllStaff(100, $contentLength);
                 <img class="mb0" src="<?php echo $staffMember['imgURL']; ?>" alt="<?php echo $staffMember['title']; ?>" width="<?php echo $staffMember['imgWidth']; ?>" height="<?php echo $staffMember['imgHeight']; ?>" itemprop="image">
                 </a><?php
                 if( !staffSocialURLsAreEmpty($staffMember['socialURLs']) )
-                    printSocialLinks( $staffMember['socialURLs'], 'in-staff-list' ); ?>
+                    ciPrintSocialLinks( $staffMember['socialURLs'], 'in-staff-list' ); ?>
                 </div><?php
             } ?>
             <h2><a href="<?php echo $staffMember['url']; ?>" title="<?php echo $staffMember['title']; ?>" itemprop="name"><?php echo $staffMember['title']; ?></a></h2> <?php

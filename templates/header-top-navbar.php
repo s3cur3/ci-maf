@@ -32,10 +32,13 @@ if(get_option('navbar_fixed', false)) {
         </div>
 
         <nav class="collapse navbar-collapse" role="navigation"> <?php
-            $socialInNav = get_option('social_in_nav');
             $socialHTML = "";
-            if( $socialInNav ) {
-                $socialHTML = getSocialLinks();
+            if(function_exists('ciGetSocialLinks')) {
+                $socialInNav = get_option('social_in_nav');
+                $socialHTML = "";
+                if( $socialInNav ) {
+                    $socialHTML = ciGetSocialLinks();
+                }
             }
 
             $ecommerceHTML = get_option('ecommerce', false) ? "<div class=\"cart-btn\"><a class=\"fa fa-2x fa-shopping-cart\" href=\"/cart/\"></a></div>" : "";

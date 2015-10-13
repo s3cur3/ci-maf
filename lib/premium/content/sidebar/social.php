@@ -19,8 +19,8 @@ function getSocialLink( $url, $brandStr ) {
  *                                   entries for 'facebook', 'twitter', 'google-plus', and 'linkedin'
  * @param string $additionalListClass An additional class to apply to the ul tag
  */
-function printSocialLinks( $profilesOverride=array(), $additionalListClass="" ) {
-    echo getSocialLinks($profilesOverride, $additionalListClass);
+function ciPrintSocialLinks( $profilesOverride=array(), $additionalListClass="" ) {
+    echo ciGetSocialLinks($profilesOverride, $additionalListClass);
 }
 
 /**
@@ -33,7 +33,7 @@ function printSocialLinks( $profilesOverride=array(), $additionalListClass="" ) 
  * @param string $additionalListClass An additional class to apply to the ul tag
  * @return string An unordered list of social icons
  */
-function getSocialLinks( $profilesOverride=array(), $additionalListClass="" ) {
+function ciGetSocialLinks( $profilesOverride=array(), $additionalListClass="" ) {
     $profiles = array(
         "facebook" => get_option('fb'),
         "twitter" => get_option('twitter'),
@@ -65,9 +65,9 @@ function getSocialLinks( $profilesOverride=array(), $additionalListClass="" ) {
 
 /**
  * @param int $postID The ID of the staff member "post" whose links we should look up
- * @return string[] The override profile links to use with printSocialLinks()
+ * @return string[] The override profile links to use with ciPrintSocialLinks()
  */
-function getStaffSocialURLs($postID=null) {
+function ciGetStaffSocialURLs($postID=null) {
     $arr = array(
         'facebook' => ciGetNormalizedMeta('facebook', '', $postID),
         'twitter' => ciGetNormalizedMeta('twitter', '', $postID),
@@ -96,10 +96,10 @@ function staffSocialURLsAreEmpty($arrayOfSocialURLs) {
 
 
 /**
- * @param array $urlArray The array spit out by getStaffSocialURLs()
+ * @param array $urlArray The array spit out by ciGetStaffSocialURLs()
  * @return boolean True if there are no "real" social URLs; false otherwise
  */
-function socialURLsAreEmpty( $urlArray ) {
+function ciSocialURLsAreEmpty( $urlArray ) {
     $arrayNonEmpty = false;
     foreach( $urlArray as $key => $val ) {
         if( strlen($val) > 0 ) {
@@ -114,7 +114,7 @@ function socialURLsAreEmpty( $urlArray ) {
 /**
  * Prints the <link rel="publisher"> or <link rel="author"> tags, as appropriate
  */
-function printGoogleAuthorshipLink() {
+function ciPrintGoogleAuthorshipLink() {
     // If $authorship is set to 'organization', we'll print the rel="publisher"
     // markup; similarly, if set to 'author', we'll add rel="author" to the link.
     $authorship = get_option("gplus_authorship");
@@ -125,10 +125,10 @@ function printGoogleAuthorshipLink() {
         echo "\n<link href=\"$gplus\" rel=\"publisher\" />\n";
     }
 }
-add_action( 'wp_head', 'printGoogleAuthorshipLink' );
+add_action( 'wp_head', 'ciPrintGoogleAuthorshipLink' );
 
 
-class SocialMediaWidget extends WP_Widget
+class CiSocialMediaWidget extends WP_Widget
 {
 
     /**
@@ -137,7 +137,7 @@ class SocialMediaWidget extends WP_Widget
     function __construct()
     {
         parent::__construct(
-            'SocialMediaWidget', // Base ID
+            'CiSocialMediaWidget', // Base ID
             __('Social Media Icons', CI_TEXT_DOMAIN), // Name
             array('description' => __('Displays links to your social media profiles', CI_TEXT_DOMAIN),) // Args
         );
@@ -158,7 +158,7 @@ class SocialMediaWidget extends WP_Widget
         echo $args['before_widget'];
         if (!empty($title))
             echo $args['before_title'] . $title . $args['after_title'];
-        printSocialLinks();
+        ciPrintSocialLinks();
         echo $args['after_widget'];
     }
 
@@ -209,7 +209,7 @@ class SocialMediaWidget extends WP_Widget
 
 // register Foo_Widget widget
 function register_social_widget() {
-    register_widget( 'SocialMediaWidget' );
+    register_widget( 'CiSocialMediaWidget' );
 }
 add_action( 'widgets_init', 'register_social_widget' );
 
