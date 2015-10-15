@@ -252,7 +252,7 @@ add_filter( 'rwmb_meta_boxes', 'ciRegisterMetaBoxes');
 /* Spits out the docs page */
 function ci_docs_page() { ?>
     <div id="ci-docs-page-wrap" class="wrap" style="background-color: white;">
-        <iframe src="<?php echo get_template_directory_uri(); ?>/docs/modern-brewery-theme-documentation.html" style="width:100%;height:1080px;"></iframe>
+        <iframe src="<?php echo get_template_directory_uri(); ?>/docs/theme-documentation.html" style="width:100%;height:1080px;"></iframe>
     </div> <?php
 }
 
