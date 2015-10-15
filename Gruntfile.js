@@ -48,7 +48,7 @@ module.exports = function(grunt) {
     },
     version: {
       options: {
-        file: 'lib/scripts.php',
+        file: 'lib/core/theme/scripts.php',
         css: 'assets/css/main.min.css',
         cssHandle: 'roots_main',
         js: 'assets/js/scripts.min.js',
