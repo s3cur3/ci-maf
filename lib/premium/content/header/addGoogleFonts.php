@@ -1,7 +1,7 @@
 <?php
 
-add_action('ci_meta', 'loadGoogleFonts');
-function loadGoogleFonts() {
+add_action('ci_meta', 'ciLoadGoogleFonts');
+function ciLoadGoogleFonts() {
     function filterVariants($listOfVariants) {
         $selected = array();
         if( is_array($listOfVariants) && count($listOfVariants) > 0 ) {
