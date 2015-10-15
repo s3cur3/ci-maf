@@ -161,55 +161,50 @@ function roots_theme_activation_action()
         $pages_to_create = array_diff($default_pages, $temp);
 
         foreach ($pages_to_create as $new_page_title) {
-            // TODO: Rewrite this for accounting firms!
             $home = <<<EOL
-<h2>[bg highlight]By beer lovers, for beer lovers.[/bg]</h2>
+<div class="row mt30 mb30">
+<div class="col-sm-8">
+<h1>One of New York's Oldest Accounting Firms</h1>
+For over 90 years, Sample &amp; Testing has helped clients with tax compliance, payroll, auditing, and more.
 
-[bg mb=10]From effervescent, Belgian-style saisons to the most massive, monstrous stouts...[/bg]
+We act as trusted advisors to our clients, helping them achieve their goals and set even bigger ones for the future.
 
-[bg mb=10]From cutting-edge, label-defying experimental brews to ancient recipe revivals...[/bg]
+</div>
+<div class="col-sm-4">
+<h3>News</h3>
+<ul>
+	<li><a href="#">Sample &amp; Testing recognized as a top accounting firm</a></li>
+	<li><a href="#">Another equally exciting news item here</a></li>
+	<li><a href="#">A third placeholder news item</a></li>
+	<li><a href="#">Final news item here</a></li>
+</ul>
+</div>
+</div>
+<h2>Our Practice Areas</h2>
 
-[bg mb=10]Forever Young stands for loving beer &amp; beer culture to the fullest.[/bg]
+<hr />
 
+<div class="practicearea-insert">[practiceareas max=10 columns=4 length=100 /]</div>
+<div class="inverted jumbo-band no-pad">
+<h2><a class="btn btn-primary btn-lg alignright ml15" href="#">Contact our office now!</a>Schedule a free consult.</h2>
+Our office is ready to help with your problems.
+
+</div>
+<h2>Meet Our CPAs</h2>
+
+<hr />
+
+<div class="attorneys-insert">
+
+[staff columns=4 length=0 /]
+
+</div>
 &nbsp;
+<h2>What Our Clients Say</h2>
 
-&nbsp;
+<hr />
 
-<h2>[bg highlight]Our Beers[/bg]</h2>
-
-[beers columns=6 length=0 /]
-
-&nbsp;
-
-&nbsp;
-
-<h2>[bg highlight]Our Story[/bg]</h2>
-
-[container]
-
-Here at Forever Young, we're brewers and culinarians.
-
-Our mission is simple: to produce fresh, flavorful beers using the finest local ingredients and the best of both old &amp; new brewing techniques.
-
-We want our beer to taste good, but we also want it to taste good with food. We don’t want to blow-out your palate, we want you to explore the hidden flavors and understand the complexities of the taste.
-
-We're a crazy, kooky bunch, but we work hard &amp; get the job done. At work, we try to keep our day-to-day activities light &amp; fun.
-
-Above all, we’re adventurous. We started as homebrewers, and we've never lost that sense of exploration. We hope you'll join us on our beer adventure.
-
-[/container]
-
-&nbsp;
-
-&nbsp;
-
-<h2>[bg highlight]Visit Our Taproom[/bg]</h2>
-
-[widgets_on_pages]
-
-<div class="text-center"><a class="btn btn-primary btn-lg " href="/tour/">View Our Tour Schedule</a></div>
-
-&nbsp;
+[testimonialswidget_widget random=true]
 
 &nbsp;
 EOL;
