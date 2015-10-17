@@ -1,1 +1,0 @@
-<!-- FOOTER-SHOP.PHP -->
