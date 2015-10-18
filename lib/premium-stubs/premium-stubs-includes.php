@@ -7,6 +7,11 @@ require_once 'content/google-privacy-policy.php'; // Boilerplate Google Privacy 
 require_once 'theme/activation.php'; // Upgrade notice
 
 
-
+//Initialize the update checker.
+$update_checker = new ThemeUpdateChecker(
+    'ci-modern-accounting-firm-free',
+    'http://ci-modern-accounting-firm.mystagingwebsite.com/downloads/themes/ci-modern-accounting-firm_version_metadata.json',
+    true
+);
 
 
