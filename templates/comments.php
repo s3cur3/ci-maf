@@ -5,7 +5,7 @@
 
  if (have_comments()) : ?>
   <section id="comments">
-    <h3><?php printf(_n('One Response to &ldquo;%2$s&rdquo;', '%1$s Responses to &ldquo;%2$s&rdquo;', get_comments_number(), CI_TEXT_DOMAIN), number_format_i18n(get_comments_number()), get_the_title()); ?></h3>
+    <h3><?php printf(_n('One Response to &ldquo;%2$s&rdquo;', '%1$s Responses to &ldquo;%2$s&rdquo;', get_comments_number(), 'ci-modern-accounting-firm'), number_format_i18n(get_comments_number()), get_the_title()); ?></h3>
 
     <ol class="media-list">
       <?php wp_list_comments(array('walker' => new Roots_Walker_Comment)); ?>
@@ -15,10 +15,10 @@
     <nav>
       <ul class="pager">
         <?php if (get_previous_comments_link()) : ?>
-          <li class="previous"><?php previous_comments_link(__('&larr; Older comments', CI_TEXT_DOMAIN)); ?></li>
+          <li class="previous"><?php previous_comments_link(__('&larr; Older comments', 'ci-modern-accounting-firm')); ?></li>
         <?php endif; ?>
         <?php if (get_next_comments_link()) : ?>
-          <li class="next"><?php next_comments_link(__('Newer comments &rarr;', CI_TEXT_DOMAIN)); ?></li>
+          <li class="next"><?php next_comments_link(__('Newer comments &rarr;', 'ci-modern-accounting-firm')); ?></li>
         <?php endif; ?>
       </ul>
     </nav>
@@ -26,7 +26,7 @@
 
     <?php if (!comments_open() && !is_page() && post_type_supports(get_post_type(), 'comments')) : ?>
     <div class="alert alert-warning">
-      <?php _e('Comments are closed.', CI_TEXT_DOMAIN); ?>
+      <?php _e('Comments are closed.', 'ci-modern-accounting-firm'); ?>
     </div>
     <?php endif; ?>
   </section><!-- /#comments -->
@@ -35,43 +35,43 @@
 <?php if (!have_comments() && !comments_open() && !is_page() && post_type_supports(get_post_type(), 'comments')) : ?>
   <section id="comments">
     <div class="alert alert-warning">
-      <?php _e('Comments are closed.', CI_TEXT_DOMAIN); ?>
+      <?php _e('Comments are closed.', 'ci-modern-accounting-firm'); ?>
     </div>
   </section><!-- /#comments -->
 <?php endif; ?>
 
 <?php if (comments_open()) : ?>
   <section id="respond">
-    <h3><?php comment_form_title(__('Leave a Reply', CI_TEXT_DOMAIN), __('Leave a Reply to %s', CI_TEXT_DOMAIN)); ?></h3>
+    <h3><?php comment_form_title(__('Leave a Reply', 'ci-modern-accounting-firm'), __('Leave a Reply to %s', 'ci-modern-accounting-firm')); ?></h3>
     <p class="cancel-comment-reply"><?php cancel_comment_reply_link(); ?></p>
     <?php if (get_option('comment_registration') && !is_user_logged_in()) : ?>
-      <p><?php printf(__('You must be <a href="%s">logged in</a> to post a comment.', CI_TEXT_DOMAIN), wp_login_url(get_permalink())); ?></p>
+      <p><?php printf(__('You must be <a href="%s">logged in</a> to post a comment.', 'ci-modern-accounting-firm'), wp_login_url(get_permalink())); ?></p>
     <?php else : ?>
       <form action="<?php echo get_option('siteurl'); ?>/wp-comments-post.php" method="post" id="commentform">
         <?php if (is_user_logged_in()) : ?>
           <p>
-            <?php printf(__('Logged in as <a href="%s/wp-admin/profile.php">%s</a>.', CI_TEXT_DOMAIN), get_option('siteurl'), $user_identity); ?>
-            <a href="<?php echo wp_logout_url(get_permalink()); ?>" title="<?php __('Log out of this account', CI_TEXT_DOMAIN); ?>"><?php _e('Log out &raquo;', CI_TEXT_DOMAIN); ?></a>
+            <?php printf(__('Logged in as <a href="%s/wp-admin/profile.php">%s</a>.', 'ci-modern-accounting-firm'), get_option('siteurl'), $user_identity); ?>
+            <a href="<?php echo wp_logout_url(get_permalink()); ?>" title="<?php __('Log out of this account', 'ci-modern-accounting-firm'); ?>"><?php _e('Log out &raquo;', 'ci-modern-accounting-firm'); ?></a>
           </p>
         <?php else : ?>
           <div class="form-group">
-            <label for="author"><?php _e('Name', CI_TEXT_DOMAIN); if ($req) _e(' (required)', CI_TEXT_DOMAIN); ?></label>
+            <label for="author"><?php _e('Name', 'ci-modern-accounting-firm'); if ($req) _e(' (required)', 'ci-modern-accounting-firm'); ?></label>
             <input type="text" class="form-control" name="author" id="author" value="<?php echo esc_attr($comment_author); ?>" size="22" <?php if ($req) echo 'aria-required="true"'; ?>>
           </div>
           <div class="form-group">
-            <label for="email"><?php _e('Email (will not be published)', CI_TEXT_DOMAIN); if ($req) _e(' (required)', CI_TEXT_DOMAIN); ?></label>
+            <label for="email"><?php _e('Email (will not be published)', 'ci-modern-accounting-firm'); if ($req) _e(' (required)', 'ci-modern-accounting-firm'); ?></label>
             <input type="email" class="form-control" name="email" id="email" value="<?php echo esc_attr($comment_author_email); ?>" size="22" <?php if ($req) echo 'aria-required="true"'; ?>>
           </div>
           <div class="form-group">
-            <label for="url"><?php _e('Website', CI_TEXT_DOMAIN); ?></label>
+            <label for="url"><?php _e('Website', 'ci-modern-accounting-firm'); ?></label>
             <input type="url" class="form-control" name="url" id="url" value="<?php echo esc_attr($comment_author_url); ?>" size="22">
           </div>
         <?php endif; ?>
         <div class="form-group">
-          <label for="comment"><?php _e('Comment', CI_TEXT_DOMAIN); ?></label>
+          <label for="comment"><?php _e('Comment', 'ci-modern-accounting-firm'); ?></label>
           <textarea name="comment" id="comment" class="form-control" rows="5" aria-required="true"></textarea>
         </div>
-        <p><input name="submit" class="btn btn-primary" type="submit" id="submit" value="<?php _e('Submit Comment', CI_TEXT_DOMAIN); ?>"></p>
+        <p><input name="submit" class="btn btn-primary" type="submit" id="submit" value="<?php _e('Submit Comment', 'ci-modern-accounting-firm'); ?>"></p>
         <?php comment_id_fields(); ?>
         <?php do_action('comment_form', $post->ID); ?>
       </form>

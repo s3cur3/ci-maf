@@ -51,8 +51,8 @@ class CiSocialMediaWidget extends WP_Widget
     {
         parent::__construct(
             'CiSocialMediaWidget', // Base ID
-            __('Social Media Icons', CI_TEXT_DOMAIN), // Name
-            array('description' => __('Displays links to your social media profiles', CI_TEXT_DOMAIN),) // Args
+            __('Social Media Icons', 'ci-modern-accounting-firm'), // Name
+            array('description' => __('Displays links to your social media profiles', 'ci-modern-accounting-firm'),) // Args
         );
     }
 
@@ -91,7 +91,7 @@ class CiSocialMediaWidget extends WP_Widget
         }
         ?>
         <p>
-            <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:', CI_TEXT_DOMAIN); ?></label>
+            <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:', 'ci-modern-accounting-firm'); ?></label>
             <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>"
                    name="<?php echo $this->get_field_name('title'); ?>" type="text"
                    value="<?php echo esc_attr($title); ?>">

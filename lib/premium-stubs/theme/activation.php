@@ -14,17 +14,17 @@ function ciUpgradeAdminNotice() {
         // if it's past the window where we try not to annoy the user
         if(get_option('ci_do_deferred_admin_notices_after', 0) > current_time('timestamp')) { ?>
             <div id="ci-upgrade-notice" class="updated">
-                <p><?php printf(__('Upgrade to <a href="%1$s">the premium version</a> of this theme to get instant access to tons of powerful new features, including:', CI_TEXT_DOMAIN), CI_THEME_BUY_URL); ?></p>
+                <p><?php printf(__('Upgrade to <a href="%1$s">the premium version</a> of this theme to get instant access to tons of powerful new features, including:', 'ci-modern-accounting-firm'), CI_THEME_BUY_URL); ?></p>
                 <ul>
-                    <li><?php _e('9 professional, fully customizable color themes,', CI_TEXT_DOMAIN) ?></li>
-                    <li><?php _e('600+ free fonts from <a href="https://www.google.com/fonts" target="_blank">Google Fonts</a>,', CI_TEXT_DOMAIN) ?></li>
-                    <li><?php _e('new page layout options,', CI_TEXT_DOMAIN) ?></li>
-                    <li><?php _e('integration with your social media accounts,', CI_TEXT_DOMAIN) ?></li>
-                    <li><?php _e('and much more.', CI_TEXT_DOMAIN) ?></li>
+                    <li><?php _e('9 professional, fully customizable color themes,', 'ci-modern-accounting-firm') ?></li>
+                    <li><?php _e('600+ free fonts from <a href="https://www.google.com/fonts" target="_blank">Google Fonts</a>,', 'ci-modern-accounting-firm') ?></li>
+                    <li><?php _e('new page layout options,', 'ci-modern-accounting-firm') ?></li>
+                    <li><?php _e('integration with your social media accounts,', 'ci-modern-accounting-firm') ?></li>
+                    <li><?php _e('and much more.', 'ci-modern-accounting-firm') ?></li>
                 </ul>
-                <p><?php printf(__('Don&rsquo;t worry&mdash;you won&rsquo;t lose any of your previous work when you upgrade!', CI_TEXT_DOMAIN), CI_THEME_BUY_URL); ?></p>
-                <a href="<?php echo CI_THEME_BUY_URL; ?>"><?php _e('Upgrade to the Premium Version Now', CI_TEXT_DOMAIN); ?></a>
-                <a href="?ci_upgrade_nag_ignore=0" class="notice-dismiss"><span class="screen-reader-text"><?php _e('No thanks, the free version is all I need', CI_TEXT_DOMAIN); ?></span></a>
+                <p><?php printf(__('Don&rsquo;t worry&mdash;you won&rsquo;t lose any of your previous work when you upgrade!', 'ci-modern-accounting-firm'), CI_THEME_BUY_URL); ?></p>
+                <a href="<?php echo CI_THEME_BUY_URL; ?>"><?php _e('Upgrade to the Premium Version Now', 'ci-modern-accounting-firm'); ?></a>
+                <a href="?ci_upgrade_nag_ignore=0" class="notice-dismiss"><span class="screen-reader-text"><?php _e('No thanks, the free version is all I need', 'ci-modern-accounting-firm'); ?></span></a>
             </div> <?php
         }
     }

@@ -1,12 +1,12 @@
 <?php echo get_avatar($comment, $size = '64'); ?>
 <div class="media-body">
   <h4 class="media-heading"><?php echo get_comment_author_link(); ?></h4>
-  <time datetime="<?php echo comment_date('c'); ?>"><a href="<?php echo htmlspecialchars(get_comment_link($comment->comment_ID)); ?>"><?php printf(__('%1$s', CI_TEXT_DOMAIN), get_comment_date(),  get_comment_time()); ?></a></time>
-  <?php edit_comment_link(__('(Edit)', CI_TEXT_DOMAIN), '', ''); ?>
+  <time datetime="<?php echo comment_date('c'); ?>"><a href="<?php echo htmlspecialchars(get_comment_link($comment->comment_ID)); ?>"><?php printf(__('%1$s', 'ci-modern-accounting-firm'), get_comment_date(),  get_comment_time()); ?></a></time>
+  <?php edit_comment_link(__('(Edit)', 'ci-modern-accounting-firm'), '', ''); ?>
 
   <?php if ($comment->comment_approved == '0') : ?>
     <div class="alert alert-info">
-      <?php _e('Your comment is awaiting moderation.', CI_TEXT_DOMAIN); ?>
+      <?php _e('Your comment is awaiting moderation.', 'ci-modern-accounting-firm'); ?>
     </div>
   <?php endif; ?>
 

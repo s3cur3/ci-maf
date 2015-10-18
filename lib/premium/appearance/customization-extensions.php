@@ -43,67 +43,67 @@ function ciDisplayFontCustomizationOptions($wp_customize) {
     );
 
     $wp_customize->add_panel('fonts', array(
-        'title' => __('Fonts', CI_TEXT_DOMAIN),
-        'description' => __('<p>Here, you can use just about any font you find in the <a href="http://www.google.com/fonts/" target="_blank">Google Fonts directory</a>.</p><p><strong>NOTE</strong>: It is recommended that you use a maximum of two to three fonts. More fonts will slow down page loads and generally look less professional.</p>', CI_TEXT_DOMAIN),
+        'title' => __('Fonts', 'ci-modern-accounting-firm'),
+        'description' => __('<p>Here, you can use just about any font you find in the <a href="http://www.google.com/fonts/" target="_blank">Google Fonts directory</a>.</p><p><strong>NOTE</strong>: It is recommended that you use a maximum of two to three fonts. More fonts will slow down page loads and generally look less professional.</p>', 'ci-modern-accounting-firm'),
         'priority' => 40
     ));
-    $wp_customize->add_section('fonts-titles', array('title' => __('Page Title (H1) Font', CI_TEXT_DOMAIN), 'panel' => 'fonts'));
+    $wp_customize->add_section('fonts-titles', array('title' => __('Page Title (H1) Font', 'ci-modern-accounting-firm'), 'panel' => 'fonts'));
     ciAddCustomizationsToSection($wp_customize, $titleFontOptions, 'fonts-titles');
-    $wp_customize->add_section('fonts-headings', array('title' => __('Headings (H2, H3, H4) Font', CI_TEXT_DOMAIN), 'panel' => 'fonts'));
+    $wp_customize->add_section('fonts-headings', array('title' => __('Headings (H2, H3, H4) Font', 'ci-modern-accounting-firm'), 'panel' => 'fonts'));
     ciAddCustomizationsToSection($wp_customize, $headingFontOptions, 'fonts-headings');
-    $wp_customize->add_section('fonts-body', array('title' => __('Body Font', CI_TEXT_DOMAIN), 'panel' => 'fonts'));
+    $wp_customize->add_section('fonts-body', array('title' => __('Body Font', 'ci-modern-accounting-firm'), 'panel' => 'fonts'));
     ciAddCustomizationsToSection($wp_customize, $bodyFontOptions, 'fonts-body');
-    $wp_customize->add_section('fonts-widgets', array('title' => __('Widget Title Font', CI_TEXT_DOMAIN), 'panel' => 'fonts'));
+    $wp_customize->add_section('fonts-widgets', array('title' => __('Widget Title Font', 'ci-modern-accounting-firm'), 'panel' => 'fonts'));
     ciAddCustomizationsToSection($wp_customize, $widgetFontOptions, 'fonts-widgets');
-    $wp_customize->add_section('fonts-menu', array('title' => __('Menu Font', CI_TEXT_DOMAIN), 'panel' => 'fonts'));
+    $wp_customize->add_section('fonts-menu', array('title' => __('Menu Font', 'ci-modern-accounting-firm'), 'panel' => 'fonts'));
     ciAddCustomizationsToSection($wp_customize, $menuFontOptions, 'fonts-menu');
 }
 
 function ciGetSocialCustomizationOptions() {
     return array(
         array(
-            'label' => __('Facebook URL', CI_TEXT_DOMAIN),
-            'description' => __('URL for your company\'s Facebook page. <br>(To hide the Facebook icon, leave this blank.)', CI_TEXT_DOMAIN),
+            'label' => __('Facebook URL', 'ci-modern-accounting-firm'),
+            'description' => __('URL for your company\'s Facebook page. <br>(To hide the Facebook icon, leave this blank.)', 'ci-modern-accounting-firm'),
             'slug' => 'fb',
             'placeholder' => 'http://facebook.com/',
             'type' => 'text'
         ),
         array(
-            'label' => __('Twitter URL', CI_TEXT_DOMAIN),
-            'description' => __('URL for your company\'s Twitter page. <br />(To hide the Twitter icon, leave this blank.)', CI_TEXT_DOMAIN),
+            'label' => __('Twitter URL', 'ci-modern-accounting-firm'),
+            'description' => __('URL for your company\'s Twitter page. <br />(To hide the Twitter icon, leave this blank.)', 'ci-modern-accounting-firm'),
             'slug' => 'twitter',
             'placeholder' => 'https://twitter.com/',
             'type' => 'text'
         ),
         array(
-            'label' => __('LinkedIn URL', CI_TEXT_DOMAIN),
-            'description' => __('URL for your company\'s LinkedIn page. <br />(To hide the LinkedIn icon, leave this blank.)', CI_TEXT_DOMAIN),
+            'label' => __('LinkedIn URL', 'ci-modern-accounting-firm'),
+            'description' => __('URL for your company\'s LinkedIn page. <br />(To hide the LinkedIn icon, leave this blank.)', 'ci-modern-accounting-firm'),
             'slug' => 'linkedin',
             'placeholder' => 'http://www.linkedin.com/in/',
             'type' => 'text'
         ),
         array(
-            'label' => __('Google+ URL', CI_TEXT_DOMAIN),
-            'description' => __('URL for your company\'s Google+ page. <br />(To hide the Google+ icon, leave this blank.)', CI_TEXT_DOMAIN),
+            'label' => __('Google+ URL', 'ci-modern-accounting-firm'),
+            'description' => __('URL for your company\'s Google+ page. <br />(To hide the Google+ icon, leave this blank.)', 'ci-modern-accounting-firm'),
             'slug' => 'gplus',
             'placeholder' => 'https://plus.google.com/',
             'type' => 'text'
         ),
         array(
-            'label' => __('Google+ link is to: ', CI_TEXT_DOMAIN),
-            'description' => __('If you like, you can associate all pages of your site with an individual author or your organization. (<a href="http://www.searchenginejournal.com/claiming-google-authorship-and-publisher-markup-for-seo/61263/" target="_blank">More info</a>)', CI_TEXT_DOMAIN),
+            'label' => __('Google+ link is to: ', 'ci-modern-accounting-firm'),
+            'description' => __('If you like, you can associate all pages of your site with an individual author or your organization. (<a href="http://www.searchenginejournal.com/claiming-google-authorship-and-publisher-markup-for-seo/61263/" target="_blank">More info</a>)', 'ci-modern-accounting-firm'),
             'slug' => 'gplus_authorship',
             'default' => 'organization',
             'type' => 'select',
             'options' => $test_array = array(
-                'author' => __('The site\'s primary "author"', CI_TEXT_DOMAIN),
-                'organization' => __('Your company', CI_TEXT_DOMAIN),
-                'none' => __('None', CI_TEXT_DOMAIN)
+                'author' => __('The site\'s primary "author"', 'ci-modern-accounting-firm'),
+                'organization' => __('Your company', 'ci-modern-accounting-firm'),
+                'none' => __('None', 'ci-modern-accounting-firm')
             )
         ),
         array(
-            'label' => __('Display social media icons in full color?', CI_TEXT_DOMAIN),
-            'description' => __('', CI_TEXT_DOMAIN),
+            'label' => __('Display social media icons in full color?', 'ci-modern-accounting-firm'),
+            'description' => __('', 'ci-modern-accounting-firm'),
             'slug' => 'social_icons_full_color',
             'default' => false,
             'type' => 'select',
@@ -120,15 +120,15 @@ function ciGetFullWidthContainerOption() {
         'slug' => 'full_width_container',
         'type' => 'checkbox',
         'default' => 0,
-        'label' => __('Make Pages Full-Width?', CI_TEXT_DOMAIN)
+        'label' => __('Make Pages Full-Width?', 'ci-modern-accounting-firm')
     );
 }
 
 function ciGetColorThemeOption() {
     $colorPath = get_template_directory_uri() . '/assets/img/colors/';
     return array(
-        'label' => __("Color Theme", CI_TEXT_DOMAIN),
-        'description' => __("By default, we use a light blue-and-charcoal color theme. You can select a different theme here. <strong>NOTE</strong>: Your settings below will override this.", CI_TEXT_DOMAIN),
+        'label' => __("Color Theme", 'ci-modern-accounting-firm'),
+        'description' => __("By default, we use a light blue-and-charcoal color theme. You can select a different theme here. <strong>NOTE</strong>: Your settings below will override this.", 'ci-modern-accounting-firm'),
         'slug' => "color_theme",
         'default' => "blue_charcoal",
         'type' => "radio-images",
