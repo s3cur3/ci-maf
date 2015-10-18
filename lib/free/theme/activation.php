@@ -164,10 +164,10 @@ function roots_theme_activation_action()
             $home = <<<EOL
 <div class="row mt30 mb30">
 <div class="col-sm-8">
-<h1>One of New York's Oldest Accounting Firms</h1>
+<h1>One of New York's Oldest Accounting Firms</h1>
 For over 90 years, Sample &amp; Testing has helped clients with tax compliance, payroll, auditing, and more.
 
-We act as trusted advisors to our clients, helping them achieve their goals and set even bigger ones for the future.
+We act as trusted advisors to our clients, helping them achieve their goals and set even bigger ones for the future.
 
 </div>
 <div class="col-sm-4">
@@ -196,7 +196,7 @@ Our office is ready to help with your problems.
 
 <div class="attorneys-insert">
 
-[staff columns=4 length=0 /]
+[staff columns=4 length=0 /]
 
 </div>
 &nbsp;
@@ -211,14 +211,14 @@ EOL;
 
 
 
-            $add_default_pages = array(
+            $defaultPgToAdd = array(
                 'post_title' => $new_page_title,
                 'post_content' => $home,
                 'post_status' => 'publish',
                 'post_type' => 'page'
             );
 
-            $result = wp_insert_post($add_default_pages);
+            $result = wp_insert_post($defaultPgToAdd);
         }
 
         $home = get_page_by_title('Home');

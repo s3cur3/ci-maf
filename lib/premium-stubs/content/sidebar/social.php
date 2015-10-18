@@ -87,7 +87,7 @@ class CiSocialMediaWidget extends WP_Widget
         if (isset($instance['title'])) {
             $title = $instance['title'];
         } else {
-            $title = __('Connect with Us', 'text_domain');
+            $title = __('Connect with Us', 'ci-modern-accounting-firm');
         }
         ?>
         <p>
