@@ -57,6 +57,9 @@ if(get_option('mlf_demo_site', false)) { ?>
             padding-bottom: 3px;
             width: 100%;
         }
+        #frontend-color-picker a {
+            font-size: 0.8em;
+        }
         #frontend-color-picker .input {
             margin-bottom: 25px;
         }
@@ -120,6 +123,12 @@ if(get_option('mlf_demo_site', false)) { ?>
                 $urlWithColor = $url . "?color=" . $color;
                 echo "<li><a href=\"{$urlWithColor}\" class=\"no-color-link\"><img src=\"{$imgURL}\" alt=\"{$color}\"></a></li>";
             } ?>
+        </ul>
+        <br style="clear: both">
+        <h4 style="margin-top: 20px;">Get the Theme</h4>
+        <ul class="no-bullet">
+            <li><a href="http://conversioninsights.net/modern-accounting-firm-premium/">Download the Free Version</a></li>
+            <li><a href="http://conversioninsights.net/free-wordpress-themes-for-accounting-firms/">Buy the Premium Version</a></li>
         </ul>
     </div>
     <div id="imgPreload">
