@@ -256,10 +256,21 @@ if(class_exists('WP_Customize_Control')) {
     }
 }
 
+function ciReturnTrue($ignored="") { return true; }
+function ciSanitizeBool($bool) { return $bool == "0" || $bool == "1" || $bool == true || $bool == false || $bool == "true" || $bool == "false"; }
+
 function ciAddCustomizationsToSection($wp_customize, $optionsArray, $sectionSlug) {
     foreach($optionsArray as $option) {
-        $wp_customize->add_setting($option['slug'], array('default' => $option['default'], 'type' => 'option', 'capability' => 'edit_theme_options'));
+        // Add the setting (under the hood)
+        $sanitizeFunction = 'ciReturnTrue';
+        if($option['type'] == 'checkbox') {
+            $sanitizeFunction = 'ciSanitizeBool';
+        } elseif($option['type'] == 'text' || $option['type'] == 'textarea' || $option['type'] == 'editor' || $option['type'] == 'heading' || $option['type'] == 'info') {
+            $sanitizeFunction = 'esc_textarea';
+        }
+        $wp_customize->add_setting($option['slug'], array('default' => $option['default'], 'type' => 'option', 'capability' => 'edit_theme_options', 'sanitize_callback' => $sanitizeFunction));
 
+        // Add the control itself to the page
         if($option['type'] == 'color') {
             $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $option['slug'], array('label' => $option['label'], 'section' => $sectionSlug, 'settings' => $option['slug'], 'description' => $option['description'])));
         } elseif($option['type'] == 'checkbox') {
