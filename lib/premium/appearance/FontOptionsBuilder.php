@@ -31,8 +31,8 @@ class FontOptionsBuilder {
      */
     public function getFontFamilySelect($slug, $default="Open+Sans") {
         return array(
-            'label' => __("Font Family", CI_TEXT_DOMAIN),
-            'description' => __("Hint: click on this massive drop-down list, then type the first character of the font name you're looking for", CI_TEXT_DOMAIN),
+            'label' => __("Font Family", 'ci-modern-accounting-firm'),
+            'description' => __("Hint: click on this massive drop-down list, then type the first character of the font name you're looking for", 'ci-modern-accounting-firm'),
             'slug' => $slug,
             'default' => $default,
             'type' => "select",
@@ -47,8 +47,8 @@ class FontOptionsBuilder {
      */
     public function getWeightOption($slug, $default="400") {
         return array(
-            'label' => __("Default Font Weight", CI_TEXT_DOMAIN),
-            'description' => __("Note: you shouldn't ask browsers to use a weight that isn't available; the results aren't pretty.", CI_TEXT_DOMAIN),
+            'label' => __("Default Font Weight", 'ci-modern-accounting-firm'),
+            'description' => __("Note: you shouldn't ask browsers to use a weight that isn't available; the results aren't pretty.", 'ci-modern-accounting-firm'),
             'slug' => $slug,
             'default' => $default,
             'type' => "select",
@@ -73,8 +73,8 @@ class FontOptionsBuilder {
      */
     public function getFallbackOption($slug, $default="sans-serif") {
         return array(
-            'label' => __("Fallback Fonts", CI_TEXT_DOMAIN),
-            'description' => __("If the selected font isn't available, this comma-separated list will be used instead.", CI_TEXT_DOMAIN),
+            'label' => __("Fallback Fonts", 'ci-modern-accounting-firm'),
+            'description' => __("If the selected font isn't available, this comma-separated list will be used instead.", 'ci-modern-accounting-firm'),
             'slug' => $slug,
             'default' => $default,
             'type' => "text"
@@ -83,7 +83,7 @@ class FontOptionsBuilder {
 
     public function getFontFamilyVariants($slug, $default=null) {
         return array(
-            'label' => __("Font Variants to Make Available", CI_TEXT_DOMAIN),
+            'label' => __("Font Variants to Make Available", 'ci-modern-accounting-firm'),
             'slug' => $slug,
             'default' => $default,
             'type' => "multicheck",

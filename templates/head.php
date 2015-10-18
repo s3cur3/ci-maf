@@ -3,11 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <?php if(is_post_type_archive(CI_STAFF_TYPE)) { ?>
-        <title><?php post_type_archive_title('All ', true); ?> | <?php bloginfo('name'); ?></title>
-    <?php } else { ?>
-        <title><?php wp_title('|', true, 'right'); ?></title>
-    <?php } ?>
+    <title><?php wp_title('|', true, 'right'); ?></title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php do_action('ci_meta'); ?>

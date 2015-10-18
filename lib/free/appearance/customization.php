@@ -256,10 +256,21 @@ if(class_exists('WP_Customize_Control')) {
     }
 }
 
+function ciReturnTrue($ignored="") { return true; }
+function ciSanitizeBool($bool) { return $bool == "0" || $bool == "1" || $bool == true || $bool == false || $bool == "true" || $bool == "false"; }
+
 function ciAddCustomizationsToSection($wp_customize, $optionsArray, $sectionSlug) {
     foreach($optionsArray as $option) {
-        $wp_customize->add_setting($option['slug'], array('default' => $option['default'], 'type' => 'option', 'capability' => 'edit_theme_options'));
+        // Add the setting (under the hood)
+        $sanitizeFunction = 'ciReturnTrue';
+        if($option['type'] == 'checkbox') {
+            $sanitizeFunction = 'ciSanitizeBool';
+        } elseif($option['type'] == 'text' || $option['type'] == 'textarea' || $option['type'] == 'editor' || $option['type'] == 'heading' || $option['type'] == 'info') {
+            $sanitizeFunction = 'esc_textarea';
+        }
+        $wp_customize->add_setting($option['slug'], array('default' => $option['default'], 'type' => 'option', 'capability' => 'edit_theme_options', 'sanitize_callback' => $sanitizeFunction));
 
+        // Add the control itself to the page
         if($option['type'] == 'color') {
             $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $option['slug'], array('label' => $option['label'], 'section' => $sectionSlug, 'settings' => $option['slug'], 'description' => $option['description'])));
         } elseif($option['type'] == 'checkbox') {
@@ -394,35 +405,35 @@ function ciCustomizeRegister($wp_customize)
             'slug' => 'style',
             'type' => 'radio',
             'default' => CI_STYLE_CLEAN,
-            'label' => __('Theme Style', CI_TEXT_DOMAIN),
+            'label' => __('Theme Style', 'ci-modern-accounting-firm'),
             'options' => array(
-                CI_STYLE_CLEAN => __("Clean Lines", CI_TEXT_DOMAIN),
-                CI_STYLE_ROUNDED => __("Rounded Corners", CI_TEXT_DOMAIN)
+                CI_STYLE_CLEAN => __("Clean Lines", 'ci-modern-accounting-firm'),
+                CI_STYLE_ROUNDED => __("Rounded Corners", 'ci-modern-accounting-firm')
             )
         ),*/
         ciGetFullWidthContainerOption(),
         array(
             'slug' => 'full_screen_image_bg',
             'type' => 'image',
-            'label' => __('Full-Screen Background Image', CI_TEXT_DOMAIN)
+            'label' => __('Full-Screen Background Image', 'ci-modern-accounting-firm')
         ),
         array(
-            'label' => __("Body Background Pattern", CI_TEXT_DOMAIN),
-            'description' => __("To use a subtle pattern (from subtlepatterns.com) as the background to the pages (instead of a flat, solid color or an image), select a pattern here.", CI_TEXT_DOMAIN),
+            'label' => __("Body Background Pattern", 'ci-modern-accounting-firm'),
+            'description' => __("To use a subtle pattern (from subtlepatterns.com) as the background to the pages (instead of a flat, solid color or an image), select a pattern here.", 'ci-modern-accounting-firm'),
             'slug' => "pattern_bg",
             'default' => "none",
             'type' => "radio-images",
             'options' => $subtlePatterns
         ),
         array(
-            'label' => __('Enable demo mode?', CI_TEXT_DOMAIN),
-            'description' => __('If checked, we will display the theme selector on every page. You probably do not want to do this.', CI_TEXT_DOMAIN),
+            'label' => __('Enable demo mode?', 'ci-modern-accounting-firm'),
+            'description' => __('If checked, we will display the theme selector on every page. You probably do not want to do this.', 'ci-modern-accounting-firm'),
             'slug' => 'mlf_demo_site',
             'default' => false,
             'type' => 'checkbox'
         )
     );
-    $wp_customize->add_section('page_setup', array('title' => __('Page Setup', CI_TEXT_DOMAIN), 'priority' => 0,));
+    $wp_customize->add_section('page_setup', array('title' => __('Page Setup', 'ci-modern-accounting-firm'), 'priority' => 0,));
     ciAddCustomizationsToSection($wp_customize, $pageSetupOptions, 'page_setup');
 
 
@@ -438,57 +449,57 @@ function ciCustomizeRegister($wp_customize)
         array(
             'slug' => 'social_in_nav',
             'default' => false,
-            'label' => __('Show social media icons to the right of the nav bar?', CI_TEXT_DOMAIN),
+            'label' => __('Show social media icons to the right of the nav bar?', 'ci-modern-accounting-firm'),
             'type' => 'checkbox'
         ),
         array(
-            'label' => __('Additional "menu" text', CI_TEXT_DOMAIN),
-            'description' => __('This will appear to the far right of the navigation menu. Example: Call us at (123) 456-7890', CI_TEXT_DOMAIN),
+            'label' => __('Additional "menu" text', 'ci-modern-accounting-firm'),
+            'description' => __('This will appear to the far right of the navigation menu. Example: Call us at (123) 456-7890', 'ci-modern-accounting-firm'),
             'slug' => 'additional_menu_text',
             'type' => 'text'
         ),
         array(
             'slug' => 'navbar_fixed',
             'default' => false,
-            'label' => __('Fix navigation bar to top of screen?', CI_TEXT_DOMAIN),
+            'label' => __('Fix navigation bar to top of screen?', 'ci-modern-accounting-firm'),
             'type' => 'checkbox'
         ),
         array(
             'slug' => 'header_link_size',
             'default' => '100',
-            'label' => __('Nav Menu Text Size (percent)', CI_TEXT_DOMAIN),
+            'label' => __('Nav Menu Text Size (percent)', 'ci-modern-accounting-firm'),
             'type' => 'text'
         ),
         array(
             'slug' => 'company_logo',
-            'label' => __('Company Logo', CI_TEXT_DOMAIN),
+            'label' => __('Company Logo', 'ci-modern-accounting-firm'),
             'type' => 'image'
         ),
         array(
             'slug' => 'svg_logo',
-            'label' => __('Company Logo (SVG Version, used only on supported browsers)', CI_TEXT_DOMAIN),
+            'label' => __('Company Logo (SVG Version, used only on supported browsers)', 'ci-modern-accounting-firm'),
             'type' => 'image'
         ),
         array(
             'slug' => 'logo_width',
             'default' => '',
-            'label' => __('Width to display logo (px)', CI_TEXT_DOMAIN),
+            'label' => __('Width to display logo (px)', 'ci-modern-accounting-firm'),
             'type' => 'text'
         ),
         array(
             'slug' => 'logo_height',
             'default' => '',
-            'label' => __('Height to display logo (px)', CI_TEXT_DOMAIN),
+            'label' => __('Height to display logo (px)', 'ci-modern-accounting-firm'),
             'type' => 'text'
         ),
         array(
             'slug' => 'logo_top_padding',
             'default' => '24',
-            'label' => __('Top padding for logo (px)', CI_TEXT_DOMAIN),
+            'label' => __('Top padding for logo (px)', 'ci-modern-accounting-firm'),
             'type' => 'text'
         )
     );
-    $wp_customize->add_section('header', array('title' => __('Header', CI_TEXT_DOMAIN), 'description' => __('Configure your logo, the navigation menu, and other items in the site-wide header.', CI_TEXT_DOMAIN), 'priority' => 0,));
+    $wp_customize->add_section('header', array('title' => __('Header', 'ci-modern-accounting-firm'), 'description' => __('Configure your logo, the navigation menu, and other items in the site-wide header.', 'ci-modern-accounting-firm'), 'priority' => 0,));
     ciAddCustomizationsToSection($wp_customize, $headerOption, 'header');
 
 
@@ -500,48 +511,48 @@ function ciCustomizeRegister($wp_customize)
         array(
             'type' => 'heading',
             'slug' => 'body_colors_heading',
-            'label' => __('Body Colors', CI_TEXT_DOMAIN)
+            'label' => __('Body Colors', 'ci-modern-accounting-firm')
         ),
         array(
             'slug' => 'splash_color',
             'default' => $defaultColors['splash_color'],
             'type' => 'color',
-            'label' => __('Link Color', CI_TEXT_DOMAIN)
+            'label' => __('Link Color', 'ci-modern-accounting-firm')
         ),
         array(
             'slug' => 'button_color',
             'default' => $defaultColors['button_color'],
             'type' => 'color',
-            'label' => __('Button Color', CI_TEXT_DOMAIN)
+            'label' => __('Button Color', 'ci-modern-accounting-firm')
         ),
         array(
             'slug' => 'page_title_color',
             'default' => $defaultColors['page_title_color'],
             'type' => 'color',
-            'label' => __('Page Title Color', CI_TEXT_DOMAIN)
+            'label' => __('Page Title Color', 'ci-modern-accounting-firm')
         ),
         array(
             'slug' => 'heading_color',
             'default' => $defaultColors['heading_color'],
             'type' => 'color',
-            'label' => __('Level 2 Heading Color', CI_TEXT_DOMAIN)
+            'label' => __('Level 2 Heading Color', 'ci-modern-accounting-firm')
         ),
         array(
             'slug' => 'background_color',
             'default' => $defaultColors['background_color'],
             'type' => 'color',
-            'label' => __('Background Color', CI_TEXT_DOMAIN)
+            'label' => __('Background Color', 'ci-modern-accounting-firm')
         ),
         array(
             'slug' => 'secondary_background_color',
             'default' => $defaultColors['secondary_background_color'],
             'type' => 'color',
-            'label' => __('Secondary Background Color', CI_TEXT_DOMAIN)
+            'label' => __('Secondary Background Color', 'ci-modern-accounting-firm')
         ),
         array(
             'slug' => 'copyright_text_color',
             'default' => '#333333',
-            'label' => __('Footer copyright notice text color', CI_TEXT_DOMAIN),
+            'label' => __('Footer copyright notice text color', 'ci-modern-accounting-firm'),
             'type' => 'color'
         ),
 
@@ -552,43 +563,43 @@ function ciCustomizeRegister($wp_customize)
         array(
             'type' => 'heading',
             'slug' => 'header_colors_heading',
-            'label' => __('Header Colors', CI_TEXT_DOMAIN)
+            'label' => __('Header Colors', 'ci-modern-accounting-firm')
         ),
         array(
             'slug' => 'firm_name_color',
             'default' => $defaultColors['firm_name_color'],
-            'label' => __('Company Name Color', CI_TEXT_DOMAIN),
+            'label' => __('Company Name Color', 'ci-modern-accounting-firm'),
             'type' => 'color'
         ),
         array(
             'slug' => 'header_text_color',
             'default' => $defaultColors['header_text_color'],
-            'label' => __('Nav Menu Text Color', CI_TEXT_DOMAIN),
+            'label' => __('Nav Menu Text Color', 'ci-modern-accounting-firm'),
             'type' => 'color'
         ),
         array(
             'slug' => 'header_highlight_color',
             'default' => $defaultColors['header_highlight_color'],
-            'label' => __('Nav Menu Highlight ("You Are Here") Color', CI_TEXT_DOMAIN),
+            'label' => __('Nav Menu Highlight ("You Are Here") Color', 'ci-modern-accounting-firm'),
             'type' => 'color'
         ),
         array(
             'slug' => 'header_hover_color',
             'default' => $defaultColors['header_hover_color'],
-            'label' => __('Nav Menu Hover Color', CI_TEXT_DOMAIN),
+            'label' => __('Nav Menu Hover Color', 'ci-modern-accounting-firm'),
             'type' => 'color'
         ),
         array(
             'slug' => 'header_bg_color',
             'default' => $defaultColors['header_bg_color'],
-            'label' => __('Nav Menu Background Color', CI_TEXT_DOMAIN),
+            'label' => __('Nav Menu Background Color', 'ci-modern-accounting-firm'),
             'type' => 'color'
         ),
         array(
 
             'slug' => 'header_link_bg_is_solid',
             'default' => true,
-            'label' => __('Active Menu Item Has Solid Background?', CI_TEXT_DOMAIN),
+            'label' => __('Active Menu Item Has Solid Background?', 'ci-modern-accounting-firm'),
             'type' => 'checkbox'
         ),
         array(
@@ -598,31 +609,31 @@ function ciCustomizeRegister($wp_customize)
         array(
             'type' => 'heading',
             'slug' => 'fancy_landing_page_colors_heading',
-            'label' => __('Fancy Landing Page Colors', CI_TEXT_DOMAIN)
+            'label' => __('Fancy Landing Page Colors', 'ci-modern-accounting-firm')
         ),
         array(
             'slug' => 'fancy_landing_text_color',
             'default' => "#ffffff",
             'type' => 'color',
-            'label' => __('Text Color', CI_TEXT_DOMAIN)
+            'label' => __('Text Color', 'ci-modern-accounting-firm')
         ),
         array(
             'slug' => 'fancy_landing_splash_color',
             'default' => $defaultColors['splash_color'],
             'type' => 'color',
-            'label' => __('Highlight Color', CI_TEXT_DOMAIN)
+            'label' => __('Highlight Color', 'ci-modern-accounting-firm')
         ),
         array(
             'slug' => 'fancy_landing_page_title_color',
             'default' => $defaultColors['page_title_color'],
             'type' => 'color',
-            'label' => __('Page Title Color', CI_TEXT_DOMAIN)
+            'label' => __('Page Title Color', 'ci-modern-accounting-firm')
         ),
         array(
             'slug' => 'fancy_landing_heading_color',
             'default' => "#ffffff",
             'type' => 'color',
-            'label' => __('Other Headings Color', CI_TEXT_DOMAIN)
+            'label' => __('Other Headings Color', 'ci-modern-accounting-firm')
         )
     );
     // We use the default Colors section
@@ -646,39 +657,39 @@ function ciCustomizeRegister($wp_customize)
         array(
             'slug' => 'footer_columns',
             'default' => '4',
-            'label' => __('Footer Columns (1-4)', CI_TEXT_DOMAIN),
-            'description' => __('We place each widget in the Footer widget area in its own column; in general, you want this number to match the number of widgets you place in the Footer widget area.', CI_TEXT_DOMAIN),
+            'label' => __('Footer Columns (1-4)', 'ci-modern-accounting-firm'),
+            'description' => __('We place each widget in the Footer widget area in its own column; in general, you want this number to match the number of widgets you place in the Footer widget area.', 'ci-modern-accounting-firm'),
             'type' => 'text'
         ),
         array(
-            'label' => __('Footer text (for the bottom of each page)', CI_TEXT_DOMAIN),
+            'label' => __('Footer text (for the bottom of each page)', 'ci-modern-accounting-firm'),
             'description' => "If you'd like text at the very, very bottom of each page, you can type it here.",
             'slug' => 'disclaimer',
             'type' => 'textarea'
         ),
         array(
-            'label' => __('Copyright Text', CI_TEXT_DOMAIN),
-            'description' => __('Appears beneath the footer text, if applicable', CI_TEXT_DOMAIN),
+            'label' => __('Copyright Text', 'ci-modern-accounting-firm'),
+            'description' => __('Appears beneath the footer text, if applicable', 'ci-modern-accounting-firm'),
             'slug' => 'copyright',
             'default' => '&copy; ' . date('Y') . ' ' . do_shortcode(get_bloginfo('name')),
             'type' => 'text'
         ),
         array(
-            'label' => __('Enable theme design attribution?', CI_TEXT_DOMAIN),
-            'description' => __('If checked, enables a brief credit line for the theme\'s creators', CI_TEXT_DOMAIN),
+            'label' => __('Enable theme design attribution?', 'ci-modern-accounting-firm'),
+            'description' => __('If checked, enables a brief credit line for the theme\'s creators', 'ci-modern-accounting-firm'),
             'slug' => 'enable_attribution',
             'default' => 1,
             'type' => 'checkbox'
         )
     );
-    $wp_customize->add_section('footer', array('title' => __('Footer', CI_TEXT_DOMAIN), 'priority' => 100));
+    $wp_customize->add_section('footer', array('title' => __('Footer', 'ci-modern-accounting-firm'), 'priority' => 100));
     ciAddCustomizationsToSection($wp_customize, $footerOptions, 'footer');
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // SOCIAL MEDIA LINKS
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     $socialMediaOptions = ciGetSocialCustomizationOptions();
-    $wp_customize->add_section('social_media', array('title' => __('Social Media Links', CI_TEXT_DOMAIN), 'priority' => 100,));
+    $wp_customize->add_section('social_media', array('title' => __('Social Media Links', 'ci-modern-accounting-firm'), 'priority' => 100,));
     ciAddCustomizationsToSection($wp_customize, $socialMediaOptions, 'social_media');
 
 
@@ -689,25 +700,25 @@ function ciCustomizeRegister($wp_customize)
     $faviconOptions = array(
         array(
             'slug' => 'favicon',
-            'label' => __('Favicon for site', CI_TEXT_DOMAIN),
-            'description' => __('A <a href="http://en.wikipedia.org/wiki/Favicon" target="_blank">favicon</a> is the little icon displayed in the page\'s tab. You can create one from a 16&times;16 image using the <a href="http://www.favicon.cc/" target="_blank">Favicon Generator</a>.', CI_TEXT_DOMAIN),
+            'label' => __('Favicon for site', 'ci-modern-accounting-firm'),
+            'description' => __('A <a href="http://en.wikipedia.org/wiki/Favicon" target="_blank">favicon</a> is the little icon displayed in the page\'s tab. You can create one from a 16&times;16 image using the <a href="http://www.favicon.cc/" target="_blank">Favicon Generator</a>.', 'ci-modern-accounting-firm'),
             'type' => 'image'
         ),
         array(
-            'label' => __('Apple Touch Icon', CI_TEXT_DOMAIN),
-            'description' => __('When someone adds your site to their home screen on an Apple device (iPhone, iPad, etc.), the <a href="https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html" target="_blank">Apple Touch Icon</a> is the image that will be used. (Typically, a 152&times;152 PNG is recommended.)', CI_TEXT_DOMAIN),
+            'label' => __('Apple Touch Icon', 'ci-modern-accounting-firm'),
+            'description' => __('When someone adds your site to their home screen on an Apple device (iPhone, iPad, etc.), the <a href="https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html" target="_blank">Apple Touch Icon</a> is the image that will be used. (Typically, a 152&times;152 PNG is recommended.)', 'ci-modern-accounting-firm'),
             'slug' => 'touch_icon',
             'type' => 'image'
         ),
         array(
             'slug' => 'touch_icon_precomposed',
             'default' => false,
-            'label' => __('Disable added effects on Apple Touch Icon?', CI_TEXT_DOMAIN),
-            'description' => __('Disables the curved border, drop shadow, etc. for Apple touch icon', CI_TEXT_DOMAIN),
+            'label' => __('Disable added effects on Apple Touch Icon?', 'ci-modern-accounting-firm'),
+            'description' => __('Disables the curved border, drop shadow, etc. for Apple touch icon', 'ci-modern-accounting-firm'),
             'type' => 'checkbox'
         ),
     );
-    $wp_customize->add_section('favicon', array('title' => __('Favicon', CI_TEXT_DOMAIN)));
+    $wp_customize->add_section('favicon', array('title' => __('Favicon', 'ci-modern-accounting-firm')));
     ciAddCustomizationsToSection($wp_customize, $faviconOptions, 'favicon');
 
 
@@ -720,12 +731,12 @@ function ciCustomizeRegister($wp_customize)
         array(
             'slug' => 'custom_css',
             'default' => '',
-            'label' => __('Custom CSS', CI_TEXT_DOMAIN),
-            'description' => __('If you <em>really</em> don\'t want to create a child theme, you can add custom CSS to the header here.', CI_TEXT_DOMAIN),
+            'label' => __('Custom CSS', 'ci-modern-accounting-firm'),
+            'description' => __('If you <em>really</em> don\'t want to create a child theme, you can add custom CSS to the header here.', 'ci-modern-accounting-firm'),
             'type' => 'textarea'
         )
     );
-    $wp_customize->add_section('custom_css', array('title' => __('Custom CSS', CI_TEXT_DOMAIN)));
+    $wp_customize->add_section('custom_css', array('title' => __('Custom CSS', 'ci-modern-accounting-firm')));
     ciAddCustomizationsToSection($wp_customize, $cssOptions, 'custom_css');
 
 
@@ -736,12 +747,12 @@ function ciCustomizeRegister($wp_customize)
         array(
             'slug' => 'analytics_id',
             'default' => '',
-            'label' => __('Google Analytics ID', CI_TEXT_DOMAIN),
-            'description' => __('Format: <code>UA-XXXXX-Y</code> (Note: Universal Analytics only, not Classic Analytics). Note that Analytics tracking will <em>not</em> be active when you are logged in. (Open a different Web browser to test it.)', CI_TEXT_DOMAIN),
+            'label' => __('Google Analytics ID', 'ci-modern-accounting-firm'),
+            'description' => __('Format: <code>UA-XXXXX-Y</code> (Note: Universal Analytics only, not Classic Analytics). Note that Analytics tracking will <em>not</em> be active when you are logged in. (Open a different Web browser to test it.)', 'ci-modern-accounting-firm'),
             'type' => 'text'
         )
     );
-    $wp_customize->add_section('analytics', array('title' => __('Google Analytics', CI_TEXT_DOMAIN)));
+    $wp_customize->add_section('analytics', array('title' => __('Google Analytics', 'ci-modern-accounting-firm')));
     ciAddCustomizationsToSection($wp_customize, $analyticsOptions, 'analytics');
 }
 

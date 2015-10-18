@@ -5,9 +5,9 @@
 function roots_widgets_init() {
     global $ciSidebars;
     $ciSidebars = array(
-        'sidebar-primary' => "Primary",
-        'sidebar-alt'     => "Alternative sidebar",
-        'sidebar-footer'  => "Footer",
+        'sidebar-primary' => __("Primary", 'ci-modern-accounting-firm'),
+        'sidebar-alt'     => __("Alternative sidebar", 'ci-modern-accounting-firm'),
+        'sidebar-footer'  => __("Footer", 'ci-modern-accounting-firm')
     );
 
     // Sidebars
@@ -19,7 +19,7 @@ function roots_widgets_init() {
     );
 
     foreach( $ciSidebars as $sidebarSlug => $sidebarName ) {
-        $sidebarOptions['name'] = __( $sidebarName, CI_TEXT_DOMAIN );
+        $sidebarOptions['name'] = $sidebarName;
         $sidebarOptions['id'] = $sidebarSlug;
         register_sidebar( $sidebarOptions );
     }
@@ -55,10 +55,10 @@ if( !class_exists('Roots_Vcard_Widget') ) {
         );
 
         function __construct() {
-            $widget_ops = array( 'classname' => 'widget_roots_vcard', 'description' => __( 'Use this widget to add your contact information', CI_TEXT_DOMAIN ) );
+            $widget_ops = array( 'classname' => 'widget_roots_vcard', 'description' => __( 'Use this widget to add your contact information', 'ci-modern-accounting-firm' ) );
             parent::__construct(
                 'widget_roots_vcard', // Base ID
-                __( 'Contact Information', CI_TEXT_DOMAIN ), // Name
+                __( 'Contact Information', 'ci-modern-accounting-firm' ), // Name
                 $widget_ops // Args
             );
             $this->alt_option_name = 'widget_roots_vcard';
@@ -88,7 +88,7 @@ if( !class_exists('Roots_Vcard_Widget') ) {
             ob_start();
             extract( $args, EXTR_SKIP );
 
-            $title = apply_filters( 'widget_title', empty($instance['title']) ? __( 'vCard', CI_TEXT_DOMAIN ) : $instance['title'], $instance, $this->id_base );
+            $title = apply_filters( 'widget_title', empty($instance['title']) ? __( 'vCard', 'ci-modern-accounting-firm' ) : $instance['title'], $instance, $this->id_base );
 
             foreach( $this->fields as $name => $label ) {
                 if( !isset($instance[$name]) ) {
@@ -155,11 +155,9 @@ if( !class_exists('Roots_Vcard_Widget') ) {
 
         function form( $instance ) {
             foreach( $this->fields as $name => $label ) {
-                ${$name} = isset($instance[$name]) ? esc_attr( $instance[$name] ) : '';
-                ?>
+                ${$name} = isset($instance[$name]) ? esc_attr( $instance[$name] ) : ''; ?>
                 <p>
-                    <label
-                        for="<?php echo esc_attr( $this->get_field_id( $name ) ); ?>"><?php _e( "{$label}:", CI_TEXT_DOMAIN ); ?></label>
+                    <label for="<?php echo esc_attr( $this->get_field_id( $name ) ); ?>"><?php echo $label . ":"; ?></label>
                     <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( $name ) ); ?>"
                            name="<?php echo esc_attr( $this->get_field_name( $name ) ); ?>" type="text"
                            value="<?php echo ${$name}; ?>">

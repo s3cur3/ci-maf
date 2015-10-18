@@ -30,8 +30,8 @@ function roots_theme_activation_options_add_page()
 
     if (!$roots_activation_options) {
         $theme_page = add_theme_page(
-            __('Theme Activation', CI_TEXT_DOMAIN),
-            __('Theme Activation', CI_TEXT_DOMAIN),
+            __('Theme Activation', 'ci-modern-accounting-firm'),
+            __('Theme Activation', 'ci-modern-accounting-firm'),
             'edit_theme_options',
             'theme_activation_options',
             'roots_theme_activation_options_render_page'
@@ -56,10 +56,10 @@ function roots_theme_activation_options_render_page()
 {
     ?>
     <div class="wrap">
-        <h2><?php printf(__('%s Theme Activation', CI_TEXT_DOMAIN), wp_get_theme()); ?></h2>
+        <h2><?php printf(__('%s Theme Activation', 'ci-modern-accounting-firm'), wp_get_theme()); ?></h2>
 
         <div class="update-nag">
-            <?php _e('These settings are optional and should usually be used only on a fresh installation', CI_TEXT_DOMAIN); ?>
+            <?php _e('These settings are optional and should usually be used only on a fresh installation', 'ci-modern-accounting-firm'); ?>
         </div>
         <?php settings_errors(); ?>
 
@@ -67,65 +67,65 @@ function roots_theme_activation_options_render_page()
             <?php settings_fields('roots_activation_options'); ?>
             <table class="form-table">
                 <tr valign="top">
-                    <th scope="row"><?php _e('Create static front page?', CI_TEXT_DOMAIN); ?>  (recommended)</th>
+                    <th scope="row"><?php _e('Create static front page?', 'ci-modern-accounting-firm'); ?>  (recommended)</th>
                     <td>
                         <fieldset>
                             <legend class="screen-reader-text">
-                                <span><?php _e('Create static front page?', CI_TEXT_DOMAIN); ?></span></legend>
+                                <span><?php _e('Create static front page?', 'ci-modern-accounting-firm'); ?></span></legend>
                             <select name="roots_theme_activation_options[create_front_page]" id="create_front_page">
-                                <option selected="selected" value="true"><?php echo _e('Yes', CI_TEXT_DOMAIN); ?></option>
-                                <option value="false"><?php echo _e('No', CI_TEXT_DOMAIN); ?></option>
+                                <option selected="selected" value="true"><?php echo _e('Yes', 'ci-modern-accounting-firm'); ?></option>
+                                <option value="false"><?php echo _e('No', 'ci-modern-accounting-firm'); ?></option>
                             </select>
 
-                            <p class="description"><?php printf(__('Create a page called Home and set it to be the static front page', CI_TEXT_DOMAIN)); ?></p>
+                            <p class="description"><?php printf(__('Create a page called Home and set it to be the static front page', 'ci-modern-accounting-firm')); ?></p>
                         </fieldset>
                     </td>
                 </tr>
                 <tr valign="top">
-                    <th scope="row"><?php _e('Change permalink structure?', CI_TEXT_DOMAIN); ?>  (recommended)</th>
+                    <th scope="row"><?php _e('Change permalink structure?', 'ci-modern-accounting-firm'); ?>  (recommended)</th>
                     <td>
                         <fieldset>
                             <legend class="screen-reader-text">
-                                <span><?php _e('Update permalink structure?', CI_TEXT_DOMAIN); ?></span></legend>
+                                <span><?php _e('Update permalink structure?', 'ci-modern-accounting-firm'); ?></span></legend>
                             <select name="roots_theme_activation_options[change_permalink_structure]"
                                     id="change_permalink_structure">
-                                <option selected="selected" value="true"><?php echo _e('Yes', CI_TEXT_DOMAIN); ?></option>
-                                <option value="false"><?php echo _e('No', CI_TEXT_DOMAIN); ?></option>
+                                <option selected="selected" value="true"><?php echo _e('Yes', 'ci-modern-accounting-firm'); ?></option>
+                                <option value="false"><?php echo _e('No', 'ci-modern-accounting-firm'); ?></option>
                             </select>
 
-                            <p class="description"><?php printf(__('Change permalink structure to /&#37;postname&#37;/', CI_TEXT_DOMAIN)); ?></p>
+                            <p class="description"><?php printf(__('Change permalink structure to /&#37;postname&#37;/', 'ci-modern-accounting-firm')); ?></p>
                         </fieldset>
                     </td>
                 </tr>
                 <tr valign="top">
-                    <th scope="row"><?php _e('Create navigation menu?', CI_TEXT_DOMAIN); ?> (recommended)</th>
+                    <th scope="row"><?php _e('Create navigation menu?', 'ci-modern-accounting-firm'); ?> (recommended)</th>
                     <td>
                         <fieldset>
                             <legend class="screen-reader-text">
-                                <span><?php _e('Create navigation menu?', CI_TEXT_DOMAIN); ?></span></legend>
+                                <span><?php _e('Create navigation menu?', 'ci-modern-accounting-firm'); ?></span></legend>
                             <select name="roots_theme_activation_options[create_navigation_menus]"
                                     id="create_navigation_menus">
-                                <option selected="selected" value="true"><?php echo _e('Yes', CI_TEXT_DOMAIN); ?></option>
-                                <option value="false"><?php echo _e('No', CI_TEXT_DOMAIN); ?></option>
+                                <option selected="selected" value="true"><?php echo _e('Yes', 'ci-modern-accounting-firm'); ?></option>
+                                <option value="false"><?php echo _e('No', 'ci-modern-accounting-firm'); ?></option>
                             </select>
 
-                            <p class="description"><?php printf(__('Create the Primary Navigation menu and set the location', CI_TEXT_DOMAIN)); ?></p>
+                            <p class="description"><?php printf(__('Create the Primary Navigation menu and set the location', 'ci-modern-accounting-firm')); ?></p>
                         </fieldset>
                     </td>
                 </tr>
                 <tr valign="top">
-                    <th scope="row"><?php _e('Add pages to menu?', CI_TEXT_DOMAIN); ?></th>
+                    <th scope="row"><?php _e('Add pages to menu?', 'ci-modern-accounting-firm'); ?></th>
                     <td>
                         <fieldset>
-                            <legend class="screen-reader-text"><span><?php _e('Add pages to menu?', CI_TEXT_DOMAIN); ?></span>
+                            <legend class="screen-reader-text"><span><?php _e('Add pages to menu?', 'ci-modern-accounting-firm'); ?></span>
                             </legend>
                             <select name="roots_theme_activation_options[add_pages_to_primary_navigation]"
                                     id="add_pages_to_primary_navigation">
-                                <option selected="selected" value="true"><?php echo _e('Yes', CI_TEXT_DOMAIN); ?></option>
-                                <option value="false"><?php echo _e('No', CI_TEXT_DOMAIN); ?></option>
+                                <option selected="selected" value="true"><?php echo _e('Yes', 'ci-modern-accounting-firm'); ?></option>
+                                <option value="false"><?php echo _e('No', 'ci-modern-accounting-firm'); ?></option>
                             </select>
 
-                            <p class="description"><?php printf(__('Add all current published pages to the Primary Navigation', CI_TEXT_DOMAIN)); ?></p>
+                            <p class="description"><?php printf(__('Add all current published pages to the Primary Navigation', 'ci-modern-accounting-firm')); ?></p>
                         </fieldset>
                     </td>
                 </tr>
@@ -164,10 +164,10 @@ function roots_theme_activation_action()
             $home = <<<EOL
 <div class="row mt30 mb30">
 <div class="col-sm-8">
-<h1>One of New York's Oldest Accounting Firms</h1>
+<h1>One of New York's Oldest Accounting Firms</h1>
 For over 90 years, Sample &amp; Testing has helped clients with tax compliance, payroll, auditing, and more.
 
-We act as trusted advisors to our clients, helping them achieve their goals and set even bigger ones for the future.
+We act as trusted advisors to our clients, helping them achieve their goals and set even bigger ones for the future.
 
 </div>
 <div class="col-sm-4">
@@ -196,7 +196,7 @@ Our office is ready to help with your problems.
 
 <div class="attorneys-insert">
 
-[staff columns=4 length=0 /]
+[staff columns=4 length=0 /]
 
 </div>
 &nbsp;
@@ -211,14 +211,14 @@ EOL;
 
 
 
-            $add_default_pages = array(
+            $defaultPgToAdd = array(
                 'post_title' => $new_page_title,
                 'post_content' => $home,
                 'post_status' => 'publish',
                 'post_type' => 'page'
             );
 
-            $result = wp_insert_post($add_default_pages);
+            $result = wp_insert_post($defaultPgToAdd);
         }
 
         $home = get_page_by_title('Home');
