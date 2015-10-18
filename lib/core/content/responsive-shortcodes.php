@@ -35,7 +35,8 @@ if(!function_exists('ciAddVisibilityBlockShortcode')) {
     }
 }
 
-add_shortcode('visibleatsize', 'ciAddVisibilityBlockShortcode');
+// Shortcodes aren't allowed at WordPress.org. Whatever.
+//add_shortcode('visibleatsize', 'ciAddVisibilityBlockShortcode');
 
 
 
@@ -52,6 +53,7 @@ if(!function_exists('ciAddHiddenBlockShortcode')) {
     }
 }
 
-add_shortcode('hiddenatsize', 'ciAddHiddenBlockShortcode');
+// Shortcodes aren't allowed at WordPress.org. Whatever.
+//add_shortcode('hiddenatsize', 'ciAddHiddenBlockShortcode');
 
 

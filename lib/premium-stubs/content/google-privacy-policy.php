@@ -41,7 +41,8 @@ function ciGooglePrivacyPolicy() {
 }
 
 function ciRegisterPrivacyPolicyShortcode() {
-    add_shortcode('privacy', 'ciGooglePrivacyPolicy');
+    // Shortcodes aren't allowed at WordPress.org. Whatever.
+    //add_shortcode('privacy', 'ciGooglePrivacyPolicy');
 }
 
 add_action( 'init', 'ciRegisterPrivacyPolicyShortcode');

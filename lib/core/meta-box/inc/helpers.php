@@ -21,7 +21,8 @@ if ( ! class_exists( 'RWMB_Helper' ) )
 		 */
 		static function on_load()
 		{
-			add_shortcode( 'rwmb_meta', array( __CLASS__, 'shortcode' ) );
+			// Shortcodes aren't allowed at WordPress.org. Whatever.
+			//add_shortcode( 'rwmb_meta', array( __CLASS__, 'shortcode' ) );
 		}
 
 		/**
