@@ -178,6 +178,8 @@ There is one more place you can display the staff profiles, though. You can use 
 Notes on the Full-Width Layout
 ------------------------------------------------------
 
+**Premium feature only**: Full-width layouts are only available to users of [the Premium version of this theme][Premium]. 
+
 This theme supports both a standard Web page layout (which we describe as being "boxed," looking like a sheet of paper sitting on your screen) and a full-width layout (which stretches to fill your whole window).
 
 ![A paged layout (left) alongside the full-width layout (right) for the same content.](img/full-width-layout.jpg)
@@ -227,7 +229,7 @@ The sidebar in the theme demo is made up of 4 components, each configured as "[W
     - This is the standard WordPress search widget.
 3. Practice area links
     - The theme provides a Practice Areas widget which you can use to list all the Practice Areas you have created in the WordPress back-end.
-4. Social media icons
+4. Social media icons (**Premium feature only**: social media icon widgets are only available to users of [the Premium version of this theme][Premium].)
     - These come courtesy of this theme's "Social Media Icons" widget. To use these icons, do the following:
         1. Drag the Social Media Icons widget to your sidebar.
         2. Visit the Customizer page in the WordPress administration back-end (found at Appearance > Customize). There, click the Social Media section.
@@ -264,7 +266,7 @@ The footer is made up of the following elements:
 5. Alternate disclaimer text
     - Instead of placing your disclaimer in the dark-colored (attention-grabbing) region of the footer, you can place it below. You can use the **Footer** section of the WordPress Customizer to set your own text here. (Obviously, the area is designed to house the text of your disclaimer, but you could optionally add other content, like a link to your Terms of Use instead.)
     - If you leave the Footer Text field blank, this will be hidden.
-6. Copyright & credits
+6. Copyright &amp; credits
     - This is standard text for the theme: a copyright for your company, and a link attributing the theme design to Conversion Insights. You can configure both of these in the Footer section of the WordPress Customizer.
 
 
@@ -281,7 +283,7 @@ To create a [blog page](http://ci-modern-accounting-firm.mystagingwebsite.com/bl
 3. Select the Blog template.
 4. Type any text you want to appear above the blog posts listings in the normal WordPress editor. Your most recent blog posts will appear beneath that.
 5. By default, 10 blog posts will be displayed per page. (Users can click the "Previous posts" link near the bottom of the page to see more.) To change the number of posts per page:
-    1. Visit the Settings > Reading page in the WordPress administration back-end.
+    1. Visit the Settings &gt; Reading page in the WordPress administration back-end.
     2. Change the "Blog pages show at most" field.
     3. Click **Save Changes*** in the lower left.
 
@@ -294,6 +296,8 @@ The [contact page](http://ci-modern-accounting-firm.mystagingwebsite.com/contact
 
 Creating Landing Pages for Ad Campaigns
 ------------------------------------------------------
+
+**Premium feature only**: Special landing page layouts are only available to users of [the Premium version of this theme][Premium].
 
 A landing page is a stripped-down version of your normal Web site designed for one goal: to get a visitor to fill out your contact form. They typically have much less visual clutter, and fewer options for visitors. Whereas your home page may have 20 or 30 links to various things a visitor could check out, your landing page should have maybe 2.
 
@@ -314,6 +318,8 @@ Note that you can use the Landing Page menu location (configured in Appearance >
 
 Creating a Privacy Policy
 ------------------------------------------------------
+
+**Premium feature only**: The privacy policy shortcode is only available to users of [the Premium version of this theme][Premium].
 
 The theme includes a boilerplate privacy policy, to the effect that your site uses analytics and may use advertising technologies present in Google AdSense. This is included largely to satisfy Google, who *claims* to require this policy to be posted on your site if you're using Google Analytics or Google AdSense. (The reality, of course, is that [no one actually does this](http://searchengineland.com/how-many-google-privacy-policies-are-you-violating-50182), but hey---we made it easy to add the Google-approved verbiage to your site.)
 
@@ -373,7 +379,7 @@ You can use the Appearance > Customize page to change almost anything about the 
 
 We recommend that before diving into the HTML/CSS/PHP, you first poke around the Appearance > Customize screen to make sure you can't make the changes you want without touching the code---you might be pleasantly surprised!
 
-### Using HTML & CSS
+### Using HTML &amp; CSS
 
 If you'd like to get your hands dirty, you can edit the theme's HTML and CSS.
 
@@ -385,7 +391,7 @@ We've included a sample, very basic child theme in the `docs` directory of the t
 
 When making modifications, here's what you need to know:
 
-#### PHP & HTML
+#### PHP &amp; HTML
 The theme's PHP is built atop [the Roots theme framework][Roots]. Roots theme are much, much more organized than a typical theme, and there is much less code repetition. While this is great in the long run, it means things don't always appear where you expect. 
 
 For instance, instead of your a typical page template looking like this:
@@ -428,6 +434,8 @@ Instead, you should [create a Child Theme](http://codex.wordpress.org/Child_Them
 Getting Help and Support
 ------------------------------------------------------
 
+**Premium feature only**: Email support is only available to users of [the Premium version of this theme][Premium].
+
 Contact [Tyler Young][] (<tyler@conversioninsights.net>) of Conversion Insights for support, feature requests, and bug fixes.
 
 For custom theme development, Web marketing services, or other consulting, email Tyler at <tyler@conversioninsights.net>.
@@ -452,5 +460,6 @@ Initial release
 
 [Conversion Insights]: http://conversioninsights.net/?utm_source=themeDocumentation&utm_medium=web&utm_campaign=documentation "Conversion Insights: Boost Your Online Revenue"
 
+[Premium]: http://conversioninsights.net/modern-accounting-firm-premium/?utm_source=themeDocumentation&utm_medium=web&utm_campaign=documentation
 
 [Tyler Young]: http://conversioninsights.net/tyler-young/?utm_source=themeDocumentation&utm_medium=web&utm_campaign=documentation "Tyler Young, of Conversion Insights"
