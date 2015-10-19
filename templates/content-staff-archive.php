@@ -2,7 +2,11 @@
 <?php
 
 $contentLength = 250;
-$staff = ciGetAllStaff(100, $contentLength);
+if(function_exists('ciGetAllStaff')) {
+    $staff = ciGetAllStaff(100, $contentLength);
+} else {
+    $staff = array();
+}
 
 ?>
 

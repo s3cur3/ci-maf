@@ -32,7 +32,7 @@ if( current_theme_supports( 'bootstrap-top-navbar' ) ) {
     get_template_part( 'templates/header' );
 }
 
-if( $showSlider ) {
+if( $showSlider && function_exists('ciGetSliderHTML') ) {
     $sliderCat = ciGetNormalizedMeta( 'top_img_slider_cat_string', '' );
     echo ciGetSliderHTML( $sliderCat, 10, true, CI_SIZE_LG );
 }
