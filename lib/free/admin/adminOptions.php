@@ -49,6 +49,7 @@ function ciRegisterMetaBoxes( $meta_boxes ) {
                 // Value can be 0 or 1
                 'std'  => 1,
             ),
+            /*
             array(
                 'name' => __( 'Make this a transparent landing page?', 'ci-modern-accounting-firm' ),
                 'desc' => __('If checked, your text will be put directly on top of your site-wide background (either an image or a solid color). This is a neat effect for landing pages. (Configure colors in the WP Customize screen.)', 'ci-modern-accounting-firm'),
@@ -67,6 +68,7 @@ function ciRegisterMetaBoxes( $meta_boxes ) {
                 'multiple'    => false,
                 'std'         => 'left'
             ),
+            */
             array(
                 'name' => __( 'Show page sidebar?', 'ci-modern-accounting-firm' ),
                 'id'   => "{$prefix}show_page_sidebar",
@@ -81,6 +83,7 @@ function ciRegisterMetaBoxes( $meta_boxes ) {
                 // Value can be 0 or 1
                 'std'  => 1,
             ),
+            /*
             array(
                 'name' => __( 'Push page down (to show off page background) this many pixels', 'ci-modern-accounting-firm' ),
                 'id'   => "{$prefix}push_page_down",
@@ -93,6 +96,7 @@ function ciRegisterMetaBoxes( $meta_boxes ) {
                 'type' => 'text',
                 'std'  => '0',
             ),
+            */
             array(
                 'name'     => __( 'Which sidebar should we use?', 'ci-modern-accounting-firm' ),
                 'id'       => "{$prefix}sidebar",
