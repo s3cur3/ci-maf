@@ -23,7 +23,14 @@
         }
     }
 
+    function enablePrettyPhoto() {
+        // first, we add the rel="prettyPhoto[page_id]" to image galleries (since they aren't handled by our PHP regex)
+        $(".gallery a.thumbnail").attr('rel', 'prettyPhoto[' + parseInt(post_id, 10) + ']');
+        $("a[rel^='prettyPhoto']").prettyPhoto();
+    }
+
     $(document).ready(showOrHideSocialMedia);
+    $(document).ready(enablePrettyPhoto);
     $(window).resize(showOrHideSocialMedia);
 })(jQuery);
 

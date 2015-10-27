@@ -27,12 +27,7 @@ if ( is_active_sidebar( 'sidebar-footer' ) ) { ?>
         </div>
     </div>
 </div>
-<?php wp_footer(); ?>
-<script>
-    jQuery(document).ready(function(){
-        jQuery("a[rel^='prettyPhoto']").prettyPhoto();
-    });
-</script> <?php
+<?php wp_footer();
 if(get_option('mlf_demo_site', false)) { ?>
     <style>
         #frontend-color-picker {

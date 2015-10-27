@@ -4,8 +4,3 @@
 </div>
 
 <?php wp_footer(); ?>
-<script>
-    jQuery(document).ready(function(){
-        jQuery("a[rel^='prettyPhoto']").prettyPhoto();
-    });
-</script>
