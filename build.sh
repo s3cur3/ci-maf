@@ -51,3 +51,5 @@ zip -r ${ZIP} ${DIRECTORY}
 
 echo "\n\n\nNuking build directory"
 rm -r ${DIRECTORY}
+
+osascript open-docs.scpt

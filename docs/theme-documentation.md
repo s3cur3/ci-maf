@@ -447,6 +447,10 @@ Updates to the Theme
 
 Here's what's been added to the theme through updates:
 
+### Version 1.0.1
+
+Minor bug fixes for image galleries and menu bar.
+
 ### Version 1.0
 Initial release
 
