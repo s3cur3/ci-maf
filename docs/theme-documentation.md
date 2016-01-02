@@ -449,7 +449,7 @@ Here's what's been added to the theme through updates:
 
 ### Version 1.0.2
 
-Bug fix for header images not being displayed.
+Bug fix for logo images in the header not being displayed.
 
 ### Version 1.0.1
 

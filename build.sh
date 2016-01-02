@@ -26,7 +26,7 @@ echo "Zipping build directory"
 zip -r ${ZIP} ${DIRECTORY}
 
 echo "Nuking build directory"
-rm -r ${DIRECTORY}
+rm -rf ${DIRECTORY}
 
 
 
@@ -50,6 +50,6 @@ echo "\n\n\nZipping build directory"
 zip -r ${ZIP} ${DIRECTORY}
 
 echo "\n\n\nNuking build directory"
-rm -r ${DIRECTORY}
+rm -rf ${DIRECTORY}
 
 osascript open-docs.scpt
