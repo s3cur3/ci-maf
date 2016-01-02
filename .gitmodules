@@ -1,0 +1,9 @@
+[submodule "_plugins"]
+	path = _plugins
+	url = https://github.com/s3cur3/ci-plugins.git
+[submodule "lib/core"]
+	path = lib/core
+	url = https://github.com/s3cur3/ci-wp-core.git
+[submodule "templates"]
+	path = templates
+	url = https://github.com/s3cur3/ci-templates.git
