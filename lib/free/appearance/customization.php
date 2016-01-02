@@ -256,13 +256,13 @@ if(class_exists('WP_Customize_Control')) {
     }
 }
 
-function ciReturnTrue($ignored="") { return true; }
-function ciSanitizeBool($bool) { return $bool == "0" || $bool == "1" || $bool == true || $bool == false || $bool == "true" || $bool == "false"; }
+function ciReturnIdentity($arg) { return $arg; }
+function ciSanitizeBool($bool) { if($bool == "0" || $bool == false || $bool == "false") { return false; } else { return true; } }
 
 function ciAddCustomizationsToSection($wp_customize, $optionsArray, $sectionSlug) {
     foreach($optionsArray as $option) {
         // Add the setting (under the hood)
-        $sanitizeFunction = 'ciReturnTrue';
+        $sanitizeFunction = 'ciReturnIdentity';
         if($option['type'] == 'checkbox') {
             $sanitizeFunction = 'ciSanitizeBool';
         } elseif($option['type'] == 'text' || $option['type'] == 'textarea' || $option['type'] == 'editor' || $option['type'] == 'heading' || $option['type'] == 'info') {
