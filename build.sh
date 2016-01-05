@@ -22,6 +22,10 @@ mkdir $DIRECTORY
 echo "Copying files to build directory"
 cp -r assets docs lang lib templates style.css README.md screenshot.png 404.php archive-ci-staff.php base-template-landing.php base.php footer-shop.php functions.php Gruntfile.js header-shop.php index.php options.php page.php single-ci-staff.php single.php template-blog.php template-landing.php template-staff.php screenshot.png $DIRECTORY
 
+echo "Nuking .git directories"
+rm -rf ${DIRECTORY}/templates/.git
+rm -rf ${DIRECTORY}/lib/core/.git
+
 echo "Zipping build directory"
 zip -r ${ZIP} ${DIRECTORY}
 
@@ -45,6 +49,10 @@ cp -r assets docs lang lib templates style.css README.md screenshot.png 404.php 
 
 echo "Nuking premium version files"
 rm -R ${DIRECTORY}/lib/premium
+
+echo "Nuking .git directories"
+rm -rf ${DIRECTORY}/templates/.git
+rm -rf ${DIRECTORY}/lib/core/.git
 
 echo "\n\n\nZipping build directory"
 zip -r ${ZIP} ${DIRECTORY}

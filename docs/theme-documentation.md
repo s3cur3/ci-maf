@@ -447,6 +447,10 @@ Updates to the Theme
 
 Here's what's been added to the theme through updates:
 
+### Version 1.0.3
+
+Bug fixes for problems changing fonts.
+
 ### Version 1.0.2
 
 Bug fix for logo images in the header not being displayed.

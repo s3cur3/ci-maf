@@ -165,7 +165,7 @@ if(class_exists('WP_Customize_Control')) {
                     foreach($this->choices as $value => $label) { ?>
                         <li>
                             <label>
-                                <input type="checkbox" value="<?php echo esc_attr($value); ?>" <?php checked(in_array($value, $multi_values)); ?> />
+                                <input type="checkbox" value="<?php echo esc_attr($value); ?>" <?php echo checked(array_key_exists($value, $multi_values)); ?> />
                                 <?php echo esc_html($label); ?>
                             </label>
                         </li> <?php
@@ -283,7 +283,7 @@ function ciAddCustomizationsToSection($wp_customize, $optionsArray, $sectionSlug
                     'label' => $option['label'],
                     'description' => $option['description'],
                     'section' => $sectionSlug,
-                    'options' => $option['options'],
+                    'choices' => $option['options'],
                     'type' => 'multicheck'
                 )
             ));
