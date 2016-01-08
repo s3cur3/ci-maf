@@ -36,7 +36,7 @@ function roots_theme_activation_options_add_page()
             'theme_activation_options',
             'roots_theme_activation_options_render_page'
         );
-    } else {
+    } else { // The user has already set up the theme; they shouldn't be here at all!
         if (is_admin() && isset($_GET['page']) && $_GET['page'] === 'theme_activation_options') {
             flush_rewrite_rules();
             wp_redirect(admin_url('themes.php'));
@@ -53,8 +53,7 @@ function roots_get_theme_activation_options()
 }
 
 function roots_theme_activation_options_render_page()
-{
-    ?>
+{ ?>
     <div class="wrap">
         <h2><?php printf(__('%s Theme Activation', 'ci-modern-accounting-firm'), wp_get_theme()); ?></h2>
 
@@ -63,75 +62,114 @@ function roots_theme_activation_options_render_page()
         </div>
         <?php settings_errors(); ?>
 
-        <form method="post" action="options.php">
-            <?php settings_fields('roots_activation_options'); ?>
-            <table class="form-table">
-                <tr valign="top">
-                    <th scope="row"><?php _e('Create static front page?', 'ci-modern-accounting-firm'); ?>  (recommended)</th>
-                    <td>
-                        <fieldset>
-                            <legend class="screen-reader-text">
-                                <span><?php _e('Create static front page?', 'ci-modern-accounting-firm'); ?></span></legend>
-                            <select name="roots_theme_activation_options[create_front_page]" id="create_front_page">
-                                <option selected="selected" value="true"><?php echo _e('Yes', 'ci-modern-accounting-firm'); ?></option>
-                                <option value="false"><?php echo _e('No', 'ci-modern-accounting-firm'); ?></option>
-                            </select>
+        <div id="choose-setup-method">
+            <div class="row">
+                <div class="col-sm-4">
+                    <button id="express">Express setup</button>
+                </div>
+                <div class="col-sm-6">
+                    <p>Recreate <a href="<?php echo CI_DEMO_URL; ?>" target="_blank">the theme&rsquo;s demo site</a>, pronto!</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <button id="wizard">Setup wizard</button>
+                </div>
+                <div class="col-sm-6">
+                    <p>Get more control over how you import the content from <a href="<?php echo CI_DEMO_URL; ?>" target="_blank">the theme&rsquo;s demo site</a></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <button id="manual">Manual</button>
+                </div>
+                <div class="col-sm-6">
+                    <p>If you don&rsquo;t want to use the demo content at all (or your site is already set up)</p>
+                </div>
+            </div>
+        </div>
 
-                            <p class="description"><?php printf(__('Create a page called Home and set it to be the static front page', 'ci-modern-accounting-firm')); ?></p>
-                        </fieldset>
-                    </td>
-                </tr>
-                <tr valign="top">
-                    <th scope="row"><?php _e('Change permalink structure?', 'ci-modern-accounting-firm'); ?>  (recommended)</th>
-                    <td>
-                        <fieldset>
-                            <legend class="screen-reader-text">
-                                <span><?php _e('Update permalink structure?', 'ci-modern-accounting-firm'); ?></span></legend>
-                            <select name="roots_theme_activation_options[change_permalink_structure]"
-                                    id="change_permalink_structure">
-                                <option selected="selected" value="true"><?php echo _e('Yes', 'ci-modern-accounting-firm'); ?></option>
-                                <option value="false"><?php echo _e('No', 'ci-modern-accounting-firm'); ?></option>
-                            </select>
+        <div id="express-in-progress">
+            <p>Setup in progress . . .</p>
+            <p>(Be patient&mdash;this can take a few minutes, since there&rsquo;s quite a bit to be downloaded.)</p>
+        </div>
 
-                            <p class="description"><?php printf(__('Change permalink structure to /&#37;postname&#37;/', 'ci-modern-accounting-firm')); ?></p>
-                        </fieldset>
-                    </td>
-                </tr>
-                <tr valign="top">
-                    <th scope="row"><?php _e('Create navigation menu?', 'ci-modern-accounting-firm'); ?> (recommended)</th>
-                    <td>
-                        <fieldset>
-                            <legend class="screen-reader-text">
-                                <span><?php _e('Create navigation menu?', 'ci-modern-accounting-firm'); ?></span></legend>
-                            <select name="roots_theme_activation_options[create_navigation_menus]"
-                                    id="create_navigation_menus">
-                                <option selected="selected" value="true"><?php echo _e('Yes', 'ci-modern-accounting-firm'); ?></option>
-                                <option value="false"><?php echo _e('No', 'ci-modern-accounting-firm'); ?></option>
-                            </select>
+        <div id="wizard-questions">
+            <form method="post" action="options.php">
+                <?php settings_fields('roots_activation_options'); ?>
+                <table class="form-table">
+                    <tr valign="top">
+                        <th scope="row"><?php _e('Create static front page?', 'ci-modern-accounting-firm'); ?>  (recommended)</th>
+                        <td>
+                            <fieldset>
+                                <legend class="screen-reader-text">
+                                    <span><?php _e('Create static front page?', 'ci-modern-accounting-firm'); ?></span></legend>
+                                <select name="roots_theme_activation_options[create_front_page]" id="create_front_page">
+                                    <option selected="selected" value="true"><?php echo _e('Yes', 'ci-modern-accounting-firm'); ?></option>
+                                    <option value="false"><?php echo _e('No', 'ci-modern-accounting-firm'); ?></option>
+                                </select>
 
-                            <p class="description"><?php printf(__('Create the Primary Navigation menu and set the location', 'ci-modern-accounting-firm')); ?></p>
-                        </fieldset>
-                    </td>
-                </tr>
-                <tr valign="top">
-                    <th scope="row"><?php _e('Add pages to menu?', 'ci-modern-accounting-firm'); ?></th>
-                    <td>
-                        <fieldset>
-                            <legend class="screen-reader-text"><span><?php _e('Add pages to menu?', 'ci-modern-accounting-firm'); ?></span>
-                            </legend>
-                            <select name="roots_theme_activation_options[add_pages_to_primary_navigation]"
-                                    id="add_pages_to_primary_navigation">
-                                <option selected="selected" value="true"><?php echo _e('Yes', 'ci-modern-accounting-firm'); ?></option>
-                                <option value="false"><?php echo _e('No', 'ci-modern-accounting-firm'); ?></option>
-                            </select>
+                                <p class="description"><?php printf(__('Create a page called Home and set it to be the static front page', 'ci-modern-accounting-firm')); ?></p>
+                            </fieldset>
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row"><?php _e('Change permalink structure?', 'ci-modern-accounting-firm'); ?>  (recommended)</th>
+                        <td>
+                            <fieldset>
+                                <legend class="screen-reader-text">
+                                    <span><?php _e('Update permalink structure?', 'ci-modern-accounting-firm'); ?></span></legend>
+                                <select name="roots_theme_activation_options[change_permalink_structure]"
+                                        id="change_permalink_structure">
+                                    <option selected="selected" value="true"><?php echo _e('Yes', 'ci-modern-accounting-firm'); ?></option>
+                                    <option value="false"><?php echo _e('No', 'ci-modern-accounting-firm'); ?></option>
+                                </select>
 
-                            <p class="description"><?php printf(__('Add all current published pages to the Primary Navigation', 'ci-modern-accounting-firm')); ?></p>
-                        </fieldset>
-                    </td>
-                </tr>
-            </table>
-            <?php submit_button(); ?>
-        </form>
+                                <p class="description"><?php printf(__('Change permalink structure to /&#37;postname&#37;/', 'ci-modern-accounting-firm')); ?></p>
+                            </fieldset>
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row"><?php _e('Create navigation menu?', 'ci-modern-accounting-firm'); ?> (recommended)</th>
+                        <td>
+                            <fieldset>
+                                <legend class="screen-reader-text">
+                                    <span><?php _e('Create navigation menu?', 'ci-modern-accounting-firm'); ?></span></legend>
+                                <select name="roots_theme_activation_options[create_navigation_menus]"
+                                        id="create_navigation_menus">
+                                    <option selected="selected" value="true"><?php echo _e('Yes', 'ci-modern-accounting-firm'); ?></option>
+                                    <option value="false"><?php echo _e('No', 'ci-modern-accounting-firm'); ?></option>
+                                </select>
+
+                                <p class="description"><?php printf(__('Create the Primary Navigation menu and set the location', 'ci-modern-accounting-firm')); ?></p>
+                            </fieldset>
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row"><?php _e('Add pages to menu?', 'ci-modern-accounting-firm'); ?></th>
+                        <td>
+                            <fieldset>
+                                <legend class="screen-reader-text"><span><?php _e('Add pages to menu?', 'ci-modern-accounting-firm'); ?></span>
+                                </legend>
+                                <select name="roots_theme_activation_options[add_pages_to_primary_navigation]"
+                                        id="add_pages_to_primary_navigation">
+                                    <option selected="selected" value="true"><?php echo _e('Yes', 'ci-modern-accounting-firm'); ?></option>
+                                    <option value="false"><?php echo _e('No', 'ci-modern-accounting-firm'); ?></option>
+                                </select>
+
+                                <p class="description"><?php printf(__('Add all current published pages to the Primary Navigation', 'ci-modern-accounting-firm')); ?></p>
+                            </fieldset>
+                        </td>
+                    </tr>
+                </table>
+                <?php submit_button(); ?>
+            </form>
+        </div>
+
+        <div id="setup-finished">
+            <h2>All done!</h2>
+            <p>Your site is set up and ready to go!</p>
+        </div>
     </div>
 
 <?php
