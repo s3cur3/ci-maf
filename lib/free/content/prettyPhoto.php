@@ -8,5 +8,5 @@ function ciAutoAddRelPrettyPhoto($content) {
     return $content;
 }
 
-add_filter("the_content", "ciAutoAddRelPrettyPhoto");;
+add_filter("the_content", "ciAutoAddRelPrettyPhoto");
 

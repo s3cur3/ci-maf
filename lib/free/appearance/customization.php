@@ -165,7 +165,7 @@ if(class_exists('WP_Customize_Control')) {
                     foreach($this->choices as $value => $label) { ?>
                         <li>
                             <label>
-                                <input type="checkbox" value="<?php echo esc_attr($value); ?>" <?php checked(in_array($value, $multi_values)); ?> />
+                                <input type="checkbox" value="<?php echo esc_attr($value); ?>" <?php echo checked(array_key_exists($value, $multi_values)); ?> />
                                 <?php echo esc_html($label); ?>
                             </label>
                         </li> <?php
@@ -256,13 +256,13 @@ if(class_exists('WP_Customize_Control')) {
     }
 }
 
-function ciReturnTrue($ignored="") { return true; }
-function ciSanitizeBool($bool) { return $bool == "0" || $bool == "1" || $bool == true || $bool == false || $bool == "true" || $bool == "false"; }
+function ciReturnIdentity($arg) { return $arg; }
+function ciSanitizeBool($bool) { if($bool == "0" || $bool == false || $bool == "false") { return false; } else { return true; } }
 
 function ciAddCustomizationsToSection($wp_customize, $optionsArray, $sectionSlug) {
     foreach($optionsArray as $option) {
         // Add the setting (under the hood)
-        $sanitizeFunction = 'ciReturnTrue';
+        $sanitizeFunction = 'ciReturnIdentity';
         if($option['type'] == 'checkbox') {
             $sanitizeFunction = 'ciSanitizeBool';
         } elseif($option['type'] == 'text' || $option['type'] == 'textarea' || $option['type'] == 'editor' || $option['type'] == 'heading' || $option['type'] == 'info') {
@@ -283,7 +283,7 @@ function ciAddCustomizationsToSection($wp_customize, $optionsArray, $sectionSlug
                     'label' => $option['label'],
                     'description' => $option['description'],
                     'section' => $sectionSlug,
-                    'options' => $option['options'],
+                    'choices' => $option['options'],
                     'type' => 'multicheck'
                 )
             ));

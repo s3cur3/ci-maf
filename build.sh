@@ -10,6 +10,7 @@ find templates -name '.*' -type f -delete
 echo "\n\n\nRunning grunt task..."
 grunt
 
+
 echo "\n\n\nBeginning free version build"
 
 ZIP="ci-modern-accounting-firm-free.zip"
@@ -26,8 +27,14 @@ cp -r assets docs lang lib templates style.css README.md screenshot.png 404.php 
 echo "Nuking premium version files"
 rm -R ${DIRECTORY}/lib/premium
 
+echo "Nuking .git directories"
+rm -rf ${DIRECTORY}/templates/.git
+rm -rf ${DIRECTORY}/lib/core/.git
+
 echo "\n\n\nZipping build directory"
 zip -r ${ZIP} ${DIRECTORY}
 
 echo "\n\n\nNuking build directory"
-rm -r ${DIRECTORY}
+rm -rf ${DIRECTORY}
+
+osascript open-docs.scpt

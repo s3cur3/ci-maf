@@ -6,4 +6,4 @@ require_once 'admin/editor.php'; // Enables special features of the TinyMCE edit
 require_once 'appearance/customization.php'; // Color pickers
 require_once 'admin/adminOptions.php'; // Add custom meta boxes to the admin site
 require_once 'content/prettyPhoto.php'; // Adds prettyPhoto support to images
-
+require_once 'content/footer/credit.php'; // Print credits for the theme

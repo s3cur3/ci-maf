@@ -447,6 +447,22 @@ Updates to the Theme
 
 Here's what's been added to the theme through updates:
 
+### Version 1.0.4
+
+Bug fixes for plugin compatibility with Yoast SEO.
+
+### Version 1.0.3
+
+Bug fixes for problems changing fonts.
+
+### Version 1.0.2
+
+Bug fix for logo images in the header not being displayed.
+
+### Version 1.0.1
+
+Minor bug fixes for image galleries and menu bar.
+
 ### Version 1.0
 Initial release
 
