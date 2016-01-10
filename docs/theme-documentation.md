@@ -447,6 +447,10 @@ Updates to the Theme
 
 Here's what's been added to the theme through updates:
 
+### Version 1.0.4
+
+Bug fixes for plugin compatibility with Yoast SEO.
+
 ### Version 1.0.3
 
 Bug fixes for problems changing fonts.
