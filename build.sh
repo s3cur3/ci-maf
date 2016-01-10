@@ -13,12 +13,12 @@ grunt
 
 echo "\n\n\nBeginning free version build"
 
-ZIP="ci-modern-accounting-firm-free.zip"
+ZIP="the-modern-accounting-firm.zip"
 echo "Nuking existing ZIP"
 rm ${ZIP}
 
 echo "Creating build directory"
-DIRECTORY="ci-modern-accounting-firm-free"
+DIRECTORY="the-modern-accounting-firm"
 mkdir $DIRECTORY
 
 echo "Copying files to build directory"

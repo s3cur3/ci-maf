@@ -37,7 +37,7 @@ Version
 
 
 function ciGooglePrivacyPolicy() {
-	return sprintf( __( '<strong>Note:</strong> <a href="%1$s">The premium version</a> of this theme includes a boilerplate privacy policy for using analytics and advertising tracking (as required by Google if you want to use their Analytics or AdWords services!). You can upgrade (without losing any of your existing work!) for $55 <a href="%1$s">on the Conversion Insights Web site</a>.', 'ci-modern-accounting-firm' ), CI_THEME_BUY_URL);;
+	return sprintf( __( '<strong>Note:</strong> <a href="%1$s">The premium version</a> of this theme includes a boilerplate privacy policy for using analytics and advertising tracking (as required by Google if you want to use their Analytics or AdWords services!). You can upgrade (without losing any of your existing work!) for $55 <a href="%1$s">on the Conversion Insights Web site</a>.', 'the-modern-accounting-firm' ), CI_THEME_BUY_URL);;
 }
 
 function ciRegisterPrivacyPolicyShortcode() {
