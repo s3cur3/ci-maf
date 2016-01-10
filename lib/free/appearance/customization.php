@@ -17,7 +17,7 @@ function ciGetColorTheme() {
     $link = '#428bca';
     $name = '#27201D';
     $bg = '#eeeeee';
-    $secondaryBG = '#27201D';``
+    $secondaryBG = '#27201D';
     $h2 = "#27201D";
     $h1 = "#27201D";
     $btn = '#428bca';
