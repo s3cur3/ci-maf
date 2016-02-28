@@ -424,15 +424,18 @@ function ciCustomizeRegister($wp_customize)
             'default' => "none",
             'type' => "radio-images",
             'options' => $subtlePatterns
-        ),
-        array(
+        )
+    );
+    if(!defined("CI_IS_WP_DOT_ORG")) {
+        $pageSetupOptions[] = array(
             'label' => __('Enable demo mode?', 'the-modern-accounting-firm'),
             'description' => __('If checked, we will display the theme selector on every page. You probably do not want to do this.', 'the-modern-accounting-firm'),
             'slug' => 'mlf_demo_site',
             'default' => false,
             'type' => 'checkbox'
-        )
-    );
+        );
+    }
+
     $wp_customize->add_section('page_setup', array('title' => __('Page Setup', 'the-modern-accounting-firm'), 'priority' => 0,));
     ciAddCustomizationsToSection($wp_customize, $pageSetupOptions, 'page_setup');
 
